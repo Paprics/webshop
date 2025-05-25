@@ -3,12 +3,12 @@ from django.contrib.auth.models import PermissionsMixin
 from django.core.mail import send_mail
 from django.db import models
 from django.utils import timezone
-from phonenumber_field.modelfields import PhoneNumberField
 from django.utils.translation import gettext_lazy as _
+from phonenumber_field.modelfields import PhoneNumberField
+
 from accounts.utils.manegers import CustomerManager
 
-# Create your models here.
-from django.contrib.auth.models import User
+
 class CustomerUser(AbstractBaseUser, PermissionsMixin):
     # from django.contrib.auth.models import User --> Base Model User
     """
@@ -54,6 +54,7 @@ class CustomerUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ["email"]
 
     class Meta:
+        db_table = "customers"
         verbose_name = _("customer")
         verbose_name_plural = _("costomers")
 
@@ -76,17 +77,20 @@ class CustomerUser(AbstractBaseUser, PermissionsMixin):
         """Send an email to this user."""
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
+    def __str__(self):
+        return f"{self.phone_number} {self.first_name} {self.get_short_name()}"
+
 
 class ProfileCustomer(models.Model):
     class Meta:
-        db_table = 'profile_customer'
+        db_table = "customers_profile"
         verbose_name = _("profile customer")
         verbose_name_plural = _("profile customers")
 
-    customer = models.OneToOneField('CustomerUser', on_delete=models.CASCADE, related_name='profile')
+    customer = models.OneToOneField("CustomerUser", on_delete=models.CASCADE, related_name="profile")
     delivery_address = models.TextField(max_length=500)
     additional_contacts = models.TextField(blank=True, null=True)
-    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
+    avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
 
     def __str__(self):
-        return f'Profile of {self.customer.phone_number}'
+        return f"Profile of {self.customer.phone_number}"

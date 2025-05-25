@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4a433a6fb35317047cc412e46d443690dd572e7d90f366fddd1b3bd9ca086625"
+            "sha256": "16e50b851df4a2d89169dfbab1792e9d6323eee4d6b176cdcc20d6f228ccc9c0"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -32,6 +32,23 @@
             "index": "pypi",
             "markers": "python_version >= '3.10'",
             "version": "==5.2.1"
+        },
+        "django-js-asset": {
+            "hashes": [
+                "sha256:1fc7584199ed1941ed7c8e7b87ca5524bb0f2ba941561d2a104e88ee9f07bedd",
+                "sha256:b5ffe376aebbd73b7af886d675ac9f43ca63b39540190fa8409c9f8e79145f68"
+            ],
+            "markers": "python_version >= '3.10'",
+            "version": "==3.1.2"
+        },
+        "django-mptt": {
+            "hashes": [
+                "sha256:e2dca00536450b91bdc80d8fc1454993b84307728394ae42c72947fc09574d3d",
+                "sha256:e77dd4b4d0de14f50239b0900def44c1d31403664ab3682b80b27fa1319fe7f0"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.9'",
+            "version": "==0.17.0"
         },
         "django-phonenumber-field": {
             "extras": [
@@ -139,6 +156,23 @@
             "markers": "python_version >= '3.9'",
             "version": "==11.2.1"
         },
+        "pydot": {
+            "hashes": [
+                "sha256:12f16493337cade2f7631b87c8ccd299ba2e251f3ee5d0732a058df2887afe97",
+                "sha256:cf86e13a6cfe2a96758a9702537f77e0ac1368db8ef277b4d3b34473ea425c97"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.8'",
+            "version": "==4.0.0"
+        },
+        "pyparsing": {
+            "hashes": [
+                "sha256:a749938e02d6fd0b59b356ca504a24982314bb090c383e3cf201c95ef7e2bfcf",
+                "sha256:b9c13f1ab8b3b542f72e28f634bad4de758ab3ce4546e4301970ad6fa77c38be"
+            ],
+            "markers": "python_version >= '3.9'",
+            "version": "==3.2.3"
+        },
         "sqlparse": {
             "hashes": [
                 "sha256:09f67787f56a0b16ecdbde1bfc7f5d9c3371ca683cfeaa8e6ff60b4807ec9272",
@@ -157,6 +191,14 @@
         }
     },
     "develop": {
+        "asgiref": {
+            "hashes": [
+                "sha256:3e1e3ecc849832fe52ccf2cb6686b7a55f82bb1d6aee72a58826471390335e47",
+                "sha256:c343bd80a0bec947a9860adb4c432ffa7db769836c64238fc34bdc3fec84d590"
+            ],
+            "markers": "python_version >= '3.8'",
+            "version": "==3.8.1"
+        },
         "black": {
             "hashes": [
                 "sha256:030b9759066a4ee5e5aca28c3c77f9c64789cdd4de8ac1df642c40b708be6171",
@@ -201,6 +243,23 @@
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6'",
             "version": "==0.4.6"
+        },
+        "django": {
+            "hashes": [
+                "sha256:57fe1f1b59462caed092c80b3dd324fd92161b620d59a9ba9181c34746c97284",
+                "sha256:a9b680e84f9a0e71da83e399f1e922e1ab37b2173ced046b541c72e1589a5961"
+            ],
+            "markers": "python_version >= '3.10'",
+            "version": "==5.2.1"
+        },
+        "django-extensions": {
+            "hashes": [
+                "sha256:0699a7af28f2523bf8db309a80278519362cd4b6e1fd0a8cd4bf063e1e023336",
+                "sha256:7b70a4d28e9b840f44694e3f7feb54f55d495f8b3fa6c5c0e5e12bcb2aa3cdeb"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.9'",
+            "version": "==4.1"
         },
         "flake8": {
             "hashes": [
@@ -275,6 +334,30 @@
             ],
             "markers": "python_version >= '3.9'",
             "version": "==3.3.2"
+        },
+        "pygraphviz": {
+            "hashes": [
+                "sha256:c10df02377f4e39b00ae17c862f4ee7e5767317f1c6b2dfd04cea6acc7fc2bea"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.10'",
+            "version": "==1.14"
+        },
+        "sqlparse": {
+            "hashes": [
+                "sha256:09f67787f56a0b16ecdbde1bfc7f5d9c3371ca683cfeaa8e6ff60b4807ec9272",
+                "sha256:cf2196ed3418f3ba5de6af7e82c694a9fbdbfecccdfc72e281548517081f16ca"
+            ],
+            "markers": "python_version >= '3.8'",
+            "version": "==0.5.3"
+        },
+        "tzdata": {
+            "hashes": [
+                "sha256:1a403fada01ff9221ca8044d701868fa132215d84beb92242d9acd2147f667a8",
+                "sha256:b60a638fcc0daffadf82fe0f57e53d06bdec2f36c4df66280ae79bce6bd6f2b9"
+            ],
+            "markers": "python_version >= '2'",
+            "version": "==2025.2"
         }
     }
 }
