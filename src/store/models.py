@@ -14,9 +14,7 @@ class CategoryModelMPTT(MPTTModel):
 
     # FIX: Doesn't work
     class MPTTMeta:
-        order_insertion_by = [
-            "display_order"
-        ]  # указывает MPTT, по какому полю сортировать элементы при вставке в дерево
+        order_insertion_by = ["display_order"]
         db_table = "categoryMptt"
         verbose_name = "9. Категории MPTT"
         verbose_name_plural = "9. Категории MPTT"
@@ -44,7 +42,6 @@ class CategoryModel(models.Model):
     display_order = models.IntegerField(default=0)
 
     # # self-referential foreign key
-    # # Короче, если у тебя есть вложенные категории, то django-mptt — твой лучший друг.
     # parent = models.ForeignKey(
     #     'self',
     #     on_delete=models.CASCADE,

@@ -39,3 +39,4 @@ jobs:
     - name: Run Tests
       run: |
         pipenv run python src/manage.py test && pipenv run flake8
+#        pipenv run pytest --ds=config.settings.dev && pipenv run flake8  # for pytest
