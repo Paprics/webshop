@@ -58,8 +58,8 @@ class CategoryModel(models.Model):
 class ProductModel(models.Model):
     class Meta:
         db_table = "product"
-        verbose_name = "Товар"
-        verbose_name_plural = "Товари"
+        verbose_name = "2. Товар"
+        verbose_name_plural = "2. Товари"
 
     title = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, blank=True)
@@ -78,8 +78,8 @@ class ProductModel(models.Model):
 class OrderModel(models.Model):
     class Meta:
         db_table = "order"
-        verbose_name = "Замовлення"
-        verbose_name_plural = "Замовлення"
+        verbose_name = "3. Замовлення"
+        verbose_name_plural = "3. Замовлення"
 
     customer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)

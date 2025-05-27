@@ -11,7 +11,12 @@ class ProfileInline(admin.StackedInline):  # Табличный вариант �
 
 @admin.register(CustomerUser)
 class CustomerUserAdmin(admin.ModelAdmin):
-    list_display = ("phone_number", "email", "first_name", "last_name")
+    list_display = (
+        "first_name",
+        "last_name",
+        "phone_number",
+        "email",
+    )
     inlines = [ProfileInline]
 
 
