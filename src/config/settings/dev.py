@@ -6,6 +6,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+INSTALLED_APPS += [  # noqa: F405
+    "django_extensions",
+]
+
 # MIDDLEWARE += [""]
 
 DATABASES = {
@@ -13,6 +17,11 @@ DATABASES = {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",  # noqa: F405
     }
+}
+
+GRAPH_MODELS = {
+    "all_applications": True,
+    "group_models": True,
 }
 
 STATIC_URL = "static/"
