@@ -9,6 +9,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # app
+    "accounts.apps.AccountsConfig",
+    "api.apps.ApiConfig",
+    "blog.apps.BlogConfig",
+    "common.apps.CommonConfig",
+    "store.apps.StoreConfig",
+    # extantions
+    "mptt",
 ]
 
 MIDDLEWARE = [
@@ -55,6 +63,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",  # noqa: F405
+    }
+}
+
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -64,3 +79,5 @@ USE_I18N = True
 USE_TZ = True
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = "accounts.CustomerUser"
