@@ -5,8 +5,8 @@ from django.urls import reverse
 # Create your models here.
 class Content(models.Model):
     class Meta:
-        db_table = "content"
-        verbose_name = "Контент"
+        db_table = "sitepege"
+        verbose_name = "Сторінки"
         verbose_name_plural = verbose_name
 
     title = models.CharField(max_length=255)
