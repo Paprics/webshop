@@ -1,0 +1,212 @@
+[
+{
+  "model": "store.productmodel",
+  "pk": 1,
+  "fields": {
+    "title": "PRODUCT 1",
+    "slug": "product-1",
+    "article": "XZ-91T4B2",
+    "price": "980.00",
+    "content": "<p>This is a sample description for PRODUCT 1. Available in various sizes including S, M, L, and XL. Made from high-quality, breathable materials for optimal comfort and durability. Perfect for everyday use, casual settings, or just lounging around. Limited stock available. Shipping worldwide within 3-5 business days. Satisfaction guaranteed or your pixels back.</p>",
+    "image": "image/1.jpg",
+    "quantity": 50,
+    "is_active": true,
+    "category": 1
+  }
+},
+{
+  "model": "store.productmodel",
+  "pk": 2,
+  "fields": {
+    "title": "PRODUCT 2",
+    "slug": "product-2",
+    "article": "LQ-7F9D21K",
+    "price": "49.99",
+    "content": "",
+    "image": "image/2.jpg",
+    "quantity": 34,
+    "is_active": true,
+    "category": 1
+  }
+},
+{
+  "model": "store.productmodel",
+  "pk": 3,
+  "fields": {
+    "title": "PRODUCT 3",
+    "slug": "product-3",
+    "article": "MP-3Z8Q7VN",
+    "price": "74.50",
+    "content": "",
+    "image": "image/3.jpg",
+    "quantity": 20,
+    "is_active": true,
+    "category": 1
+  }
+},
+{
+  "model": "store.productmodel",
+  "pk": 4,
+  "fields": {
+    "title": "PRODUCT 4",
+    "slug": "product-4",
+    "article": "RD-6Y2K9LM",
+    "price": "59.00",
+    "content": "",
+    "image": "image/4.jpg",
+    "quantity": 45,
+    "is_active": true,
+    "category": 1
+  }
+},
+{
+  "model": "store.productmodel",
+  "pk": 5,
+  "fields": {
+    "title": "PRODUCT 5",
+    "slug": "product-5",
+    "article": "TN-5X4M3JQ",
+    "price": "89.90",
+    "content": "",
+    "image": "image/5.jpg",
+    "quantity": 10,
+    "is_active": true,
+    "category": 1
+  }
+},
+{
+  "model": "store.productmodel",
+  "pk": 6,
+  "fields": {
+    "title": "PRODUCT 6",
+    "slug": "product-6",
+    "article": "VK-0R7B2XZ",
+    "price": "65.75",
+    "content": "<p>This is a description for PRODUCT 6. Engineered for comfort and built to last, this product blends minimal aesthetics with high-performance fabric. The fit is slightly oversized for a relaxed silhouette. Features include anti-pilling finish, stretch-resistant stitching, and UV protection. Great for travel, commuting, or casual weekends. Ships with eco-friendly packaging.</p>",
+    "image": "image/6.jpg",
+    "quantity": 1,
+    "is_active": true,
+    "category": 1
+  }
+},
+{
+  "model": "store.productmodel",
+  "pk": 7,
+  "fields": {
+    "title": "PRODUCT 7",
+    "slug": "product-7",
+    "article": "ChatGPT ?",
+    "price": "65.75",
+    "content": "",
+    "image": "image/7.jpg",
+    "quantity": 1,
+    "is_active": true,
+    "category": 1
+  }
+},
+{
+  "model": "store.productmodel",
+  "pk": 8,
+  "fields": {
+    "title": "PRODUCT 8",
+    "slug": "product-8",
+    "article": "GH-4L1P6XE",
+    "price": "102.75",
+    "content": "",
+    "image": "image/8.jpg",
+    "quantity": 10,
+    "is_active": true,
+    "category": 1
+  }
+},
+{
+  "model": "store.productmodel",
+  "pk": 9,
+  "fields": {
+    "title": "PRODUCT 9",
+    "slug": "product-9",
+    "article": "JK-9T5D2UZ",
+    "price": "38.20",
+    "content": "",
+    "image": "image/9.jpg",
+    "quantity": 40,
+    "is_active": true,
+    "category": 1
+  }
+},
+{
+  "model": "store.productmodel",
+  "pk": 10,
+  "fields": {
+    "title": "PRODUCT 10",
+    "slug": "product-10",
+    "article": "ZX-7Q3V8NM",
+    "price": "55.60",
+    "content": "",
+    "image": "image/10.jpg",
+    "quantity": 1,
+    "is_active": true,
+    "category": 1
+  }
+},
+{
+  "model": "store.productmodel",
+  "pk": 11,
+  "fields": {
+    "title": "PRODUCT 11",
+    "slug": "product-11",
+    "article": "BY-8V6N1KL",
+    "price": "72.15",
+    "content": "",
+    "image": "image/11.jpg",
+    "quantity": 22,
+    "is_active": true,
+    "category": 1
+  }
+},
+{
+  "model": "store.productmodel",
+  "pk": 12,
+  "fields": {
+    "title": "PRODUCT 12",
+    "slug": "product-12",
+    "article": "QW-3X9M7SD",
+    "price": "83.80",
+    "content": "<h1><u><strong>This is a description for PRODUCT 12.<img alt=\"devil\" src=\"http://127.0.0.1:8000/static/ckeditor/ckeditor/plugins/smiley/images/devil_smile.png\" style=\"height:23px; width:23px\" title=\"devil\" /></strong></u></h1>\r\n\r\n<p><s>Tailored for versatility, it blends casual comfort with refined styling. The fabric is lightweight yet durable, featuring stain-resistant technology and easy-care instructions. Perfect for layering or wearing solo during milder weather. Comes in a curated selection of colors designed to complement any wardrobe. Fast shipping and hassle-free returns included.</s></p>",
+    "image": "image/Husky.PNG",
+    "quantity": 10,
+    "is_active": true,
+    "category": 1
+  }
+},
+{
+  "model": "store.productmodel",
+  "pk": 13,
+  "fields": {
+    "title": "PRODUCT 13",
+    "slug": "product-13",
+    "article": "MP-3Z8PSWA",
+    "price": "78.50",
+    "content": "<p>This is a title for PRODUCT 13. A premium product designed with care and attention to detail, ensuring high quality and durability. Perfect for customers seeking reliability and style in their purchases. The product features a versatile design suitable for various occasions and seasons, making it an essential item for any wardrobe. Crafted with modern materials to provide comfort and long-lasting wear.</p>\r\n\r\n<p>Description: PRODUCT 13 is built to meet the highest standards, offering exceptional performance and an attractive look. Whether for casual use or special events, this product delivers consistent satisfaction. Ideal for those who appreciate both function and fashion in their daily essentials. Experience unmatched quality and comfort with PRODUCT 13.</p>",
+    "image": "image/uh8u8.png",
+    "quantity": 1,
+    "is_active": true,
+    "category": 1
+  }
+},
+{
+  "model": "store.productmodel",
+  "pk": 15,
+  "fields": {
+    "title": "product-14",
+    "slug": "product-14",
+    "article": "LQ-7F9D3W5",
+    "price": "749.00",
+    "content": "Product 14 is a versatile and reliable item designed to meet everyday needs. Crafted with quality materials, it offers durability and style in one package. Whether for personal use or gifting, this product stands out with its sleek design and practical features. Experience convenience and satisfaction with Product 14 ? your go-to choice for quality and functionality.",
+    "image": "image/error_404.png",
+    "quantity": 56,
+    "is_active": true,
+    "category": 1
+  }
+}
+]
