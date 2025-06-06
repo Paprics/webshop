@@ -1,9 +1,8 @@
-
-from django.urls import reverse
 from ckeditor.fields import RichTextField
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxLengthValidator
 from django.db import models
+from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 
 
@@ -60,7 +59,7 @@ class CategoryModel(models.Model):
 
 class ProductModel(models.Model):
     class Meta:
-        db_table = "media"
+        db_table = "product"
         verbose_name = "2. Товар"
         verbose_name_plural = "2. Товари"
 
@@ -68,12 +67,8 @@ class ProductModel(models.Model):
     slug = models.SlugField(max_length=100, blank=True)
     article = models.CharField(max_length=10, unique=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    content = RichTextField(
-        blank=True,
-        config_name="default",
-        validators=[MaxLengthValidator(1000)]
-    )
-    image = models.ImageField(upload_to="media/image/", blank=True)  # TODO -> M2O other model
+    content = RichTextField(blank=True, config_name="default", validators=[MaxLengthValidator(1000)])
+    image = models.ImageField(upload_to="image/", blank=True)  # TODO -> M2O other model
     quantity = models.PositiveIntegerField(default=1)
     is_active = models.BooleanField(default=True)
     category = models.ForeignKey("CategoryModel", on_delete=models.PROTECT)
@@ -82,7 +77,7 @@ class ProductModel(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('product_detail', kwargs={'slug': self.slug})
+        return reverse("product_detail", kwargs={"slug": self.slug})
 
 
 class OrderModel(models.Model):
@@ -144,3 +139,6 @@ class CommentModel(models.Model):
 
     def __str__(self):
         return f"{self.customer} -> {self.product.title} | {self.is_active} |"
+
+    def get_absolute_url(self):
+        return reverse("comment_detail", kwargs={"slug": self.product.slug})
