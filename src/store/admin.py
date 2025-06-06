@@ -1,5 +1,5 @@
 from django.contrib import admin
-from mptt.admin import MPTTModelAdmin
+from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin, TreeRelatedFieldListFilter
 
 from store.models import (CategoryModel, CategoryModelMPTT, CommentModel,
                           FavoriteModel, OrderItemModel, OrderModel,
@@ -13,9 +13,13 @@ class StoreAdmin(admin.ModelAdmin): ...
 
 
 @admin.register(CategoryModelMPTT)
-class StoreMPTTAdmin(MPTTModelAdmin):
+class StoreMPTTAdmin(DraggableMPTTAdmin):
+    class MPTTMeta:
+        order_insertion_by = ['category_name']
+
     mptt_level_indent = 20
     prepopulated_fields = {"slug": ("category_name",)}
+    list_filter = (('parent', TreeRelatedFieldListFilter),)
 
 
 @admin.register(ProductModel)
