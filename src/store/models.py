@@ -67,7 +67,7 @@ class ProductModel(models.Model):
     slug = models.SlugField(max_length=100, blank=True)
     article = models.CharField(max_length=10, unique=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    content = TextField(blank=True, validators=[MaxLengthValidator(1000)])
+    description = TextField(blank=True, validators=[MaxLengthValidator(1000)])
     image = models.ImageField(upload_to="image/", blank=True)  # TODO -> M2O other model
     quantity = models.PositiveIntegerField(default=1)
     is_active = models.BooleanField(default=True)
