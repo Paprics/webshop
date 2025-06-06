@@ -1,7 +1,7 @@
-from ckeditor.fields import RichTextField
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxLengthValidator
 from django.db import models
+from django.db.models import TextField
 from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 
@@ -67,7 +67,7 @@ class ProductModel(models.Model):
     slug = models.SlugField(max_length=100, blank=True)
     article = models.CharField(max_length=10, unique=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    content = RichTextField(blank=True, config_name="default", validators=[MaxLengthValidator(1000)])
+    content = TextField(blank=True, validators=[MaxLengthValidator(1000)])
     image = models.ImageField(upload_to="image/", blank=True)  # TODO -> M2O other model
     quantity = models.PositiveIntegerField(default=1)
     is_active = models.BooleanField(default=True)
@@ -132,7 +132,7 @@ class CommentModel(models.Model):
         verbose_name_plural = "Коментарі"
 
     customer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    product = models.ForeignKey("ProductModel", on_delete=models.CASCADE)
+    product = models.ForeignKey("ProductModel", on_delete=models.CASCADE, default=1)
     text = models.TextField(max_length=500)
     added_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)

@@ -15,7 +15,6 @@ djangorestframework = "*"
 markdown = "*"
 django-filter = "*"
 drf-yasg = "*"
-django-ckeditor = "*"
 
 [dev-packages]
 flake8 = "*"

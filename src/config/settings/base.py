@@ -19,7 +19,6 @@ INSTALLED_APPS = [
     # extantions
     "mptt",
     "rest_framework",
-    "ckeditor",
 ]
 
 MIDDLEWARE = [
@@ -92,30 +91,6 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
-}
-
-# Setting ckeditor
-CKEDITOR_CONFIGS = {
-    "default": {
-        "toolbar": "Full",
-        "height": 300,
-        "width": "100%",
-        "extraPlugins": ",".join(
-            [
-                "codesnippet",
-                "uploadimage",
-            ]
-        ),
-    },
-    "simple": {
-        "toolbar": [
-            ["Bold", "Italic"],
-            ["NumberedList", "BulletedList"],
-            ["Link", "Unlink"],
-        ],
-        "height": 150,
-        "width": "100%",
-    },
 }
 
 MEDIA_URL = "/media/"
