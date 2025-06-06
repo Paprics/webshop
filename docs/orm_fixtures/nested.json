@@ -1,0 +1,26 @@
+[
+  {"id": 1, "category_name": "Одяг", "slug": "odyag", "parent": null, "display_order": 1, "is_active": true},
+  {"id": 2, "category_name": "Куртки", "slug": "kurtky", "parent": 1, "display_order": 1, "is_active": true},
+  {"id": 3, "category_name": "Штани", "slug": "shtany", "parent": 1, "display_order": 2, "is_active": true},
+  {"id": 4, "category_name": "Футболки", "slug": "futbolky", "parent": 1, "display_order": 3, "is_active": true},
+  {"id": 5, "category_name": "Светри", "slug": "svetry", "parent": 1, "display_order": 4, "is_active": true},
+  {"id": 6, "category_name": "Термобілизна", "slug": "termobilizna", "parent": 1, "display_order": 5, "is_active": true},
+
+  {"id": 7, "category_name": "Взуття", "slug": "vzuttia", "parent": null, "display_order": 2, "is_active": true},
+  {"id": 8, "category_name": "Черевики", "slug": "cherevyky", "parent": 7, "display_order": 1, "is_active": true},
+  {"id": 9, "category_name": "Кросівки", "slug": "krosivky", "parent": 7, "display_order": 2, "is_active": true},
+  {"id": 10, "category_name": "Сандалі", "slug": "sandali", "parent": 7, "display_order": 3, "is_active": true},
+  {"id": 11, "category_name": "Ботинки", "slug": "botynky", "parent": 7, "display_order": 4, "is_active": true},
+
+  {"id": 12, "category_name": "Рюкзаки та сумки", "slug": "ryukzaky-ta-sumky", "parent": null, "display_order": 3, "is_active": true},
+  {"id": 13, "category_name": "Рюкзаки", "slug": "ryukzaky", "parent": 12, "display_order": 1, "is_active": true},
+  {"id": 14, "category_name": "Сумки", "slug": "sumky", "parent": 12, "display_order": 2, "is_active": true},
+  {"id": 15, "category_name": "Поясні сумки", "slug": "poyasni-sumky", "parent": 12, "display_order": 3, "is_active": true},
+  {"id": 16, "category_name": "Сумки через плече", "slug": "sumky-cherez-pleche", "parent": 12, "display_order": 4, "is_active": true},
+
+  {"id": 17, "category_name": "Аксесуари", "slug": "aksesuary", "parent": null, "display_order": 4, "is_active": true},
+  {"id": 18, "category_name": "Рукавички", "slug": "rukavychky", "parent": 17, "display_order": 1, "is_active": true},
+  {"id": 19, "category_name": "Шапки", "slug": "shapky", "parent": 17, "display_order": 2, "is_active": true},
+  {"id": 20, "category_name": "Шкарпетки", "slug": "shkarpetky", "parent": 17, "display_order": 3, "is_active": true},
+  {"id": 21, "category_name": "Ремені", "slug": "remeni", "parent": 17, "display_order": 4, "is_active": true}
+]

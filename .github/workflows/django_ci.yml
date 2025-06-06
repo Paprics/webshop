@@ -32,7 +32,7 @@ jobs:
 
       - name: Check migrations
         run: |
-          pipenv run python src/manage.py makemigrations --check --dry-run
+          pipenv run python src/manage.py makemigrations --check --dry-run --noinput
           pipenv run python src/manage.py migrate
           pipenv run python src/manage.py check
 

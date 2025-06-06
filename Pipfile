@@ -11,6 +11,10 @@ django-mptt = "*"
 pytest = "*"
 pytest-django = "*"
 faker = "*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
+drf-yasg = "*"
 
 [dev-packages]
 flake8 = "*"

@@ -1,0 +1,42 @@
+[
+  {
+    "model": "store.CategoryModel",
+    "pk": 1,
+    "fields": {
+      "category_name": "Одяг",
+      "slug": "odyag",
+      "is_active": true,
+      "display_order": 0
+    }
+  },
+  {
+    "model": "store.CategoryModel",
+    "pk": 2,
+    "fields": {
+      "category_name": "Взуття",
+      "slug": "vzuttia",
+      "is_active": true,
+      "display_order": 1
+    }
+  },
+  {
+    "model": "store.CategoryModel",
+    "pk": 3,
+    "fields": {
+      "category_name": "Рюкзаки та сумки",
+      "slug": "ryukzaky-ta-sumky",
+      "is_active": true,
+      "display_order": 2
+    }
+  },
+  {
+    "model": "store.CategoryModel",
+    "pk": 4,
+    "fields": {
+      "category_name": "Аксесуари",
+      "slug": "aksesuary",
+      "is_active": true,
+      "display_order": 3
+    }
+  }
+]
