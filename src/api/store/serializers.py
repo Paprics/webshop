@@ -24,10 +24,11 @@ class CategoryMPTTSerializer(serializers.ModelSerializer):
             return CategoryMPTTSerializer(children_qs, many=True).data
         return []
 
+
 class ContentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Content
-        fields = ['id', 'title', 'slug', 'content', 'created_at', 'updated_at']
+        fields = ["id", "title", "slug", "content", "created_at", "updated_at"]
 
 
 class ContentSerializerList(serializers.ModelSerializer):

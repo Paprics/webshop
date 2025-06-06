@@ -121,7 +121,7 @@ class Migration(migrations.Migration):
                 ("article", models.CharField(max_length=10, unique=True)),
                 ("price", models.DecimalField(decimal_places=2, max_digits=10)),
                 ("description", models.TextField(max_length=1000)),
-                ("image", models.ImageField(blank=True, upload_to="product/image/")),
+                ("image", models.ImageField(blank=True, upload_to="media/image/")),
                 ("quantity", models.IntegerField(default=1)),
                 ("is_active", models.BooleanField(default=True)),
                 (
@@ -135,7 +135,7 @@ class Migration(migrations.Migration):
             options={
                 "verbose_name": "Товар",
                 "verbose_name_plural": "Товари",
-                "db_table": "product",
+                "db_table": "media",
             },
         ),
         migrations.CreateModel(
@@ -161,7 +161,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "product",
+                    "media",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         to="store.productmodel",
@@ -197,7 +197,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "product",
+                    "media",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         to="store.productmodel",
@@ -232,7 +232,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "product",
+                    "media",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="favorited_by",
@@ -244,7 +244,7 @@ class Migration(migrations.Migration):
                 "verbose_name": "Обране",
                 "verbose_name_plural": "Обране",
                 "db_table": "favorite",
-                "unique_together": {("customer", "product")},
+                "unique_together": {("customer", "media")},
             },
         ),
     ]

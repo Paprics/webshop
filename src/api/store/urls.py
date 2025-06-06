@@ -13,6 +13,6 @@ router.register(r"categories_nested", views.CategoriesMPTTViewApi, basename="cat
 
 urlpatterns = router.urls + [
     path("test/", views.test_api),  # обычная функция или APIView
-    path('content/<int:pk>/', views.ContentViewApiRetrieve.as_view(), name='content-retrieve'),
-    path('content/list/', ContentViewApiList.as_view(), name='content-list'),
+    path("content/<int:pk>/", views.ContentViewApiRetrieve.as_view(), name="content-retrieve"),
+    path("content/list/", ContentViewApiList.as_view(), name="content-list"),
 ]

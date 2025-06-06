@@ -1,4 +1,4 @@
-from rest_framework import viewsets, generics
+from rest_framework import generics, viewsets
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -38,35 +38,38 @@ class CategoriesMPTTViewApi(viewsets.ModelViewSet):
     queryset = models.CategoryModelMPTT.objects.filter(is_active=True, parent__isnull=True)  # only parent
     serializer_class = serializers.CategoryMPTTSerializer
 
+
 class ContentViewApiRetrieve(generics.RetrieveAPIView):
-    'Сторінки сайту (static) | Site pages'
+    "Сторінки сайту (static) | Site pages"
+
     queryset = Content.objects.all()
     serializer_class = ContentSerializer
-    lookup_field = 'pk'  # fild for search qs
+    lookup_field = "pk"  # fild for search qs
 
     def get_queryset(self):
         return Content.objects.filter(is_published=True)
 
 
 class ContentViewApiList(generics.ListAPIView):
-    'Список сторінок сайту | List of site pages'
+    "Список сторінок сайту | List of site pages"
+
     queryset = Content.objects.filter(is_published=True)
     serializer_class = serializers.ContentSerializerList
 
 
-class ContentViewApiCreate():
+class ContentViewApiCreate:
     """Створення контенту | Create content"""
+
     pass
 
 
-class ContentViewApiUpdate():...
+class ContentViewApiUpdate: ...
 
 
-class ContentViewApiPartial():...
+class ContentViewApiPartial: ...
 
 
-class ContentViewApiDelete():...
-
+class ContentViewApiDelete: ...
 
 
 @api_view(["GET"])

@@ -19,7 +19,9 @@ class StoreMPTTAdmin(MPTTModelAdmin):
 
 
 @admin.register(ProductModel)
-class ProductAdmin(admin.ModelAdmin): ...
+class ProductAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("title",)}
+    list_display = ("title", "price", "article", "quantity", "is_active", "category")
 
 
 @admin.register(OrderModel)

@@ -9,7 +9,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'drf_yasg',  # swagger docs
+    "drf_yasg",  # swagger docs
     # app
     "accounts.apps.AccountsConfig",
     "api.apps.ApiConfig",
@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     # extantions
     "mptt",
     "rest_framework",
+    "ckeditor",
 ]
 
 MIDDLEWARE = [
@@ -89,6 +90,30 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
+}
+
+# Setting ckeditor
+CKEDITOR_CONFIGS = {
+    "default": {
+        "toolbar": "Full",
+        "height": 300,
+        "width": "100%",
+        "extraPlugins": ",".join(
+            [
+                "codesnippet",
+                "uploadimage",
+            ]
+        ),
+    },
+    "simple": {
+        "toolbar": [
+            ["Bold", "Italic"],
+            ["NumberedList", "BulletedList"],
+            ["Link", "Unlink"],
+        ],
+        "height": 150,
+        "width": "100%",
+    },
 }

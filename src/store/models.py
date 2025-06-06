@@ -1,11 +1,14 @@
+
+from django.urls import reverse
+from ckeditor.fields import RichTextField
 from django.contrib.auth import get_user_model
+from django.core.validators import MaxLengthValidator
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 
 
 # Create your models here.
 class CategoryModelMPTT(MPTTModel):
-
     class Meta:
         db_table = "category_MPTT"
         verbose_name = "1.1. КатегорииMPTT"
@@ -57,7 +60,7 @@ class CategoryModel(models.Model):
 
 class ProductModel(models.Model):
     class Meta:
-        db_table = "product"
+        db_table = "media"
         verbose_name = "2. Товар"
         verbose_name_plural = "2. Товари"
 
@@ -65,14 +68,21 @@ class ProductModel(models.Model):
     slug = models.SlugField(max_length=100, blank=True)
     article = models.CharField(max_length=10, unique=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    description = models.TextField(max_length=1000)
-    image = models.ImageField(upload_to="product/image/", blank=True)  # TODO -> M2O other model
-    quantity = models.IntegerField(default=1)
+    content = RichTextField(
+        blank=True,
+        config_name="default",
+        validators=[MaxLengthValidator(1000)]
+    )
+    image = models.ImageField(upload_to="media/image/", blank=True)  # TODO -> M2O other model
+    quantity = models.PositiveIntegerField(default=1)
     is_active = models.BooleanField(default=True)
     category = models.ForeignKey("CategoryModel", on_delete=models.PROTECT)
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('product_detail', kwargs={'slug': self.slug})
 
 
 class OrderModel(models.Model):
@@ -109,7 +119,7 @@ class FavoriteModel(models.Model):
         db_table = "favorite"
         verbose_name = "Обране"
         verbose_name_plural = "Обране"
-        unique_together = ("customer", "product")
+        # unique_together = ("customer", "media")
 
     customer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="favorites")
     product = models.ForeignKey("ProductModel", on_delete=models.CASCADE, related_name="favorited_by")
