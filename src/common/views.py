@@ -6,7 +6,13 @@ from common.models import Content
 
 class IndexView(TemplateView):
     template_name = "index.html"
-    extra_context = {"title": "Home Page | Домашня сторінка"}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Home Page | Домашня сторінка"
+        context["index"] = Content.objects.get(pk=4)
+        return context
+
 
 
 class Page404View(TemplateView):
