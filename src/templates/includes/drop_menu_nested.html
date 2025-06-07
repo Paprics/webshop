@@ -16,7 +16,9 @@
                         <ul class="list-group list-group-flush">
                             {% for child in category.get_children.all %}
                                 <li class="list-group-item">
-                                    {{ child.category_name }}
+{#                                {% url 'category_detail' child.slug %}#}
+                                <a href="#" class="d-block py-1 text-dark text-decoration-none hover-effect">{{ child.category_name }}</a>
+
                                 </li>
                             {% empty %}
                                 <li class="list-group-item text-muted">Нет подкатегорий</li>
