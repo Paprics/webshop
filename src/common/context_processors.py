@@ -8,5 +8,6 @@ def categories_processor(request):
 
 def category_processor_nested(request):
     from store.models import CategoryModelMPTT
-    categories = CategoryModelMPTT.objects.all().order_by('tree_id', 'lft')
-    return {'categories': categories}
+    # categories_nested = CategoryModelMPTT.objects.root_nodes()  # N+1 query
+    categories_nested = CategoryModelMPTT.objects.root_nodes().prefetch_related('children')  #TODO: check optimiz.
+    return {'categories_nested': categories_nested}

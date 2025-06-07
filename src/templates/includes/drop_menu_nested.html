@@ -1,17 +1,62 @@
-<ul class="dropdown-menu">
-    {% for category in categories %}
-        {% if category.is_root_node %}
-            <li>
-                <a class="dropdown-item dropdown-toggle" href="#">{{ category.category_name }}</a>
+<div class="col-2 border-end" style="min-height: 100vh; padding-top: 1rem;">
+    <div class="accordion" id="categoryAccordion">
+        {% for category in categories_nested %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false"
+                            aria-controls="collapse{{ forloop.counter }}">
+                        {{ category.category_name }}
+                    </button>
+                </h2>
+                <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse"
+                     aria-labelledby="heading{{ forloop.counter }}"
+                     data-bs-parent="#categoryAccordion">
+                    <div class="accordion-body p-0">
+                        <ul class="list-group list-group-flush">
+                            {% for child in category.get_children.all %}
+                                <li class="list-group-item">
+                                    {{ child.category_name }}
+                                </li>
+                            {% empty %}
+                                <li class="list-group-item text-muted">Нет подкатегорий</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>Категории не найдены</p>
+        {% endfor %}
+    </div>
+</div>
 
-                {% if category.get_children %}
-                    <ul class="dropdown-menu">
-                        {% for child in category.get_children %}
-                            <li><a class="dropdown-item" href="#">{{ child.category_name }}</a></li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </li>
-        {% endif %}
-    {% endfor %}
-</ul>
+
+{#{% block content %}#}
+{#    <div class="dropdown">#}
+{#        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"#}
+{#                data-bs-toggle="dropdown" aria-expanded="false">#}
+{#            Товары#}
+{#        </button>#}
+{#        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">#}
+{#            {% for category in categories_nested %}#}
+{#                <li class="dropend">#}
+{#                    <a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">#}
+{#                        {{ category.category_name }}#}
+{#                    </a>#}
+{#                    {% if category.get_children.count %}#}
+{#                        <ul class="dropdown-menu">#}
+{#                            {% for child in category.get_children.all %}#}
+{#                                <li>#}
+{#                                    <a class="dropdown-item" href="#">{{ child.category_name }}</a>#}
+{#                                </li>#}
+{#                            {% endfor %}#}
+{#                        </ul>#}
+{#                    {% endif %}#}
+{#                </li>#}
+{#            {% endfor %}#}
+{#        </ul>#}
+{#    </div>#}
+{##}
+{##}
+{#{% endblock %}#}
