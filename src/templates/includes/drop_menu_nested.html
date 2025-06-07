@@ -1,0 +1,17 @@
+<ul class="dropdown-menu">
+    {% for category in categories %}
+        {% if category.is_root_node %}
+            <li>
+                <a class="dropdown-item dropdown-toggle" href="#">{{ category.category_name }}</a>
+
+                {% if category.get_children %}
+                    <ul class="dropdown-menu">
+                        {% for child in category.get_children %}
+                            <li><a class="dropdown-item" href="#">{{ child.category_name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
