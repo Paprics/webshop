@@ -24,4 +24,8 @@ GRAPH_MODELS = {
     "group_models": True,
 }
 
-STATIC_URL = "static/"
+# STATIC SETTINGS
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [  # Include custom static directory (e.g. Source/static) for development
+    BASE_DIR / "static"  # noqa: F405
+]
