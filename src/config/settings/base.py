@@ -1,5 +1,4 @@
 from pathlib import Path
-from common.context_processors import categories_processor, category_processor_nested
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -45,9 +44,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 # context for menu
-                # "common.context_processors.categories_processor"
                 "common.context_processors.category_processor_nested",
-
             ],
         },
     },

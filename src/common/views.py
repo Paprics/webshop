@@ -1,5 +1,6 @@
 from django.shortcuts import render  # noqa F401
 from django.views.generic import DetailView, TemplateView
+
 from common.models import Content
 
 

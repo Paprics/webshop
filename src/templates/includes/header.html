@@ -1,3 +1,4 @@
+{% load static %}
 <header class="p-3 text-bg-dark">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"><a href="/"
@@ -13,6 +14,12 @@
                 <li><a href="{% url 'common:faq' %}" class="nav-link px-2 text-white">FAQs</a></li>
                 <li><a href="#" class="nav-link px-2 text-white">Зворотній зв'язок</a></li>
             </ul>
+
+            <a href="#" class="d-inline-block cart-icon">
+                <img src="{% static 'svg/cart.svg' %}" width="45" height="45" alt="cart icon"/>
+            </a>
+
+
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"><input type="search"
                                                                                        class="form-control form-control-dark text-bg-dark"
                                                                                        placeholder="Search..."
@@ -23,12 +30,6 @@
                 <a href="{% url 'accounts:login' %}" class="btn btn-outline-light">Login</a>
                 <a href="{% url 'accounts:register' %}" class="btn btn-warning">Sign-up</a>
 
-                <a href="" class="d-inline-block">
-                    <svg width="30" height="30" viewBox="0 0 20 20" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7 4H17L21 12H6L7 4Z" stroke="white" stroke-width="2"/>
-                    </svg>
-                </a>
 
             </div>
         </div>

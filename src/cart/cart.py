@@ -1,9 +1,9 @@
 class Cart:
     def __init__(self, request):
         self.session = request.session
-        cart = self.session.get('cart', None)
+        cart = self.session.get("cart", None)
         if cart is None:
-            cart = self.session['cart'] = {}
+            cart = self.session["cart"] = {}
         self.cart = cart
 
     def add(self, product_id, quantity=1):
@@ -32,6 +32,5 @@ class Cart:
         return self.cart.items()
 
     def clear(self):
-        self.session['cart'] = {}
+        self.session["cart"] = {}
         self.session.modified = True
-
