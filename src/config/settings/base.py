@@ -16,6 +16,7 @@ INSTALLED_APPS = [
     "blog.apps.BlogConfig",
     "common.apps.CommonConfig",
     "store.apps.StoreConfig",
+    'cart.apps.CartConfig',
     # extantions
     "mptt",
     "rest_framework",

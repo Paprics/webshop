@@ -29,7 +29,9 @@
     {#    {% include "includes/carousel.html" %}#}
     <div class="row">
         <!-- Левое меню -->
-        {% include 'includes/drop_menu_nested.html' %}
+        {% block menu %}
+            {% include 'includes/drop_menu_nested.html' %}
+        {% endblock %}
 
         <!-- Контент справа -->
         <div class="col-10">
