@@ -12,3 +12,7 @@
 .cart-icon {
     margin-right: 15px;
 }
+
+.col-10 {
+  border-right: 1px solid #ddd;
+}
