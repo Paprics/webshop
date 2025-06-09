@@ -1,12 +1,16 @@
 from django.shortcuts import render  # noqa F401
 from django.views.generic import DetailView, TemplateView
-
 from common.models import Content
 
 
-class IndexView(TemplateView):
+class IndexView(DetailView):
+    model = Content
     template_name = "index.html"
+    context_object_name = "content"
     extra_context = {"title": "Home Page | Домашня сторінка"}
+
+    def get_object(self):
+        return Content.objects.get(pk=1)
 
 
 class Page404View(TemplateView):

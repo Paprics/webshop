@@ -19,10 +19,11 @@
                                                                                        aria-label="Search"></form>
             <div class="text-end d-flex align-items-center gap-2">
 
-                <button type="button" class="btn btn-outline-light">Login</button>
-                <button type="button" class="btn btn-warning">Sign-up</button>
 
-                <a href="/cart/" class="d-inline-block">
+                <a href="{% url 'accounts:login' %}" class="btn btn-outline-light">Login</a>
+                <a href="#" class="btn btn-warning">Sign-up</a>
+
+                <a href="" class="d-inline-block">
                     <svg width="30" height="30" viewBox="0 0 20 20" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
                         <path d="M7 4H17L21 12H6L7 4Z" stroke="white" stroke-width="2"/>

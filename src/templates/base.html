@@ -17,24 +17,31 @@
 
 <body>
 
-<!-- 🔴🔴🔴 HEADER -->
+<!--HEADER -->
 {% include 'includes/header.html' %}
 
+
+<!--🟢MAIN BLOCK -->
 <main class="container my-5">
-    {% include "includes/carousel.html" %}
-    {% include 'includes/drop_menu_nested.html' %}
-    {% block content %} {% endblock %}
+    {#    {% include "includes/carousel.html" %}#}
+    <div class="row">
+        <!-- Левое меню -->
+        {% include 'includes/drop_menu_nested.html' %}
 
-
+        <!-- Контент справа -->
+        <div class="col-10">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
 </main>
 
-<!-- 🔴🔴🔴 FOOTER -->
+<!--FOOTER -->
 {% include 'includes/footer.html' %}
 
 <!-- Подключение JS по CDN -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- 🔴🔴🔴 EXTRA BLOCK -->
+<!--EXTRA BLOCK -->
 {% block extra_js %}{% endblock %}
 
 </body>
