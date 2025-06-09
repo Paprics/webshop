@@ -17,7 +17,7 @@
                             {% for child in category.get_children.all %}
                                 <li class="list-group-item">
 {#                                {% url 'category_detail' child.slug %}#}
-                                <a href="#" class="d-block py-1 text-dark text-decoration-none hover-effect">{{ child.category_name }}</a>
+                                <a href="{% url 'store:products_category' slug_category=child.slug %}" class="d-block py-1 text-dark text-decoration-none hover-effect">{{ child.category_name }} {{ child.slug }}</a>
 
                                 </li>
                             {% empty %}

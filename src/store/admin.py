@@ -1,9 +1,11 @@
 from django.contrib import admin
 from mptt.admin import DraggableMPTTAdmin, TreeRelatedFieldListFilter
 
+from store.forms import ProductAdminForm
 from store.models import (CategoryModel, CategoryModelMPTT, CommentModel,
                           FavoriteModel, OrderItemModel, OrderModel,
                           ProductModel)
+
 
 # Register your models here.
 
@@ -24,6 +26,7 @@ class StoreMPTTAdmin(DraggableMPTTAdmin):
 
 @admin.register(ProductModel)
 class ProductAdmin(admin.ModelAdmin):
+    form = ProductAdminForm
     prepopulated_fields = {"slug": ("title",)}
     list_display = ("title", "price", "article", "quantity", "is_active", "category")
 

@@ -71,7 +71,7 @@ class ProductModel(models.Model):
     image = models.ImageField(upload_to="image/", blank=True)  # TODO -> M2O other model
     quantity = models.PositiveIntegerField(default=1)
     is_active = models.BooleanField(default=True)
-    category = models.ForeignKey("CategoryModel", on_delete=models.PROTECT)
+    category = models.ForeignKey("CategoryModelMPTT", on_delete=models.PROTECT)
 
     def __str__(self):
         return self.title
