@@ -6,7 +6,6 @@ from store.models import (CategoryModel, CategoryModelMPTT, CommentModel,
                           FavoriteModel, OrderItemModel, OrderModel,
                           ProductModel)
 
-
 # Register your models here.
 
 

@@ -23,8 +23,7 @@ urlpatterns = [
     path("", include("common.urls")),
     path("", include("store.urls")),
     path("", include("accounts.urls")),
-    path('', include('cart.urls')),
+    path("", include("cart.urls")),
     path("api-auth/", include("rest_framework.urls")),
     path("api/v1/", include("api.urls")),
-
 ]

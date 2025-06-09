@@ -1,8 +1,8 @@
-from django.shortcuts import render, get_object_or_404  # noqa F401
+from django.shortcuts import get_object_or_404, render  # noqa F401
 from django.views.generic import DetailView, ListView
 
 from store import models
-from store.models import ProductModel, CategoryModelMPTT
+from store.models import CategoryModelMPTT, ProductModel
 
 
 class ProductsListView(ListView):
@@ -21,11 +21,12 @@ class ProductDetailView(DetailView):
 
 class ProductsCategoryView(ListView):
     model = ProductModel
-    template_name = 'test_category.html'
+    paginate_by = 3
+    template_name = "test_category.html"
 
     def get_queryset(self):
         # Ловим слаг категории из url, ключ должен совпадать с шаблоном и urls.py
-        slug = self.kwargs.get('slug_category')
+        slug = self.kwargs.get("slug_category")
 
         # Получаем категорию по слагу, если нет — 404
         category = get_object_or_404(CategoryModelMPTT, slug=slug)
@@ -39,5 +40,5 @@ class ProductsCategoryView(ListView):
     def get_context_data(self, **kwargs):
         # В контекст кладём текущую категорию для удобства в шаблоне
         context = super().get_context_data(**kwargs)
-        context['category'] = get_object_or_404(CategoryModelMPTT, slug=self.kwargs.get('slug_category'))
+        context["category"] = get_object_or_404(CategoryModelMPTT, slug=self.kwargs.get("slug_category"))
         return context

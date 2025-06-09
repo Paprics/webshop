@@ -34,4 +34,4 @@ class LoginView(LoginView):
 
 
 class LogoutView(LogoutView):
-    next_page = "login"
+    next_page = reverse_lazy("common:index")

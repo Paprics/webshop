@@ -1,9 +1,12 @@
-from mptt.forms import TreeNodeChoiceField
 from django import forms
-from .models import ProductModel, CategoryModelMPTT
+from mptt.forms import TreeNodeChoiceField
+
+from .models import CategoryModelMPTT, ProductModel
+
 
 class ProductAdminForm(forms.ModelForm):
     """Custom Form for ProductModel MPTT"""
+
     category = TreeNodeChoiceField(queryset=CategoryModelMPTT.objects.all())
 
     class Meta:

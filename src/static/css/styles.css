@@ -16,3 +16,7 @@
 .col-10 {
   border-right: 1px solid #ddd;
 }
+
+.logout-icon {
+  margin-right: 8px;
+}
