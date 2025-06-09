@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Регистрация</h2>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="row mb-3 align-items-center">
+                <label for="{{ field.id_for_label }}" class="col-sm-3 col-form-label">
+                    {{ field.label }}
+                </label>
+                <div class="col-sm-9">
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="text-danger small mt-1">
+                            {{ field.errors|striptags }}
+                        </div>
+                    {% endif %}
+                    {% if field.help_text %}
+                        <div class="form-text">{{ field.help_text }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        <div class="row">
+            <div class="offset-sm-3 col-sm-9">
+                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
