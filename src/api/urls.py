@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
@@ -25,6 +25,7 @@ urlpatterns = [
     path("swagger<format>/", schema_view.without_ui(cache_timeout=0), name="schema-json"),
     path("swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
+    path('auth/', include('djoser.urls.jwt')),
     #
     path("content/", views.ContentListView.as_view(), name="content-list"),
     path("content/<slug:slug>/", views.ContentDetailView.as_view(), name="content-detail"),
