@@ -1,7 +1,14 @@
 from rest_framework import serializers
 
+from accounts.models import CustomerUser
 from common.models import Content
 from store.models import CategoryModelMPTT, ProductModel
+
+
+class CustomerUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomerUser
+        fields = ("phone_number", "first_name", "last_name", "email")
 
 
 class ContentSerializer(serializers.ModelSerializer):

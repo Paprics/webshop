@@ -3,6 +3,7 @@ from rest_framework.generics import (ListAPIView, ListCreateAPIView,
                                      RetrieveUpdateDestroyAPIView)
 from rest_framework.pagination import PageNumberPagination
 
+from accounts.models import CustomerUser
 from common.models import Content
 from store.models import CategoryModelMPTT, ProductModel
 
@@ -11,6 +12,33 @@ from . import serializers
 
 class ContentPagination(PageNumberPagination):
     page_size = 12
+
+
+class MemberListCreateView(generics.ListCreateAPIView):
+    "Список всіх Customers + Додавання нового Customer"
+
+    queryset = CustomerUser.objects.all()
+    serializer_class = serializers.CustomerUserSerializer
+    pagination_class = ContentPagination
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [permissions.IsAdminUser()]
+        if self.request.method == "POST":
+            return [permissions.AllowAny()]
+        return super().get_permissions()
+
+
+class MemberDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """"""
+
+    queryset = CustomerUser.objects.all()
+    serializer_class = serializers.CustomerUserSerializer
+
+    def get_permissions(self):
+        if self.request.method in ["PUT", "PATCH", "DELETE"]:
+            return [permissions.IsAdminUser()]
+        return [permissions.AllowAny()]
 
 
 class ContentListView(ListCreateAPIView):
@@ -81,6 +109,8 @@ class ProductByCategoryView(ListAPIView):
 
 
 class CategoryListView(ListCreateAPIView):
+    "Список всіх катерій"
+
     serializer_class = serializers.CategorySerializer
 
     def get_queryset(self):
@@ -97,6 +127,8 @@ class CategoryListView(ListCreateAPIView):
 
 
 class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
+    "Редагування категорії"
+
     queryset = CategoryModelMPTT.objects.all()
     serializer_class = serializers.CategorySerializerBase
     lookup_field = "slug"

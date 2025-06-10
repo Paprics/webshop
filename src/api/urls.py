@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import include, path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
@@ -25,13 +25,16 @@ urlpatterns = [
     path("swagger<format>/", schema_view.without_ui(cache_timeout=0), name="schema-json"),
     path("swagger/", schema_view.with_ui("swagger", cache_timeout=0), name="schema-swagger-ui"),
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
-    path('auth/', include('djoser.urls.jwt')),
+    path("auth/", include("djoser.urls.jwt")),
+    #
+    path("member/", views.MemberListCreateView.as_view(), name="member-list"),
+    path("member/<int:pk>", views.MemberDetailView.as_view(), name="member-detail"),
     #
     path("content/", views.ContentListView.as_view(), name="content-list"),
     path("content/<slug:slug>/", views.ContentDetailView.as_view(), name="content-detail"),
     #
     path("products/", views.ProductListView.as_view(), name="products_list"),
-    path("products/<slug:slug_product>/", views.ProductDetailView.as_view(), name="product_detail"),
+    path("products/<slug:slug>/", views.ProductDetailView.as_view(), name="product_detail"),
     path("products/category/<slug:slug_category>/", views.ProductByCategoryView.as_view(), name="products_by_category"),
     #
     path("category/", views.CategoryListView.as_view(), name="category-list"),
