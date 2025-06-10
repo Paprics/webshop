@@ -1,59 +1,103 @@
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.generics import (GenericAPIView, ListCreateAPIView,
+from rest_framework import generics, permissions
+from rest_framework.generics import (ListAPIView, ListCreateAPIView,
                                      RetrieveUpdateDestroyAPIView)
-from rest_framework.mixins import (CreateModelMixin, DestroyModelMixin,
-                                   ListModelMixin, RetrieveModelMixin,
-                                   UpdateModelMixin)
-from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 
-from api import serializers
-from api.serializers import ContentSerializer
 from common.models import Content
-from store.models import ProductModel
+from store.models import CategoryModelMPTT, ProductModel
+
+from . import serializers
 
 
-class ContentListCreateView(ListCreateAPIView):
+class ContentPagination(PageNumberPagination):
+    page_size = 12
+
+
+class ContentListView(ListCreateAPIView):
+    "Список всіх статей сайту"
+
     queryset = Content.objects.all()
-    serializer_class = ContentSerializer
+    serializer_class = serializers.ContentSerializer
+    pagination_class = ContentPagination
+
+    def get_permissions(self):
+        if self.request.method == "POST":
+            return [permissions.IsAdminUser()]
+        return [permissions.AllowAny()]
 
 
-class ContentDetailView(RetrieveUpdateDestroyAPIView):
+class ContentDetailView(generics.RetrieveUpdateDestroyAPIView):
+    "Сторінки сайту (контент) по slug"
+
     queryset = Content.objects.all()
-    serializer_class = ContentSerializer
+    serializer_class = serializers.ContentSerializer
     lookup_field = "slug"
 
+    def get_permissions(self):
+        if self.request.method in permissions.SAFE_METHODS:
+            return [permissions.AllowAny()]
+        return [permissions.IsAdminUser()]
 
-class ProductDetailView(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, GenericAPIView):
+
+class ProductListView(ListCreateAPIView):
+    "Список всіх товарів"
+
+    queryset = ProductModel.objects.all()
+    serializer_class = serializers.ProductSerializer
+
+    def get_permissions(self):
+        if self.request.method == "POST":
+            return [permissions.IsAdminUser()]
+        return [permissions.AllowAny()]
+
+
+class ProductDetailView(RetrieveUpdateDestroyAPIView):
+    "Товар по slug"
+
     queryset = ProductModel.objects.all()
     serializer_class = serializers.ProductSerializer
     lookup_field = "slug"
 
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
-
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def patch(self, request, *args, **kwargs):
-        return self.partial_update(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
+    def get_permissions(self):
+        if self.request.method in ["PUT", "PATCH", "DELETE"]:
+            return [permissions.IsAdminUser()]
+        return [permissions.AllowAny()]
 
 
-class ProductListCreateView(ListModelMixin, CreateModelMixin, GenericAPIView):
-    queryset = ProductModel.objects.all()
+class ProductByCategoryView(ListAPIView):
+    "Список всіх товарів в категорії"
+
     serializer_class = serializers.ProductSerializer
+    pagination_class = ContentPagination
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
+    def get_queryset(self):
+        slug = self.kwargs.get("slug_category")
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
+        category = CategoryModelMPTT.objects.filter(slug=slug, is_active=True).first()
+        if not category:
+            return ProductModel.objects.none()
+
+        return ProductModel.objects.filter(category=category, is_active=True).order_by("title")
 
 
-@api_view(["GET"])
-@permission_classes([AllowAny])
-def test_api(request):
-    return Response({"message": "API is working"})
+class CategoryListView(ListCreateAPIView):
+    serializer_class = serializers.CategorySerializer
+
+    def get_queryset(self):
+        return (
+            CategoryModelMPTT.objects.filter(parent=None, is_active=True)
+            .prefetch_related("children")
+            .order_by("display_order")
+        )
+
+    def get_permissions(self):
+        if self.request.method == "POST":
+            return [permissions.IsAdminUser()]
+        return [permissions.AllowAny()]
+
+
+class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CategoryModelMPTT.objects.all()
+    serializer_class = serializers.CategorySerializerBase
+    lookup_field = "slug"
+    permission_classes = [permissions.IsAdminUser]

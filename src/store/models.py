@@ -6,7 +6,6 @@ from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 
 
-# Create your models here.
 class CategoryModelMPTT(MPTTModel):
     class Meta:
         db_table = "category_MPTT"
