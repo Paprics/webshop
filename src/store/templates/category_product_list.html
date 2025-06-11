@@ -5,14 +5,15 @@
     {% include 'includes/carousel.html' %}
 
     <h1>Всі товари в категорії: {{ category.category_name }}</h1>
-    <p>Slug категории: <strong>{{ category.slug }}</strong></p>
+    <hr>
 
     {% if object_list %}
         <ul>
             {% for product in object_list %}
+
                 <li>
                     <a href="{% url 'store:product_detail' slug_product=product.slug %}">
-                        {{ product.title }} — {{ product.price }} ₽
+                        {{ product.title }} — {{ product.price }}
                     </a>
                     {% if product.is_active %}
                         <span style="color:green;">[В наличии]</span>
@@ -20,10 +21,11 @@
                         <span style="color:red;">[Нет в наличии]</span>
                     {% endif %}
                 </li>
+
             {% endfor %}
         </ul>
     {% else %}
-        <p>В этой категории пока нет товаров, попробуй позже.</p>
+        <p><h6>В цій категорії поки що немає товарів. Сробуйте будь-ласка пізніше.</h6></p>
     {% endif %}
 
     <hr>
@@ -47,5 +49,5 @@
         </div>
     </div>
 
-
+{% include 'includes/pagination.html' %}
 {% endblock %}

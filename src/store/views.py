@@ -22,7 +22,7 @@ class ProductDetailView(DetailView):
 class ProductsCategoryView(ListView):
     model = ProductModel
     paginate_by = 3
-    template_name = "test_category.html"
+    template_name = "category_product_list.html"
 
     def get_queryset(self):
         # Ловим слаг категории из url, ключ должен совпадать с шаблоном и urls.py
