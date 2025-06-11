@@ -7,24 +7,7 @@
     <h1>Всі товари в категорії: {{ category.category_name }}</h1>
     <hr>
 
-    {% if object_list %}
-        <ul>
-            {% for product in object_list %}
-
-                <li>
-                    <a href="{% url 'store:product_detail' slug_product=product.slug %}">
-                        {{ product.title }} — {{ product.price }}
-                    </a>
-                    {% if product.is_active %}
-                        <span style="color:green;">[В наличии]</span>
-                    {% else %}
-                        <span style="color:red;">[Нет в наличии]</span>
-                    {% endif %}
-                </li>
-
-            {% endfor %}
-        </ul>
-    {% else %}
+    {% if not object_list %}
         <p><h6>В цій категорії поки що немає товарів. Спробуйте будь-ласка пізніше.</h6></p>
     {% endif %}
 
@@ -34,7 +17,7 @@
         <div class="row row-cols-1 row-cols-md-3 g-4">
             {% for product in object_list %}
                 <div class="col">
-                    <a href="#" class="card-link" style="text-decoration: none; color: inherit;">
+                    <a href="{% url 'store:product_detail' product.slug %}" class="card-link" style="text-decoration: none; color: inherit;">
                         <div class="card h-100" style="cursor: pointer;">
                             <img src="https://picsum.photos/600/600" class="card-img-top" alt="Product title">
                             <div class="card-body">
