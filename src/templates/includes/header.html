@@ -12,7 +12,7 @@
                 <li><a href="{% url 'common:about' %}" class="nav-link px-2 text-white">Про Нас</a></li>
                 <li><a href="{% url 'common:contacts' %}" class="nav-link px-2 text-white">Контакти</a></li>
                 <li><a href="{% url 'common:faq' %}" class="nav-link px-2 text-white">FAQs</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Зворотній зв'язок</a></li>
+                <li><a href="{% url 'common:feedback' %}" class="nav-link px-2 text-white">Зворотній зв'язок</a></li>
             </ul>
 
             <a href="{% url 'cart:cart_detail' %}" class="d-inline-block cart-icon">
@@ -35,7 +35,7 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Налаштування</a></li>
                             <li><a class="dropdown-item" href="#">Історія замовлень</a></li>
-                            <li><a class="dropdown-item" href="#">Підтримка 24/7</a></li>
+                            <li><a class="dropdown-item" href="{% url 'common:feedback' %}">Підтримка 24/7</a></li>
                             <hr>
 
                             <li>

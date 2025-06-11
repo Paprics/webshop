@@ -44,5 +44,10 @@ class Feedback(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        db_table = "Feedback"
+        verbose_name = "Зворотній зв'язок"
+        verbose_name_plural = verbose_name
+
     def __str__(self):
         return f"{self.title} — {self.get_status_display()}"
