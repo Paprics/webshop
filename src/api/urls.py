@@ -27,8 +27,8 @@ urlpatterns = [
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
     path("auth/", include("djoser.urls.jwt")),
     #
-    path("member/", views.MemberListCreateView.as_view(), name="member-list"),
-    path("member/<int:pk>", views.MemberDetailView.as_view(), name="member-detail"),
+    path("customer/", views.CustomerListCreateView.as_view(), name="customer-list"),
+    path("customer/<int:pk>/", views.CustomerDetailView.as_view(), name="customer-detail"),
     #
     path("content/", views.ContentListView.as_view(), name="content-list"),
     path("content/<slug:slug>/", views.ContentDetailView.as_view(), name="content-detail"),
