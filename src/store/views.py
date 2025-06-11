@@ -21,7 +21,7 @@ class ProductDetailView(DetailView):
 
 class ProductsCategoryView(ListView):
     model = ProductModel
-    paginate_by = 3
+    paginate_by = 6
     template_name = "category_product_list.html"
 
     def get_queryset(self):

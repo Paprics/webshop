@@ -20,3 +20,8 @@
 .logout-icon {
   margin-right: 8px;
 }
+
+input::placeholder {
+  color: white;
+  opacity: 1;
+}

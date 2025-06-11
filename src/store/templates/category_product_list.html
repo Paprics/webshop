@@ -25,7 +25,7 @@
             {% endfor %}
         </ul>
     {% else %}
-        <p><h6>В цій категорії поки що немає товарів. Сробуйте будь-ласка пізніше.</h6></p>
+        <p><h6>В цій категорії поки що немає товарів. Спробуйте будь-ласка пізніше.</h6></p>
     {% endif %}
 
     <hr>
@@ -40,7 +40,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ product.title }}</h5>
                                 <p class="card-text">{{ product.description|truncatechars:100 }}</p>
-                                <p class="card-price" style="font-weight: bold;">Ціна: {{ product.price }}</p>
+                                <p class="card-price" style="font-weight: bold;">Ціна: {{ product.price }} грн.</p>
                             </div>
                         </div>
                     </a>
