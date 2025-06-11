@@ -2,15 +2,8 @@ from django.contrib import admin
 from mptt.admin import DraggableMPTTAdmin, TreeRelatedFieldListFilter
 
 from store.forms import ProductAdminForm
-from store.models import (CategoryModel, CategoryModelMPTT, CommentModel,
-                          FavoriteModel, OrderItemModel, OrderModel,
-                          ProductModel)
-
-# Register your models here.
-
-
-@admin.register(CategoryModel)
-class StoreAdmin(admin.ModelAdmin): ...
+from store.models import (CategoryModelMPTT, CommentModel, FavoriteModel,
+                          OrderItemModel, OrderModel, ProductModel)
 
 
 @admin.register(CategoryModelMPTT)

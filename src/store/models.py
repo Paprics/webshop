@@ -30,32 +30,6 @@ class CategoryModelMPTT(MPTTModel):
         return self.category_name
 
 
-class CategoryModel(models.Model):
-    class Meta:
-        db_table = "category"
-        verbose_name = "Категорія"
-        verbose_name_plural = "1. Категорії"
-        ordering = ["display_order", "category_name"]
-
-    category_name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=100, blank=True)
-    is_active = models.BooleanField(default=True)
-    display_order = models.IntegerField(default=0)
-
-    # # self-referential foreign key
-    # parent = models.ForeignKey(
-    #     'self',
-    #     on_delete=models.CASCADE,
-    #     null=True,
-    #     blank=True,
-    #     related_name='children',
-    #     verbose_name='Родительская категория',
-    # )
-
-    def __str__(self):
-        return self.category_name
-
-
 class ProductModel(models.Model):
     class Meta:
         db_table = "product"
