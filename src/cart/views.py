@@ -1,11 +1,23 @@
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import TemplateView
+
+from store.models import ProductModel
+
+from .cart_logic import ShoppingCart
+
+
+def add_to_cart(request, product_slug):
+    cart = ShoppingCart(request)
+    product = get_object_or_404(ProductModel, slug=product_slug)
+    cart.add(product.slug)
+    return redirect("cart:cart_detail")
 
 
 class CartDetailView(TemplateView):
     template_name = "cart_detail.html"
-    # extra_context = {'s'}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["show_menu"] = False
+        cart = ShoppingCart(self.request)
+        context["cart_items"] = cart.items
         return context

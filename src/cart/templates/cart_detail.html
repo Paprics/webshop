@@ -4,6 +4,20 @@
 
 {% block content %}
     <p>
-        <h1>Кошик замовлень (in progress)</h1>
+    <h1>Кошик замовлень (in progress)</h1>
     </p>
+    <hr class="border border-danger border-2 opacity-50">
+
+    <div>
+        {% for item in cart_items %}
+            <p><h3>
+                <a href="{% url 'store:product_detail' item.slug %}">{{ item.title }}</a> - Артикуль:{{ item.article }}
+                -
+                Ціна: {{ item.price }} грн. X {{ item.quantity }} к-ть. -
+            </p></h3>
+            <hr>
+        {% empty %}
+            <h4>В кошику не має товарів.</h4>
+        {% endfor %}
+    </div>
 {% endblock %}

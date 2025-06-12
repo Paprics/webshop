@@ -9,8 +9,8 @@ from mptt.models import MPTTModel, TreeForeignKey
 class CategoryModelMPTT(MPTTModel):
     class Meta:
         db_table = "category_MPTT"
-        verbose_name = "1.1. КатегорииMPTT"
-        verbose_name_plural = "1.1. КатегорииMPTT"
+        verbose_name = "1. Категорії товарів"
+        verbose_name_plural = verbose_name
         ordering = ["display_order"]
 
     # FIX: Doesn't work
