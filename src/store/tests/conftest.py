@@ -2,7 +2,7 @@ import pytest
 from django.contrib.auth import get_user_model
 from faker import Faker
 
-from store.models import CategoryModel, ProductModel
+from store.models import CategoryModelMPTT, ProductModel
 
 
 @pytest.fixture
@@ -10,7 +10,7 @@ def create_categories():
     names = ["Чоловіче", "Жіноче", "Дитяче", "Аксесуари", "Інше"]
     categories = []
     for name in names:
-        category = CategoryModel(category_name=name)
+        category = CategoryModelMPTT(category_name=name)
         category.full_clean()
         category.save()
         categories.append(category)

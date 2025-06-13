@@ -1,0 +1,70 @@
+{% load static %}
+<header class="p-3 text-bg-dark">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"><a href="/"
+                                                                                                            class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                <use xlink:href="#bootstrap"></use>
+            </svg>
+        </a>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="{% url 'common:index' %}" class="nav-link px-2 text-secondary">Home</a></li>
+                <li><a href="{% url 'common:about' %}" class="nav-link px-2 text-white">Про Нас</a></li>
+                <li><a href="{% url 'common:contacts' %}" class="nav-link px-2 text-white">Контакти</a></li>
+                <li><a href="{% url 'common:faq' %}" class="nav-link px-2 text-white">FAQs</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">Зворотній зв'язок</a></li>
+            </ul>
+
+            <a href="{% url 'cart:cart_detail' %}" class="d-inline-block cart-icon">
+                <img src="{% static 'svg/cart.svg' %}" width="45" height="45" alt="cart icon"/>
+            </a>
+
+
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"><input type="search"
+                                                                                       class="form-control form-control-dark text-bg-dark"
+                                                                                       placeholder="Search..."
+                                                                                       aria-label="Search"></form>
+            <div class="text-end d-flex align-items-center gap-2">
+
+                {% if user.is_authenticated %}
+                    <div class="dropdown-center">
+                        <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            Кабінет
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Налаштування</a></li>
+                            <li><a class="dropdown-item" href="#">Історія замовлень</a></li>
+                            <li><a class="dropdown-item" href="#">Підтримка 24/7</a></li>
+                            <hr>
+
+                            <li>
+                                <form method="post" action="{% url 'accounts:logout' %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="dropdown-item d-flex align-items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-box-arrow-right me-2" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                  d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                                            <path fill-rule="evenodd"
+                                                  d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                                        </svg>
+                                        Вийти
+                                    </button>
+                                </form>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                {% else %}
+                    <a href="{% url 'accounts:login' %}" class="btn btn-outline-light">Login</a>
+                    <a href="{% url 'accounts:register' %}" class="btn btn-warning">Sign-up</a>
+                {% endif %}
+
+
+            </div>
+        </div>
+    </div>
+</header>

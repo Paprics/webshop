@@ -21,7 +21,7 @@ class CustomerUser(AbstractBaseUser, PermissionsMixin):
         _("phone number"),
         unique=True,
         help_text=_(
-            "Required. Enter phone number in international format starting with + and country code, e.g. +380..."
+            "\nRequired. Enter phone number in international format starting with + and country code, e.g. +380..."
         ),
         error_messages={"unique": _("A user with that phone number already exists.")},
     )

@@ -1,0 +1,22 @@
+.navbar-items {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.navbar-icon {
+    filter: invert(1);
+    margin-right: 15px;
+}
+
+.cart-icon {
+    margin-right: 15px;
+}
+
+.col-10 {
+  border-right: 1px solid #ddd;
+}
+
+.logout-icon {
+  margin-right: 8px;
+}
