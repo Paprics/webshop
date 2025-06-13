@@ -10,20 +10,21 @@ class ShoppingCart:
             cart = self.session["cart_data"] = {}
         self.cart = cart
 
-    def add(self, product_slug, quantity=1):
-        if product_slug in self.cart:
-            self.cart[product_slug] += quantity
+    def add(self, product_id, quantity=1):
+        product_id = str(product_id)
+        if product_id in self.cart:
+            self.cart[product_id] += quantity
         else:
-            self.cart[product_slug] = quantity
+            self.cart[product_id] = quantity
         self.session.modified = True
 
     @property
     def items(self):
-        slugs = self.cart.keys()
-        products = ProductModel.objects.filter(slug__in=slugs, is_active=True)
+        ids = self.cart.keys()
+        products = ProductModel.objects.filter(id__in=ids, is_active=True)
         cart_items = []
         for product in products:
-            product.quantity = self.cart.get(product.slug, 1)
+            product.quantity = self.cart.get(str(product.id), 1)
             cart_items.append(product)
         return cart_items
 

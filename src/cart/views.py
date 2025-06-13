@@ -6,10 +6,10 @@ from store.models import ProductModel
 from .cart_logic import ShoppingCart
 
 
-def add_to_cart(request, product_slug):
+def add_to_cart(request, product_id):
     cart = ShoppingCart(request)
-    product = get_object_or_404(ProductModel, slug=product_slug)
-    cart.add(product.slug)
+    product = get_object_or_404(ProductModel, id=product_id)
+    cart.add(product.id)
     return redirect("cart:cart_detail")
 
 
