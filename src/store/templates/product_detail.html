@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
     <div class="row ps-4">
         <!-- Левая часть: изображение -->
@@ -7,7 +9,7 @@
             {% if product.image %}
                 <img src="{{ product.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ product.title }}">
             {% else %}
-                <img src="/path/to/default-image.jpg" class="img-fluid rounded shadow-sm" alt="Нет изображения">
+                <img src="{% static 'img/No_image.png' %}" class="img-fluid rounded shadow-sm" alt="Проблема">
             {% endif %}
         </div>
 

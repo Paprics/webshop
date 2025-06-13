@@ -53,33 +53,33 @@ class ProductModel(models.Model):
         return reverse("product_detail", kwargs={"slug": self.slug})
 
 
-class OrderModel(models.Model):
-    class Meta:
-        db_table = "order"
-        verbose_name = "3. Замовлення"
-        verbose_name_plural = "3. Замовлення"
-
-    customer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add=True)
-    is_paid = models.BooleanField(default=False)
-
-    def __str__(self):
-        return f"Замовлення #{self.id} користувача {self.customer} від {self.created.strftime('%Y-%m-%d')}"
-
-
-class OrderItemModel(models.Model):
-    class Meta:
-        db_table = "order_item"
-        verbose_name = "Позиція замовлення(hide)"
-        verbose_name_plural = "Позиція замовлення(hide)"
-
-    order = models.ForeignKey(OrderModel, related_name="items", on_delete=models.CASCADE)
-    product = models.ForeignKey(ProductModel, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-
-    def __str__(self):
-        return f"{self.product.title} x{self.quantity}"
+# class OrderModel(models.Model):
+#     class Meta:
+#         db_table = "order"
+#         verbose_name = "3. Замовлення"
+#         verbose_name_plural = "3. Замовлення"
+#
+#     customer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+#     created = models.DateTimeField(auto_now_add=True)
+#     is_paid = models.BooleanField(default=False)
+#
+#     def __str__(self):
+#         return f"Замовлення #{self.id} користувача {self.customer} від {self.created.strftime('%Y-%m-%d')}"
+#
+#
+# class OrderItemModel(models.Model):
+#     class Meta:
+#         db_table = "order_item"
+#         verbose_name = "Позиція замовлення(hide)"
+#         verbose_name_plural = "Позиція замовлення(hide)"
+#
+#     order = models.ForeignKey(OrderModel, related_name="items", on_delete=models.CASCADE)
+#     product = models.ForeignKey(ProductModel, on_delete=models.CASCADE)
+#     quantity = models.PositiveIntegerField(default=1)
+#     price = models.DecimalField(max_digits=10, decimal_places=2)
+#
+#     def __str__(self):
+#         return f"{self.product.title} x{self.quantity}"
 
 
 class FavoriteModel(models.Model):

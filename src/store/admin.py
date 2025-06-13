@@ -3,7 +3,7 @@ from mptt.admin import DraggableMPTTAdmin, TreeRelatedFieldListFilter
 
 from store.forms import ProductAdminForm
 from store.models import (CategoryModelMPTT, CommentModel, FavoriteModel,
-                          OrderItemModel, OrderModel, ProductModel)
+                          ProductModel)
 
 
 @admin.register(CategoryModelMPTT)
@@ -21,14 +21,6 @@ class ProductAdmin(admin.ModelAdmin):
     form = ProductAdminForm
     prepopulated_fields = {"slug": ("title",)}
     list_display = ("title", "price", "article", "quantity", "is_active", "category")
-
-
-@admin.register(OrderModel)
-class OrderAdmin(admin.ModelAdmin): ...
-
-
-@admin.register(OrderItemModel)
-class OrderItemAdmin(admin.ModelAdmin): ...
 
 
 @admin.register(FavoriteModel)
