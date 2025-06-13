@@ -6,6 +6,13 @@ from store.models import ProductModel
 from .cart_logic import ShoppingCart
 
 
+def remove_cart(request, product_pk):
+    cart = ShoppingCart(request)
+    cart.remove(product_id=product_pk)
+
+    return redirect("cart:cart_detail")
+
+
 def add_to_cart(request, product_id):
     cart = ShoppingCart(request)
     product = get_object_or_404(ProductModel, id=product_id)
