@@ -4,6 +4,38 @@
 
 {% block content %}
     <p>
-        <h1>Кошик замовлень (in progress)</h1>
+    <h1>Кошик замовлень (in progress)</h1>
     </p>
+    <hr class="border border-danger border-2 opacity-50">
+
+    <div class="container">
+        <!-- Заголовки -->
+        <div class="row fw-bold border-bottom pb-2 mb-3 align-items-center">
+            <div class="col-4 text-start">Назва</div>
+            <div class="col-2">Артикул</div>
+            <div class="col-2">Ціна</div>
+            <div class="col-1">Кіл-ть</div>
+            <div class="col-2">Всього</div>
+            <div class="col-1">Видалити</div>
+        </div>
+
+        <!-- Товары -->
+        {% for item in cart_items %}
+            <div class="row align-items-center mb-2">
+                <div class="col-4 text-start">
+                    <a href="{% url 'store:product_detail' item.slug %}"><strong>{{ item.title|slice:":41" }}</strong></a>
+                </div>
+                <div class="col-2">{{ item.article }}</div>
+                <div class="col-2">{{ item.price }} грн</div>
+                <div class="col-1">{{ item.quantity }}</div>
+                <div class="col-2">всього грн</div>
+                <div class="col-1">
+                    <a href="{% url 'cart:remove_cart' item.pk %}" class="btn btn-danger btn-sm">Видалити</a>
+                </div>
+            </div>
+        {% empty %}
+            <h4>В кошику не має товарів.</h4>
+        {% endfor %}
+    </div>
+
 {% endblock %}

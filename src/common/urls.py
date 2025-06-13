@@ -10,4 +10,5 @@ urlpatterns = [
     path("contacts/", views.ContactView.as_view(), name="contacts"),
     path("fqa/", views.FaqView.as_view(), name="faq"),
     path("page404/", views.Page404View.as_view(), name="page404"),
+    path("feedback/", views.Feedback.as_view(), name="feedback"),
 ]

@@ -1,6 +1,7 @@
 from django.shortcuts import render  # noqa F401
-from django.views.generic import DetailView, TemplateView
+from django.views.generic import DetailView, FormView, TemplateView
 
+from common.forms import FeedbackForm
 from common.models import Content
 
 
@@ -47,3 +48,18 @@ class FaqView(DetailView):
 
     def get_object(self):
         return Content.objects.get(pk=3)
+
+
+class Feedback(FormView):
+    form_class = FeedbackForm
+    http_method_names = ["get", "post"]
+    template_name = "feedback.html"
+    success_url = "/"
+
+    def form_valid(self, form):
+        if self.request.user.is_authenticated:
+            form.instance.user = self.request.user
+        else:
+            form.instance.user = None
+        form.save()
+        return super().form_valid(form)

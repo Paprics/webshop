@@ -20,3 +20,12 @@
 .logout-icon {
   margin-right: 8px;
 }
+
+input::placeholder {
+  color: white;
+  opacity: 1;
+}
+
+.product-info-container {
+    margin-left: 15px;
+}

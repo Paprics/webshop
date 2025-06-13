@@ -14,7 +14,7 @@ class ContentPagination(PageNumberPagination):
     page_size = 12
 
 
-class MemberListCreateView(generics.ListCreateAPIView):
+class CustomerListCreateView(generics.ListCreateAPIView):
     "Список всіх Customers + Додавання нового Customer"
 
     queryset = CustomerUser.objects.all()
@@ -29,7 +29,7 @@ class MemberListCreateView(generics.ListCreateAPIView):
         return super().get_permissions()
 
 
-class MemberDetailView(generics.RetrieveUpdateDestroyAPIView):
+class CustomerDetailView(generics.RetrieveUpdateDestroyAPIView):
     """"""
 
     queryset = CustomerUser.objects.all()
@@ -62,9 +62,10 @@ class ContentDetailView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = "slug"
 
     def get_permissions(self):
-        if self.request.method in permissions.SAFE_METHODS:
+        if self.request.method == "GET":
             return [permissions.AllowAny()]
-        return [permissions.IsAdminUser()]
+        elif self.request.method in ("PATCH", "PUT", "DELETE"):
+            return [permissions.IsAdminUser()]
 
 
 class ProductListView(ListCreateAPIView):

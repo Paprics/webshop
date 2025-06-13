@@ -13,16 +13,17 @@ class ProductsListView(ListView):
 class ProductDetailView(DetailView):
     model = models.ProductModel
     template_name = "product_detail.html"
+    context_object_name = "product"
 
     # По умолчанию DetailView ищет объект по pk, чтобы искать по slug:
     slug_field = "slug"
-    slug_url_kwarg = "slug"
+    slug_url_kwarg = "slug_product"
 
 
 class ProductsCategoryView(ListView):
     model = ProductModel
-    paginate_by = 3
-    template_name = "test_category.html"
+    paginate_by = 6
+    template_name = "category_product_list.html"
 
     def get_queryset(self):
         # Ловим слаг категории из url, ключ должен совпадать с шаблоном и urls.py

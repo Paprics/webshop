@@ -1,6 +1,6 @@
 import pytest
 
-from store.models import CategoryModel
+from store.models import CategoryModelMPTT
 
 
 class TestProduct:
@@ -17,5 +17,5 @@ class TestProduct:
     )
     @pytest.mark.django_db
     def test_create_category(self, category_name):
-        CategoryModel.objects.create(category_name=category_name)
-        assert CategoryModel.objects.filter(category_name=category_name).exists()
+        CategoryModelMPTT.objects.create(category_name=category_name)
+        assert CategoryModelMPTT.objects.filter(category_name=category_name).exists()

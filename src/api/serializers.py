@@ -8,7 +8,7 @@ from store.models import CategoryModelMPTT, ProductModel
 class CustomerUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomerUser
-        fields = ("phone_number", "first_name", "last_name", "email")
+        fields = ("id", "phone_number", "first_name", "last_name", "email")
 
 
 class ContentSerializer(serializers.ModelSerializer):
