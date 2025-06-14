@@ -37,6 +37,10 @@ class ShoppingCart:
                 del self.cart[product_id]
             self.session.modified = True
 
+
+    def get_total_cart_price(self):
+        return sum(product.price * product.quantity for product in self.items)
+
     def update(self, product_id, quantity):
         product_id = str(product_id)
         if quantity <= 0:
