@@ -3,18 +3,25 @@ from django.views.generic import TemplateView
 
 from store.models import ProductModel
 
-from .cart_logic import ShoppingCart
+from .cart_logic import ShoppingCartAnonymousUser, ShoppingCartUser
+
+
+def get_cart(request):
+    if request.user.is_authenticated:
+        return ShoppingCartUser(request)
+    else:
+        return ShoppingCartAnonymousUser(request)
 
 
 def remove_cart(request, product_pk):
-    cart = ShoppingCart(request)
+    cart = get_cart(request)
     cart.remove(product_id=product_pk)
 
     return redirect("cart:cart_detail")
 
 
 def add_to_cart(request, product_id):
-    cart = ShoppingCart(request)
+    cart = get_cart(request)
     product = get_object_or_404(ProductModel, id=product_id)
     cart.add(product.id)
     return redirect("cart:cart_detail")
@@ -25,7 +32,7 @@ class CartDetailView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        cart = ShoppingCart(self.request)
+        cart = get_cart(self.request)
         items = cart.items
         for item in items:
             item.total_price = item.price * item.quantity
