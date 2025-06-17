@@ -17,6 +17,7 @@ django-filter = "*"
 drf-yasg = "*"
 djangorestframework-simplejwt = "*"
 djoser = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 flake8 = "*"
@@ -25,6 +26,7 @@ isort = "*"
 django-extensions = "*"
 ipython = "*"
 django-debug-toolbar = "*"
+dotenv = "*"
 
 [requires]
 python_version = "3.12"

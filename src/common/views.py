@@ -12,7 +12,7 @@ class IndexView(DetailView):
     extra_context = {"title": "Home Page | Домашня сторінка"}
 
     def get_object(self):
-        return Content.objects.get(pk=1)
+        return Content.objects.filter(pk=1)
 
 
 class Page404View(TemplateView):
@@ -27,7 +27,7 @@ class AboutView(DetailView):
     extra_context = {"title": "About | Про нас"}
 
     def get_object(self):
-        return Content.objects.get(pk=1)
+        return Content.objects.filter(pk=1)
 
 
 class ContactView(TemplateView):
@@ -47,7 +47,7 @@ class FaqView(DetailView):
     extra_context = {"title": "FAQ | Запитання"}
 
     def get_object(self):
-        return Content.objects.get(pk=3)
+        return Content.objects.filter(pk=3)
 
 
 class Feedback(FormView):

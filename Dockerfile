@@ -8,10 +8,10 @@ WORKDIR /app
 
 COPY requirements.txt .
 
+COPY ./commands ./commands
+
 RUN python -m pip install --upgrade pip && pip install -r requirements.txt
 
 COPY ./src ./src
 
-EXPOSE 8080
-
-CMD ["python", "src/manage.py", "runserver", "0.0.0.0:8080"]
+CMD ["bash"]
