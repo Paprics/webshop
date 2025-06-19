@@ -23,12 +23,25 @@ services:
     volumes:
       - ./src:/app/src
       - ./commands:/app/commands
-
     env_file:
       - .env
     depends_on:
       - postgres_db
     command: ["sh", "/app/commands/start_server_dev.sh"]
 
+  pg_admin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_container
+    restart: on-failure
+    env_file:
+      - .env
+    ports:
+      - "5050:80"
+    volumes:
+      - pg_admin:/var/lib/pgadmin
+    depends_on:
+      - postgres_db
+
 volumes:
-  postgres_data:
+  postgres_data: {}
+  pg_admin: {}
