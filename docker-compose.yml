@@ -42,6 +42,16 @@ services:
     depends_on:
       - postgres_db
 
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
 volumes:
   postgres_data: {}
   pg_admin: {}
+  mongo_data: {}
