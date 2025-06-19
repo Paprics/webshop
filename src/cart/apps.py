@@ -8,4 +8,4 @@ class CartConfig(AppConfig):
     # Import signals module to register signal handlers
     # This ensures the signal receivers are connected when the app is ready
     def ready(self):
-        import cart.signal_cart
+        import cart.signal_cart  # NOQA 401
