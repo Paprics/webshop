@@ -9,9 +9,10 @@ from accounts.rorms import MemberCreationForm
 
 
 class PassChangeView(PasswordChangeView):
-    template_name = 'chenge_password.html'
+    template_name = "chenge_password.html"
     success_url = reverse_lazy("accounts:change_password")
     form_class = PasswordChangeForm
+
 
 class DeleteAccountView(DeleteView):
     model = get_user_model()
