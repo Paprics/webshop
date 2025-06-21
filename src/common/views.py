@@ -1,8 +1,18 @@
+from django.contrib.auth import get_user_model
 from django.shortcuts import render  # noqa F401
 from django.views.generic import DetailView, FormView, TemplateView
 
 from common.forms import FeedbackForm
 from common.models import Content
+
+
+class CustomerDetailView(DetailView):
+    model = get_user_model()
+    template_name = "customer_datail.html"
+    context_object_name = "customer"
+
+    def get_object(self):
+        return get_user_model().objects.select_related("profile").get(pk=self.request.user.pk)
 
 
 class IndexView(DetailView):
