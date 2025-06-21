@@ -18,13 +18,15 @@
         Surname: {{ customer.last_name }}<br>
         Phone number: {{ customer.phone_number }}<br>
         Email: {{ customer.email }}<br>
+    </div>
+    <div class="mt-4">
+        <h1>
+            Адреса доставки:
+        </h1>
+    </div>
+    <div class="fs-3 fw-medium">
         Delivery address: {{ customer.profile.delivery_address }}<br>
-        Additional contacts: {{ customer.profile.additional_contacts }}<br>
+        Additional contacts: {{ customer.profile.additional_contacts }}<br><br>
     </div>
-
-    <div>
-        <a class="btn btn-outline-secondary w-100" type="button" href="#">Редагувати дані</a>
-    </div>
-
 
 {% endblock %}
