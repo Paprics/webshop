@@ -1,11 +1,20 @@
-from django.contrib.auth import login
+from django.contrib.auth import get_user_model, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import FormView
+from django.views.generic import DeleteView, FormView
 
 from accounts.rorms import MemberCreationForm
+
+
+class DeleteAccountView(DeleteView):
+    model = get_user_model()
+    template_name = "delete_account.html"
+    success_url = reverse_lazy("common:index")
+
+    def get_object(self, queryset=None):
+        return self.request.user
 
 
 class RegisterView(FormView):

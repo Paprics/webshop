@@ -15,20 +15,41 @@ INSTALLED_APPS += [  # noqa: F405
 
 MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]  # noqa: F405
 
-DATABASES = {
-    "default_sqlite": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",  # noqa: F405
-    },
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.environ.get("POSTGRES_DB"),
-        "USER": os.environ.get("POSTGRES_USER"),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
-        "HOST": os.environ.get("POSTGRES_HOST"),
-        "PORT": os.environ.get("POSTGRES_PORT"),
-    },
-}
+if os.environ.get("GITHUB_WORKFLOW"):
+    DATABASES = {
+        "default": {  # GitHub Action
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": "postgres",
+            "USER": "postgres",
+            "PASSWORD": "postgres",
+            "HOST": "0.0.0.0",
+            "PORT": 5432,
+        }
+    }
+else:
+    DATABASES = {
+        "default_sqlite": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",  # noqa: F405
+        },
+        "default": {  # Local
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": "webshop",
+            "USER": "postgres",
+            "PASSWORD": "1111",
+            "HOST": "localhost",
+            "PORT": "5432",
+        },
+        "#default": {  # Docker
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ.get("POSTGRES_DB"),
+            "USER": os.environ.get("POSTGRES_USER"),
+            "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+            "HOST": os.environ.get("POSTGRES_HOST"),
+            "PORT": os.environ.get("POSTGRES_PORT"),
+        },
+    }
+
 
 GRAPH_MODELS = {
     "all_applications": True,

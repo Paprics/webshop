@@ -41,3 +41,12 @@ input::placeholder {
   color: #0a0a0a;
   /*text-align: right;*/
 }
+
+.active-menu {
+    background-color: #303030;
+    color: white;
+}
+.active-menu:hover {
+    background-color: #5c5c5c;
+    color: white;
+}
