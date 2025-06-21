@@ -1,9 +1,77 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <p><h1>{{ title }}</h1></p>
-    {% for item in content %}
-        <p>{{ item.title }}</p>
-        <p>{{ item.content }}</p>
-    {% endfor %}
+
+    <section class="contact-section my-5">
+        <h1>Контакти</h1>
+        <p>Зв’язатися з нами можна будь-яким зручним способом. Ми завжди готові допомогти вам з вибором одягу,
+            оформленням замовлення та відповісти на будь-які запитання.</p>
+
+        <h2>Головний офіс</h2>
+        <address>
+            <strong>Адреса:</strong> вул. Хрещатик, 22, Київ, 01001<br>
+            <strong>Телефон:</strong> +38 (044) 123-45-67<br>
+            <strong>Email:</strong> info@fashionhub.ua<br>
+            <strong>Графік роботи:</strong> Пн-Пт 09:00 - 19:00, Сб 10:00 - 16:00
+        </address>
+
+        <h2>Наші магазини по Україні</h2>
+
+        <div class="store-locations row g-4">
+            <div class="col-md-6 col-lg-4">
+                <h3>Київ</h3>
+                <p>ТЦ "Україна", вул. Велика Васильківська, 45</p>
+                <p>Телефон: +38 (044) 987-65-43</p>
+                <p>Режим роботи: Пн-Нд 10:00 - 20:00</p>
+                <iframe src="https://maps.google.com/maps?q=Київ, вул. Велика Васильківська, 45&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+                        width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <h3>Львів</h3>
+                <p>ТЦ "Форум Львів", проспект Чорновола, 6</p>
+                <p>Телефон: +38 (032) 234-56-78</p>
+                <p>Режим роботи: Пн-Нд 10:00 - 19:00</p>
+                <iframe src="https://maps.google.com/maps?q=Львів, проспект Чорновола, 6&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+                        width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <h3>Одеса</h3>
+                <p>ТРЦ "Рів’єра", вул. Генуезька, 9</p>
+                <p>Телефон: +38 (048) 765-43-21</p>
+                <p>Режим роботи: Пн-Нд 10:00 - 21:00</p>
+                <iframe src="https://maps.google.com/maps?q=Одеса, вул. Генуезька, 9&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+                        width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <h3>Запоріжжя</h3>
+                <p>ТРЦ "City Mall", проспект Соборний, 144</p>
+                <p>Телефон: +38 (061) 123-45-67</p>
+                <p>Режим роботи: Пн-Нд 10:00 - 20:00</p>
+                <iframe src="https://maps.google.com/maps?q=Запоріжжя, проспект Соборний, 144&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+                        width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <h3>Івано-Франківськ</h3>
+                <p>ТРЦ "Велес", вул. Галицька, 125</p>
+                <p>Телефон: +38 (034) 555-66-77</p>
+                <p>Режим роботи: Пн-Пт 09:00 - 19:00, Сб 10:00 - 16:00</p>
+                <iframe src="https://maps.google.com/maps?q=Івано-Франківськ, вул. Галицька, 125&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+                        width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+
+        <h2>Зв’яжіться з нами</h2>
+        <p>Для будь-яких питань, пропозицій чи зворотного зв’язку телефонуйте або пишіть на наші контакти:</p>
+        <ul>
+            <li>Телефон гарячої лінії: <a href="tel:+380441234567">+38 (044) 123-45-67</a></li>
+            <li>Email: <a href="mailto:support@fashionhub.ua">support@fashionhub.ua</a></li>
+            <li>Telegram: <a href="https://t.me/fashionhub_ua">@fashionhub_ua</a></li>
+            <li>Instagram: <a href="https://instagram.com/fashionhub_ua">fashionhub_ua</a></li>
+        </ul>
+    </section>
+
 {% endblock %}
