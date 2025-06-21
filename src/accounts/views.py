@@ -5,11 +5,28 @@ from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import DeleteView, FormView, UpdateView
 
+from accounts.models import ProfileCustomer
 from accounts.rorms import MemberCreationForm
 
 
-class UpdateCustomerInfoView(UpdateView):
-    pass
+class UpdateDelyAddressView(UpdateView):
+    model = ProfileCustomer
+    fields = ("delivery_address", "additional_contacts")
+    template_name = "update_dely_address.html"
+    success_url = reverse_lazy("common:customer_detail")
+
+    def get_object(self):
+        return self.request.user.profile
+
+
+class UpdateCustomerView(UpdateView):
+    model = get_user_model()
+    template_name = "update_customer.html"
+    fields = ("first_name", "last_name", "phone_number", "email")
+    success_url = reverse_lazy("common:customer_detail")
+
+    def get_object(self):
+        return self.request.user
 
 
 class PassChangeView(PasswordChangeView):

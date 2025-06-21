@@ -13,12 +13,12 @@
 
     <li>
         <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'edit_profile' %}active-menu{% endif %}"
-           href="#">Редагувати дані</a>
+           href="{% url 'accounts:update_customer' %}">Редагувати дані</a>
     </li>
 
     <li>
         <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'edit_address' %}active-menu{% endif %}"
-           href="#">Адреса доставки</a>
+           href="{% url "accounts:update_delyvery" %}">Адреса доставки</a>
     </li>
 
     <li>
