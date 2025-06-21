@@ -28,11 +28,11 @@ if os.environ.get("GITHUB_WORKFLOW"):
     }
 else:
     DATABASES = {
-        "default_sqlite": {
+        "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "db.sqlite3",  # noqa: F405
         },
-        "default": {  # Local
+        "#default": {  # Local
             "ENGINE": "django.db.backends.postgresql",
             "NAME": "webshop",
             "USER": "postgres",

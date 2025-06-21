@@ -1,12 +1,17 @@
 from django.contrib.auth import get_user_model, login
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import DeleteView, FormView
 
 from accounts.rorms import MemberCreationForm
 
+
+class PassChangeView(PasswordChangeView):
+    template_name = 'chenge_password.html'
+    success_url = reverse_lazy("accounts:change_password")
+    form_class = PasswordChangeForm
 
 class DeleteAccountView(DeleteView):
     model = get_user_model()
