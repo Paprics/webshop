@@ -1,33 +1,32 @@
-<div class="col-2 border-end" style="min-height: 100vh; padding-top: 1rem;">
-    <div class="accordion" id="categoryAccordion">
-        {% for category in categories_nested %}
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="heading{{ forloop.counter }}">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false"
-                            aria-controls="collapse{{ forloop.counter }}">
-                        {{ category.category_name }}
-                    </button>
-                </h2>
-                <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse"
-                     aria-labelledby="heading{{ forloop.counter }}"
-                     data-bs-parent="#categoryAccordion">
-                    <div class="accordion-body p-0">
-                        <ul class="list-group list-group-flush">
-                            {% for child in category.get_children.all %}
-                                <li class="list-group-item">
-                                <a href="{% url 'store:products_category' slug_category=child.slug %}" class="d-block py-1 text-dark text-decoration-none hover-effect">{{ child.category_name }}</a>
+<div class="accordion shadow" id="categoryAccordion">
+    {% for category in categories_nested %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false"
+                        aria-controls="collapse{{ forloop.counter }}">
+                    {{ category.category_name }}
+                </button>
+            </h2>
+            <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse"
+                 aria-labelledby="heading{{ forloop.counter }}"
+                 data-bs-parent="#categoryAccordion">
+                <div class="accordion-body p-0">
+                    <ul class="list-group list-group-flush">
+                        {% for child in category.get_children.all %}
+                            <li class="list-group-item">
+                                <a href="{% url 'store:products_category' slug_category=child.slug %}"
+                                   class="d-block py-1 text-dark text-decoration-none hover-effect">{{ child.category_name }}</a>
 
-                                </li>
-                            {% empty %}
-                                <li class="list-group-item text-muted">Нет подкатегорий</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item text-muted">Нет подкатегорий</li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
-        {% empty %}
-            <p>Категории не найдены</p>
-        {% endfor %}
-    </div>
+        </div>
+    {% empty %}
+        <p>Категории не найдены</p>
+    {% endfor %}
 </div>
