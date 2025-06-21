@@ -3,9 +3,13 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import DeleteView, FormView
+from django.views.generic import DeleteView, FormView, UpdateView
 
 from accounts.rorms import MemberCreationForm
+
+
+class UpdateCustomerInfoView(UpdateView):
+    pass
 
 
 class PassChangeView(PasswordChangeView):
