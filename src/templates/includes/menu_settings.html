@@ -29,7 +29,7 @@
     <li><hr class="dropdown-divider"></li>
 
     <li>
-        <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'delete_account' %}active-menu{% endif %}"
+        <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'delete_account' %}active-menu{% endif %} text-danger"
            href="{% url 'accounts:delete_account' %}">Видалити профіль</a>
     </li>
 </ul>
