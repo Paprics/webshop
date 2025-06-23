@@ -1,10 +1,12 @@
+import os
+
 from config.settings.base import *  # noqa: F403
 
-SECRET_KEY = ""
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     "default": {
@@ -13,4 +15,8 @@ DATABASES = {
     }
 }
 
+STATIC_ROOT = BASE_DIR / "static/"
 STATIC_URL = "static/"
+
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "media/"

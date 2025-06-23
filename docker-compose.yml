@@ -23,11 +23,13 @@ services:
     volumes:
       - ./src:/app/src
       - ./commands:/app/commands
+      - static_content:/app/src/static
+      - media_content:/app/src/media
     env_file:
       - .env
     depends_on:
       - postgres_db
-    command: ["sh", "/app/commands/start_server_dev.sh"]
+    command: ["sh", "/app/commands/start_server_${MODE}.sh"]
 
   pg_admin:
     image: dpage/pgadmin4
@@ -42,6 +44,20 @@ services:
     depends_on:
       - postgres_db
 
+  nginx:
+    image: nginx:1.19
+    volumes:
+      - static_content:/app/src/static
+      - media_content:/app/src/media
+      - ./nginx:/etc/nginx/conf.d
+    ports:
+      - "80:80"
+      - "443:443"
+    env_file:
+      - .env
+    depends_on:
+      - backend
+
   mongo:
     image: mongo:latest
     container_name: mongo
@@ -55,3 +71,5 @@ volumes:
   postgres_data: {}
   pg_admin: {}
   mongo_data: {}
+  static_content: {}
+  media_content: {}
