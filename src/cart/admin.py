@@ -9,8 +9,10 @@ class StoreCartAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.OrderModel)
-class OrderModelAdmin(admin.ModelAdmin): ...
+class OrderModelAdmin(admin.ModelAdmin):
+    list_display = ("created_at", "status", "is_paid", "customer")
 
 
 @admin.register(models.OrderItemModel)
-class OrderItemModelAdmin(admin.ModelAdmin): ...
+class OrderItemModelAdmin(admin.ModelAdmin):
+    list_display = ("product__title", "order")
