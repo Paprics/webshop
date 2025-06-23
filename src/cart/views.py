@@ -1,20 +1,26 @@
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import ListView, TemplateView
 
 from accounts.models import CustomerUser
 from store.models import ProductModel
 
-from .cart_logic import ShoppingCartAnonymousUser, ShoppingCartUser
 from .models import OrderItemModel, OrderModel
+from .utils import get_cart
 
 
-def get_cart(request):
-    if request.user.is_authenticated:
-        return ShoppingCartUser(request)
-    else:
-        return ShoppingCartAnonymousUser(request)
+class OrderListView(ListView):
+    model = OrderModel
+    template_name = "order_list.html"
+    context_object_name = "orders"
+
+    def get_queryset(self):
+        return (
+            OrderModel.objects.filter(customer=self.request.user)
+            .prefetch_related("items__product")
+            .select_related("customer")
+        )
 
 
 class OrderCreateView(View):

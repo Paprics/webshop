@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block menu %}
+    {% include 'includes/menu_settings.html' %}
+{% endblock %}
+
+
+{% block content %}
+    {% if orders %}
+        {% for order in orders %}
+            <div>
+                <h3>Замовлення №{{ order.id }} — від {{ order.created_at }}</h3>
+                <p>Статус: {{ order.status }} | Оплачено: {{ order.is_paid }}</p>
+
+                <ul>
+                    {% for item in order.items.all %}
+                        <li>{{ item.product.title }} — {{ item.quantity }} шт. по {{ item.price_at_order_time }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h3>У вас поки немає замовлень</h3>
+    {% endif %}
+{% endblock %}
