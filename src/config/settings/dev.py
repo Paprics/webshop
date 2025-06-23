@@ -32,7 +32,7 @@ else:
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "db.sqlite3",  # noqa: F405
         },
-        "default": {  # Local
+        "#default": {  # Local
             "ENGINE": "django.db.backends.postgresql",
             "NAME": "webshop",
             "USER": "postgres",
@@ -40,7 +40,7 @@ else:
             "HOST": "localhost",
             "PORT": "5432",
         },
-        "#default": {  # Docker
+        "default": {  # Docker
             "ENGINE": "django.db.backends.postgresql",
             "NAME": os.environ.get("POSTGRES_DB"),
             "USER": os.environ.get("POSTGRES_USER"),
