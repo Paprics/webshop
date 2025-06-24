@@ -106,3 +106,9 @@ class ShoppingCartUser:
     def get_total_cart_price(self):
         items = StoreCart.objects.filter(user=self.user).select_related("product")
         return sum(item.product.price * item.quantity for item in items if item.product.is_active)
+
+    def clear(self):
+        StoreCart.objects.filter(user=self.user).delete()
+
+    def __iter__(self):
+        return iter(self.items)
