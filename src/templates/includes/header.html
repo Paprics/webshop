@@ -28,10 +28,14 @@
             {#            </a>#}
 
 
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"><input type="search"
-                                                                                       class="form-control form-control-dark text-bg-dark"
-                                                                                       placeholder="Search..."
-                                                                                       aria-label="Search"></form>
+            {# Форма пошуку #}
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="#">
+                <input type="search"
+                       class="form-control search-input"
+                       placeholder="Пошук..."
+                       aria-label="Search">
+            </form>
+
             <div class="text-end d-flex align-items-center gap-2">
 
                 {% if user.is_authenticated %}
@@ -58,16 +62,22 @@
                             <li><a class="dropdown-item" href="{% url 'cart:order_list' %}">Історія замовлень</a></li>
                             <li><a class="dropdown-item" href="{% url 'common:feedback' %}">Підтримка 24/7</a></li>
 
-                            <li class="px-2"><hr class="border border-danger border-1 opacity-80"></li>
+                            <li class="px-2">
+                                <hr class="border border-danger border-1 opacity-80">
+                            </li>
 
-                            <li><a class="dropdown-item" href="{% url 'accounts:update_customer' %}">Редагувати дані</a></li>
-                            <li><a class="dropdown-item" href="{% url 'accounts:update_delyvery' %}">Адреса доставки</a></li>
-                            <li><a class="dropdown-item" href="{% url 'accounts:change_password' %}">Зміна пароля</a></li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:update_customer' %}">Редагувати дані</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:update_delyvery' %}">Адреса доставки</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:change_password' %}">Зміна пароля</a>
+                            </li>
 
                             <li>
                                 <form method="post" action="{% url 'accounts:logout' %}">
                                     {% csrf_token %}
-                                    <button type="submit" class="dropdown-item d-flex align-items-center gap-2 text-danger">
+                                    <button type="submit"
+                                            class="dropdown-item d-flex align-items-center gap-2 text-danger">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                              fill="currentColor"
                                              class="bi bi-box-arrow-right me-2" viewBox="0 0 16 16">

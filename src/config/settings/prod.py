@@ -6,7 +6,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 DATABASES = {
     "default": {
@@ -15,8 +15,8 @@ DATABASES = {
     }
 }
 
-STATIC_ROOT = BASE_DIR / "static"
-STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "static"  # noqa: F405
+STATIC_URL = "/static/"  # noqa: F405
 
-MEDIA_ROOT = BASE_DIR / "media"
-MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"  # noqa: F405
+MEDIA_URL = "/media/"  # noqa: F405
