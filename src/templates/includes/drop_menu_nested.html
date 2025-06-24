@@ -1,4 +1,20 @@
 <div class="accordion shadow" id="categoryAccordion">
+
+    {% if categories_nested %}
+        <div class="accordion-item">
+            <div class="accordion-body p-0">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a href="{% url 'store:products_list' %}"
+                           class="d-block py-1 text-dark text-decoration-none fw-semibold hover-effect">
+                            УСІ ТОВАРИ
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+
     {% for category in categories_nested %}
         <div class="accordion-item">
             <h2 class="accordion-header" id="heading{{ forloop.counter }}">

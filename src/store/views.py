@@ -7,7 +7,12 @@ from store.models import CategoryModelMPTT, ProductModel
 
 class ProductsListView(ListView):
     model = ProductModel
-    # template_name = "product_list.html"
+    context_object_name = "products"
+    paginate_by = 5
+    template_name = "all_product.html"
+
+    def get_queryset(self):
+        return models.ProductModel.objects.filter(is_active=True)
 
 
 class ProductDetailView(DetailView):

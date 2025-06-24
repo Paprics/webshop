@@ -4,11 +4,13 @@
 
 {% block content %}
     <p>
-    <h1>Кошик замовлень (in progress)</h1>
+    <h1>Кошик замовлень</h1>
     </p>
     <hr class="border border-danger border-2 opacity-50">
+    <!-- Товары -->
+    {% for item in cart_items %}
 
-    <div class="container">
+        <div class="container">
         <!-- Заголовки -->
         <div class="row fw-bold border-bottom pb-2 mb-3 align-items-center">
             <div class="col-4 text-start">Назва</div>
@@ -18,63 +20,61 @@
             <div class="col-2">Всього</div>
             <div class="col-1">Видалити</div>
         </div>
-
-        <!-- Товары -->
         <div>
-            {% for item in cart_items %}
-                <div class="row align-items-center mb-2">
-                    <div class="col-4 text-start">
-                        <a href="{% url 'store:product_detail' item.slug %}"><strong>{{ item.title|slice:":41" }}</strong></a>
-                    </div>
-                    <div class="col-2">{{ item.article }}</div>
-                    <div class="col-2">{{ item.price }} грн</div>
-                    <div class="col-1">{{ item.quantity }}</div>
-                    <div class="col-2 total-price">{{ item.total_price }} грн.</div>
-                    <div class="col-1">
-                        <a href="{% url 'cart:remove_cart' item.pk %}" class="btn btn-danger btn-sm">Видалити</a>
-                    </div>
-                </div>
-            {% empty %}
-                <h4>В кошику не має товарів.</h4>
-            {% endfor %}
 
-            {% if cart_items %}
-                <div class="cart-total border-top pt-2 mt-3">
-                    <div class="row fw-bold">
-                        <div class="col-9 text-end cart-price-final">Всього:</div>
-                        <div class="col-2 cart-price-final">{{ cart_total_price }} грн</div>
-                    </div>
-                </div>
+        <div class="row align-items-center mb-2">
+            <div class="col-4 text-start">
+                <a href="{% url 'store:product_detail' item.slug %}"><strong>{{ item.title|slice:":41" }}</strong></a>
+            </div>
+            <div class="col-2">{{ item.article }}</div>
+            <div class="col-2">{{ item.price }} грн</div>
+            <div class="col-1">{{ item.quantity }}</div>
+            <div class="col-2 total-price">{{ item.total_price }} грн.</div>
+            <div class="col-1">
+                <a href="{% url 'cart:remove_cart' item.pk %}" class="btn btn-danger btn-sm">Видалити</a>
+            </div>
+        </div>
+    {% empty %}
+        <h4>В кошику не має товарів.</h4>
+    {% endfor %}
 
-                <div>
-                    {% if user.is_authenticated %}
-
-                        <div class="text-end">
-                            <a class="btn btn-outline-secondary me-5 mt-2" href="{% url 'cart:order_review' %}"
-                               type="button">Оформити замовлення</a>
-                        </div>
-
-                    {% elif not user.is_authenticated %}
-                        <div class="row mt-3 align-items-center">
-                            <!-- Пробросим пустые колонки, чтобы кнопки оказались справа -->
-                            <div class="d-none d-md-block col-md-7"></div>
-
-                            <div class="col-12 col-md-2 mb-2 mb-md-0">
-                                <small class="text-muted d-block text-start">Для оформлення замовлення необхідна
-                                    реєстрація</small>
-                            </div>
-
-                            <div class="col-12 col-md-3 text-end">
-                                <a href="{% url 'accounts:register' %}"
-                                   class="btn btn-primary btn-lg me-2">Реєстрація</a>
-                                <a href="{% url 'accounts:login' %}" class="btn btn-outline-secondary btn-lg">Ввійти</a>
-                            </div>
-                        </div>
-                    {% endif %}
-
-                </div>
-            {% endif %}
+{% if cart_items %}
+    <div class="cart-total border-top pt-2 mt-3">
+        <div class="row fw-bold">
+            <div class="col-9 text-end cart-price-final">Всього:</div>
+            <div class="col-2 cart-price-final">{{ cart_total_price }} грн</div>
         </div>
     </div>
+
+    <div>
+        {% if user.is_authenticated %}
+
+            <div class="text-end">
+                <a class="btn btn-outline-secondary me-5 mt-2" href="{% url 'cart:order_review' %}"
+                   type="button">Оформити замовлення</a>
+            </div>
+
+        {% elif not user.is_authenticated %}
+            <div class="row mt-3 align-items-center">
+                <!-- Пробросим пустые колонки, чтобы кнопки оказались справа -->
+                <div class="d-none d-md-block col-md-7"></div>
+
+                <div class="col-12 col-md-2 mb-2 mb-md-0">
+                    <small class="text-muted d-block text-start">Для оформлення замовлення необхідна
+                        реєстрація</small>
+                </div>
+
+                <div class="col-12 col-md-3 text-end">
+                    <a href="{% url 'accounts:register' %}"
+                       class="btn btn-primary btn-lg me-2">Реєстрація</a>
+                    <a href="{% url 'accounts:login' %}" class="btn btn-outline-secondary btn-lg">Ввійти</a>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+{% endif %}
+</div>
+</div>
 
 {% endblock %}

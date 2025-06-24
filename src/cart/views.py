@@ -43,7 +43,7 @@ class OrderCreateView(View):
             OrderItemModel.objects.bulk_create(order_items)
 
             cart.clear()
-        return redirect("common:index")
+        return redirect("cart:order_list")
 
 
 def remove_cart(request, product_pk):

@@ -1,0 +1,36 @@
+<div class="accordion-item shadow mt-4">
+    <h2 class="accordion-header" id="headingFilter">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+            Фільтр товарів
+        </button>
+    </h2>
+    <div id="collapseFilter" class="accordion-collapse collapse" aria-labelledby="headingFilter"
+         data-bs-parent="#categoryAccordion">
+        <div class="accordion-body">
+            <form>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Ціна</label>
+                    <div class="d-flex gap-2">
+                        <input type="number" name="min_price" class="form-control" placeholder="від">
+                        <input type="number" name="max_price" class="form-control" placeholder="до">
+                    </div>
+                </div>
+                <div class="mb-3 form-check">
+                    <input class="form-check-input" type="checkbox" name="in_stock" id="inStock">
+                    <label class="form-check-label" for="inStock">Тільки в наявності</label>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Сортувати</label>
+                    <select class="form-select" name="sort_by">
+                        <option value="price_asc">Ціна: за зростанням</option>
+                        <option value="price_desc">Ціна: за спаданням</option>
+                        <option value="name_asc">Назва: А-Я</option>
+                        <option value="name_desc">Назва: Я-А</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-outline-dark w-100">Застосувати</button>
+            </form>
+        </div>
+    </div>
+</div>
