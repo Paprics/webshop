@@ -5,11 +5,25 @@ from store import models
 from store.models import CategoryModelMPTT, ProductModel
 
 
+class ProductSearchView(ListView):
+    model = ProductModel
+    paginate_by = 10
+    context_object_name = "products"
+    template_name = "product_list.html"
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        queryset = ProductModel.objects.all()
+        if query:
+            queryset = queryset.filter(title__icontains=query)
+        return queryset
+
+
 class ProductsListView(ListView):
     model = ProductModel
     context_object_name = "products"
     paginate_by = 5
-    template_name = "all_product.html"
+    template_name = "product_list.html"
 
     def get_queryset(self):
         return models.ProductModel.objects.filter(is_active=True)
@@ -28,7 +42,7 @@ class ProductDetailView(DetailView):
 class ProductsCategoryView(ListView):
     model = ProductModel
     paginate_by = 6
-    template_name = "category_product_list.html"
+    template_name = "product_list_category.html"
 
     def get_queryset(self):
         # Ловим слаг категории из url, ключ должен совпадать с шаблоном и urls.py

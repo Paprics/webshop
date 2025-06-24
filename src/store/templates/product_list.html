@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% include 'includes/carousel.html' %}
+
+    <h1>Всі товари магазину:</h1>
+    <hr>
+
+    {% if not products %}
+        <p><h6>Товарів поки що немає. Спробуйте будь-ласка пізніше.</h6></p>
+    {% endif %}
+
+    <hr>
+
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for product in products %}
+                <div class="col">
+                    <a href="{% url 'store:product_detail' product.slug %}" class="card-link" style="text-decoration: none; color: inherit;">
+                        <div class="card h-100" style="cursor: pointer;">
+                            <img src="https://picsum.photos/600/600" class="card-img-top" alt="Product title">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.title }}</h5>
+                                <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                                <p class="card-price" style="font-weight: bold;">Ціна: {{ product.price }} грн.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% include 'includes/pagination.html' %}
+{% endblock %}
