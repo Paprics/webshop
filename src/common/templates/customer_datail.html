@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block menu %}
+    {% include 'includes/menu_settings.html' %}
+{% endblock %}
+
+{% block content %}
+
+    <div>
+        <h1>
+            Особисті дані:
+        </h1>
+    </div>
+
+    <div class="fs-3 fw-medium">
+        Name: {{ customer.first_name }}<br>
+        Surname: {{ customer.last_name }}<br>
+        Phone number: {{ customer.phone_number }}<br>
+        Email: {{ customer.email }}<br>
+    </div>
+    <div class="mt-4">
+        <h1>
+            Адреса доставки:
+        </h1>
+    </div>
+    <div class="fs-3 fw-medium">
+        Delivery address: {{ customer.profile.delivery_address }}<br>
+        Additional contacts: {{ customer.profile.additional_contacts }}<br><br>
+    </div>
+
+{% endblock %}

@@ -50,3 +50,13 @@ input::placeholder {
     background-color: #5c5c5c;
     color: white;
 }
+
+.search-input {
+  background-color: #282224;
+  color: white;
+}
+
+.search-input::placeholder {
+  color: white;
+  opacity: 1;
+}

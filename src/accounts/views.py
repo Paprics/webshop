@@ -1,11 +1,39 @@
 from django.contrib.auth import get_user_model, login
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import DeleteView, FormView
+from django.views.generic import DeleteView, FormView, UpdateView
 
+from accounts.models import ProfileCustomer
 from accounts.rorms import MemberCreationForm
+
+
+class UpdateDelyAddressView(UpdateView):
+    model = ProfileCustomer
+    fields = ("delivery_address", "additional_contacts")
+    template_name = "update_dely_address.html"
+    success_url = reverse_lazy("common:customer_detail")
+
+    def get_object(self):
+        profile, created = ProfileCustomer.objects.get_or_create(customer=self.request.user)
+        return profile
+
+
+class UpdateCustomerView(UpdateView):
+    model = get_user_model()
+    template_name = "update_customer.html"
+    fields = ("first_name", "last_name", "phone_number", "email")
+    success_url = reverse_lazy("common:customer_detail")
+
+    def get_object(self):
+        return self.request.user
+
+
+class PassChangeView(PasswordChangeView):
+    template_name = "chenge_password.html"
+    success_url = reverse_lazy("accounts:change_password")
+    form_class = PasswordChangeForm
 
 
 class DeleteAccountView(DeleteView):

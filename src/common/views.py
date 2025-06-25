@@ -1,8 +1,17 @@
-from django.shortcuts import render  # noqa F401
-from django.views.generic import DetailView, FormView, TemplateView
+from django.contrib.auth import get_user_model
+from django.views.generic import DetailView, FormView
 
 from common.forms import FeedbackForm
 from common.models import Content
+
+
+class CustomerDetailView(DetailView):
+    model = get_user_model()
+    template_name = "customer_datail.html"
+    context_object_name = "customer"
+
+    def get_object(self):
+        return get_user_model().objects.select_related("profile").get(pk=self.request.user.pk)
 
 
 class IndexView(DetailView):
@@ -13,41 +22,6 @@ class IndexView(DetailView):
 
     def get_object(self):
         return Content.objects.filter(pk=1)
-
-
-class Page404View(TemplateView):
-    template_name = "page404.html"
-    extra_context = {"title": "Page 404 | Сторінку не знайдено"}
-
-
-class AboutView(DetailView):
-    model = Content
-    template_name = "about.html"
-    context_object_name = "about"
-    extra_context = {"title": "About | Про нас"}
-
-    def get_object(self):
-        return Content.objects.filter(pk=1)
-
-
-class ContactView(TemplateView):
-    template_name = "contacts.html"
-    extra_context = {"title": "Contacts | Наші контакти"}
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["content"] = Content.objects.filter(pk=2)
-        return context
-
-
-class FaqView(DetailView):
-    model = Content
-    template_name = "faq.html"
-    context_object_name = "faq"
-    extra_context = {"title": "FAQ | Запитання"}
-
-    def get_object(self):
-        return Content.objects.filter(pk=3)
 
 
 class Feedback(FormView):

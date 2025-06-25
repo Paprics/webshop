@@ -28,10 +28,15 @@
             {#            </a>#}
 
 
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"><input type="search"
-                                                                                       class="form-control form-control-dark text-bg-dark"
-                                                                                       placeholder="Search..."
-                                                                                       aria-label="Search"></form>
+            {# Форма пошуку #}
+            <form method="get" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="{% url 'store:products_search' %}">
+                <input type="search"
+                       name="q"
+                       class="form-control search-input"
+                       placeholder="Пошук..."
+                       aria-label="Search">
+            </form>
+
             <div class="text-end d-flex align-items-center gap-2">
 
                 {% if user.is_authenticated %}
@@ -44,16 +49,36 @@
                                 <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
                             </svg>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'common:settings' %}">Налаштування</a></li>
-                            <li><a class="dropdown-item" href="#">Історія замовлень</a></li>
+                        <ul class="dropdown-menu mt-4 shadow">
+                            {% if user.first_name %}
+                                <li class="dropdown-item">Вітаємо, {{ user.first_name }}!</li>
+                            {% endif %}
+
+                            <li>
+                                <hr class="border border-danger border-1 opacity-50">
+                            </li>
+
+                            <li><a class="dropdown-item" href="{% url 'common:customer_detail' %}">Особистий кабінет</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'cart:order_list' %}">Історія замовлень</a></li>
                             <li><a class="dropdown-item" href="{% url 'common:feedback' %}">Підтримка 24/7</a></li>
-                            <hr>
+
+                            <li class="px-2">
+                                <hr class="border border-danger border-1 opacity-80">
+                            </li>
+
+                            <li><a class="dropdown-item" href="{% url 'accounts:update_customer' %}">Редагувати дані</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:update_delyvery' %}">Адреса доставки</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:change_password' %}">Зміна пароля</a>
+                            </li>
 
                             <li>
                                 <form method="post" action="{% url 'accounts:logout' %}">
                                     {% csrf_token %}
-                                    <button type="submit" class="dropdown-item d-flex align-items-center gap-2">
+                                    <button type="submit"
+                                            class="dropdown-item d-flex align-items-center gap-2 text-danger">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                              fill="currentColor"
                                              class="bi bi-box-arrow-right me-2" viewBox="0 0 16 16">

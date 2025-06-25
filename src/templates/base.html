@@ -28,16 +28,23 @@
 <main class="container my-5">
     {#    {% include "includes/carousel.html" %}#}
     <div class="row">
+
         <!-- Левое меню -->
-        {% block menu %}
-            {% include 'includes/drop_menu_nested.html' %}
-        {% endblock %}
+        <div class="col-2">
+            {% block menu %}
+                {% include 'includes/drop_menu_nested.html' %}
+
+                {% include 'includes/filter.html' %}
+            {% endblock %}
+        </div>
 
         <!-- Контент справа -->
-        <div class="col-10">
-            {% block content %}{% endblock %}
+        <div class="col-9">
+            {% block content %}
+
+            {% endblock %}
         </div>
-    </div>
+
 </main>
 
 <!--FOOTER -->

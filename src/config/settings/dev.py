@@ -6,7 +6,7 @@ SECRET_KEY = "django-insecure-3^_+0p9^!1zww(7xvlvd-gotqujvlmx_36%9_2k==fxl-+z(a6
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 INSTALLED_APPS += [  # noqa: F405
     "django_extensions",
@@ -28,11 +28,11 @@ if os.environ.get("GITHUB_WORKFLOW"):
     }
 else:
     DATABASES = {
-        "default_sqlite": {
+        "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "db.sqlite3",  # noqa: F405
         },
-        "default": {  # Local
+        "##default": {  # Local
             "ENGINE": "django.db.backends.postgresql",
             "NAME": "webshop",
             "USER": "postgres",
