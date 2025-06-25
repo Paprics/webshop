@@ -4,8 +4,9 @@
 
 {% block content %}
     <div class="row ps-4">
-        <!-- Левая часть: изображение -->
-        <div class="col-5 img-thumbnail">
+
+        <!-- Левая часть: изображение (4 колонки) -->
+        <div class="col-md-4 img-thumbnail">
             {% if product.image %}
                 <img src="{{ product.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ product.title }}">
             {% else %}
@@ -13,21 +14,22 @@
             {% endif %}
         </div>
 
-        <!-- Правая часть: заголовок и описание -->
-        <div class="col-5 d-flex flex-column justify-content-start ps-5">
-            <h1 class="mb-3">{{ product.title|slice:":27" }}</h1>
-            <h4 class="text-muted mb-3">{{ product.category }}</h4>
-            <h6 class="text-muted mb-3">{{ product.article }}</h6>
-            <p class="lead">Ціна: {{ product.price }} грн.</p>
+        <!-- Правая часть: описание, заголовок и т.д. (6 колонок) -->
+        <div class="col-md-6 d-flex flex-column justify-content-start ps-4">
+            <h1 class="mb-2">{{ product.title|truncatechars:27 }}</h1>
+            <h5 class="text-muted mb-2">{{ product.category }}</h5>
+            <h6 class="text-muted mb-2">{{ product.article }}</h6>
+            <p class="lead mb-2">Ціна: {{ product.price }} грн.</p>
             <hr>
-            <div><p><h4>{{ product.description }}</h4></p></div>
+            <p class="h5">{{ product.description }}</p>
+
+            <form method="get" action="{% url 'cart:add_to_cart' product.id %}" class="mt-4">
+                <button type="submit" class="btn btn-secondary btn-lg w-100">
+                    Додати до кошика
+                </button>
+            </form>
         </div>
+
     </div>
-
-    <a href="{% url 'cart:add_to_cart' product.id %}" class="btn btn-secondary btn-lg" role="button">
-        Додати до кошика
-    </a>
-
-
 {% endblock %}
 
