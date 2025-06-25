@@ -1,22 +1,11 @@
 # search_engines.py
+from django.contrib.postgres.search import SearchVector
 from django.db.models import Q
 
 
-class SearchSQLite:
+class BaseSearchEngine:
     def __init__(self, data):
         self.data = data
-
-    def search(self, qs):
-        q = self.data.get("q")
-        if not q:
-            return qs
-
-        words = q.split()
-        query = Q()
-        for word in words:
-            query |= Q(title__icontains=word) | Q(description__icontains=word)
-
-        return qs.filter(query)
 
     def filter(self, qs, cleaned_data):
 
@@ -47,4 +36,25 @@ class SearchSQLite:
         return qs
 
 
-class SearchPostgres: ...
+class SQLiteSearchEngine(BaseSearchEngine):
+
+    def search(self, qs):
+        q = self.data.get("q")
+        if not q:
+            return qs
+
+        words = q.split()
+        query = Q()
+        for word in words:
+            query |= Q(title__icontains=word) | Q(description__icontains=word)
+
+        return qs.filter(query)
+
+
+class PostgresSearchEngine(BaseSearchEngine):
+
+    def search(self, qs):
+        q = self.data.get("q")
+        if not q:
+            return qs
+        return qs.annotate(search=SearchVector("title", "description")).filter(search=q)

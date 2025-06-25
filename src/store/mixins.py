@@ -8,7 +8,7 @@ class SearchFilterMixin:
 
     search_form_class = SearchForm
     filter_form_class = FilterForm
-    search_engine_class = search_engines.SearchSQLite
+    search_engine_class = None
 
     def get_search_form(self):
         return self.search_form_class(self.request.GET)
@@ -36,7 +36,7 @@ class SearchFilterMixin:
 
     def get_search_engine(self, data):
         if self.search_engine_class is None:
-            self.search_engine_class = search_engines.SearchSQLite
+            return search_engines.SQLiteSearchEngine(data)
         return self.search_engine_class(data)
 
     def get_queryset(self):

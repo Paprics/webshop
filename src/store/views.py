@@ -5,7 +5,7 @@ from store import models
 from store.models import CategoryModelMPTT, ProductModel
 
 from . import mixins
-from .search_engines import SearchSQLite
+from .search_engines import SQLiteSearchEngine
 
 
 class ProductsListView(mixins.SearchFilterMixin, ListView):
@@ -14,7 +14,7 @@ class ProductsListView(mixins.SearchFilterMixin, ListView):
     context_object_name = "products"
     paginate_by = 5
     template_name = "product_list.html"
-    search_engine_class = SearchSQLite
+    search_engine_class = SQLiteSearchEngine
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
