@@ -29,12 +29,20 @@
 
 
             {# Форма пошуку #}
-            <form method="get" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="{% url 'store:products_search' %}">
+            <form method="get" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"
+                  action="{% url 'store:products_search' %}">
                 <input type="search"
                        name="q"
                        class="form-control search-input"
                        placeholder="Пошук..."
-                       aria-label="Search">
+                       aria-label="Search"
+                       value="{{ request.GET.q|default:'' }}">
+
+                {% for key, value in request.GET.items %}
+                    {% if key != 'q' and key != 'page' %}
+                        <input type="hidden" name="{{ key }}" value="{{ value }}">
+                    {% endif %}
+                {% endfor %}
             </form>
 
             <div class="text-end d-flex align-items-center gap-2">

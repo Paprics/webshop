@@ -16,6 +16,13 @@ class ProductsListView(mixins.SearchFilterMixin, ListView):
     template_name = "product_list.html"
     search_engine_class = SearchSQLite
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["query_params"] = self.request.GET.copy()
+        if "page" in context["query_params"]:
+            del context["query_params"]["page"]
+        return context
+
 
 class ProductDetailView(DetailView):
     model = models.ProductModel

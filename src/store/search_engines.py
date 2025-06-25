@@ -18,30 +18,31 @@ class SearchSQLite:
 
         return qs.filter(query)
 
-    def filter(self, qs):
+    def filter(self, qs, cleaned_data):
 
-        min_price = self.data.get("min_price")
-        max_price = self.data.get("max_price")
-        in_stock = self.data.get("in_stock")
-        sort_by = self.data.get("sort_by")
+        min_price = cleaned_data.get("min_price")
+        max_price = cleaned_data.get("max_price")
+        in_stock = cleaned_data.get("in_stock")
+        sort_by = cleaned_data.get("sort_by")
 
-        if min_price:
+        if min_price is not None:
             qs = qs.filter(price__gte=min_price)
 
-        if max_price:
+        if max_price is not None:
             qs = qs.filter(price__lte=max_price)
 
         if in_stock:
-            qs = qs.filter(in_stock=True)  # This field needs to be added to the database table. (maybe:))
+            qs = qs.filter(quantity__gt=0, is_active=True)
 
-        if sort_by == "name":
-            qs = qs.order_by("name")
-        elif sort_by == "-name":
-            qs = qs.order_by("-name")
-        elif sort_by == "price":
-            qs = qs.order_by("price")
-        elif sort_by == "-price":
-            qs = qs.order_by("-price")
+        sort_map = {
+            "price_asc": "price",
+            "price_desc": "-price",
+            "name_asc": "title",
+            "name_desc": "-title",
+        }
+
+        if sort_by in sort_map:
+            qs = qs.order_by(sort_map[sort_by])
 
         return qs
 

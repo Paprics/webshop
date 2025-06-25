@@ -1,34 +1,66 @@
 <form method="GET" action="{% url 'store:products_search' %}">
+
+    {% if request.GET.q %}
+        <input type="hidden" name="q" value="{{ request.GET.q }}">
+    {% endif %}
+
     <div class="accordion-item shadow mt-4 rounded-3">
         <h2 class="accordion-header" id="headingFilter">
-            <div class="accordion-button fw-semibold p-2">
-                Фільтр товарів
-            </div>
+            <div class="accordion-button fw-semibold p-2">Фільтр товарів</div>
         </h2>
         <div class="accordion-body p-2">
-            <form>
-                <div class="mb-3">
-                    <label class="form-label fw-semibold">Ціна</label>
-                    <div class="d-flex gap-2">
-                        <input type="number" name="min_price" class="form-control" placeholder="від" min="0">
-                        <input type="number" name="max_price" class="form-control" placeholder="до" min="0">
-                    </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Ціна</label>
+                <div class="d-flex gap-2">
+                    <input
+                            type="number"
+                            name="min_price"
+                            class="form-control"
+                            placeholder="від"
+                            min="0"
+                            value="{{ request.GET.min_price|default:'' }}"
+                    >
+                    <input
+                            type="number"
+                            name="max_price"
+                            class="form-control"
+                            placeholder="до"
+                            min="0"
+                            value="{{ request.GET.max_price|default:'' }}"
+                    >
                 </div>
-                <div class="mb-3 form-check">
-                    <input class="form-check-input" type="checkbox" name="in_stock" id="inStock">
-                    <label class="form-check-label" for="inStock">Тільки в наявності</label>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label fw-semibold">Сортувати</label>
-                    <select class="form-select" name="sort_by">
-                        <option value="price">Ціна: за зростанням</option>
-                        <option value="-price">Ціна: за спаданням</option>
-                        <option value="name">Назва: А-Я</option>
-                        <option value="-name">Назва: Я-А</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-outline-dark w-100">Застосувати</button>
-            </form>
+            </div>
+
+            <div class="mb-3 form-check">
+                <input
+                        class="form-check-input"
+                        type="checkbox"
+                        name="in_stock"
+                        id="inStock"
+                        {% if request.GET.in_stock %}checked{% endif %}
+                >
+                <label class="form-check-label" for="inStock">Тільки в наявності</label>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Сортувати</label>
+                <select name="sort_by" class="form-select">
+                    <option value="price_asc" {% if request.GET.sort_by == 'price_asc' %}selected{% endif %}>Ціна: за
+                        зростанням
+                    </option>
+                    <option value="price_desc" {% if request.GET.sort_by == 'price_desc' %}selected{% endif %}>Ціна: за
+                        спаданням
+                    </option>
+                    <option value="name_asc" {% if request.GET.sort_by == 'name_asc' %}selected{% endif %}>Назва: А-Я
+                    </option>
+                    <option value="name_desc" {% if request.GET.sort_by == 'name_desc' %}selected{% endif %}>Назва:
+                        Я-А
+                    </option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-outline-dark w-100">Застосувати</button>
         </div>
     </div>
 </form>

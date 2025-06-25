@@ -46,6 +46,6 @@ class SearchFilterMixin:
         engine = self.get_search_engine(data)
 
         qs = engine.search(qs)
-        qs = engine.filter(qs)
+        qs = engine.filter(qs, data)
 
         return qs
