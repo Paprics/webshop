@@ -24,18 +24,7 @@
                             <!-- Картинка товара -->
                             <img src="https://picsum.photos/600/600" class="card-img-top" alt="Product title">
 
-                            {#                            <!-- Сердечко -->#}
-                            {#                            {% if user.is_authenticated and not product.is_favorite %}#}
-                            {#                                <img src="{% static 'svg/heart.svg' %}"#}
-                            {#                                     alt="favorite"#}
-                            {#                                     href="{% url 'favorites:add' product.id %}"#}
-                            {#                                     style="position: absolute; top: 10px; left: 10px; width: 32px; height: 32px; z-index: 10;">#}
-                            {#                            {% elif user.is_authenticated and product.is_favorite %}#}
-                            {#                                <img src="{% static 'svg/heart_fill.svg' %}"#}
-                            {#                                     alt="favorite"#}
-                            {#                                     style="position: absolute; top: 10px; left: 10px; width: 32px; height: 32px; z-index: 10;">#}
-                            {#                            {% endif %}#}
-
+                            <!-- Сердечко -->
                             {% if user.is_authenticated %}
                                 <form method="post" action="{% url 'favorites:add' product.id %}"
                                       style="position: absolute; top: 10px; left: 10px; z-index: 10;">

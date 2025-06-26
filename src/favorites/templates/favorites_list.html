@@ -1,13 +1,59 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
 {% block content %}
-    <div class="h4">
-        <p>
-            Список обраних товарів користувача:
-        </p>
+
+    {% include 'includes/carousel.html' %}
+
+    <h1>Обрані товари:</h1>
+    <hr>
+
+    {% if not favorites %}
+        <p><h6>Обраних товарів поки що немає. Спочатку додойте товари до списку.</h6></p>
+    {% endif %}
+
+    <hr>
+
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for fav in favorites %}
+                {% with product=fav.product %}
+                    <div class="col">
+                        <a href="{% url 'store:product_detail' product.slug %}" class="card-link"
+                           style="text-decoration: none; color: inherit;">
+                            <div class="card h-100" style="cursor: pointer; position: relative;">
+
+                                <!-- Картинка товара -->
+                                <img src="https://picsum.photos/600/600" class="card-img-top" alt="Product title">
+
+                                <!-- Сердечко -->
+                                {% if user.is_authenticated %}
+                                    <form method="post" action="{% url 'favorites:add' product.id %}"
+                                          style="position: absolute; top: 10px; left: 10px; z-index: 10;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="action" value="remove">
+                                        <button type="submit"
+                                                style="background:none; border:none; padding:0; cursor:pointer;">
+                                            <img src="{% static 'svg/heart_fill.svg' %}" alt="Remove from favorites"
+                                                 width="32" height="32">
+                                        </button>
+                                    </form>
+                                {% endif %}
+
+                                <!-- Контент -->
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ product.title }}</h5>
+                                    <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                                    <p class="card-price" style="font-weight: bold;">Ціна: {{ product.price }} грн.</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endwith %}
+            {% endfor %}
+        </div>
     </div>
-    {{ favorites }}
+
+    {% include 'includes/pagination.html' %}
 {% endblock %}
 

@@ -53,16 +53,12 @@ class SearchFilterMixin:
 
         return qs
 
+
 class FavoriteAnnotateMixin:
     def get_queryset(self):
         qs = super().get_queryset()
         if self.request.user.is_authenticated:
             return qs.annotate(
-                is_favorite=Exists(
-                    FavoriteModel.objects.filter(
-                        product=OuterRef('id'),
-                        customer=self.request.user
-                    )
-                )
+                is_favorite=Exists(FavoriteModel.objects.filter(product=OuterRef("id"), customer=self.request.user))
             )
         return qs

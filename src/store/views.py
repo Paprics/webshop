@@ -8,9 +8,7 @@ from . import mixins
 from .search_engines import SQLiteSearchEngine
 
 
-class ProductsListView(mixins.SearchFilterMixin,
-                       mixins.FavoriteAnnotateMixin,
-                       ListView):
+class ProductsListView(mixins.SearchFilterMixin, mixins.FavoriteAnnotateMixin, ListView):
 
     model = ProductModel
     context_object_name = "products"
