@@ -1,0 +1,21 @@
+<a href="https://demo.coingate.com/invoice/123456789" target="_blank">
+    <button>Pay with Crypto (Demo)</button>
+</a>
+
+<hr>
+
+<h2>Оплатить заказ #{{ order.id }} на сумму ${{ order.amount }}</h2>
+
+<form method="POST" action="https://api.nowpayments.io/payment">
+    <input type="hidden" name="price_amount" value="{{ order.amount }}">
+    <input type="hidden" name="price_currency" value="usd">
+    <input type="hidden" name="pay_currency" value="btc">
+    <input type="hidden" name="order_id" value="{{ order.id }}">
+    <input type="hidden" name="success_url" value="https://твойсайт.com/payment/success/">
+    <input type="hidden" name="cancel_url" value="https://твойсайт.com/payment/cancel/">
+    <input type="hidden" name="ipn_callback_url" value="https://твойсайт.com/payment/ipn/">
+    <button type="submit">Оплатить криптой</button>
+</form>
+
+{#https://documenter.getpostman.com/view/7907941/2s93JusNJt#api-documentation#}
+{#https://account.nowpayments.io/store-settings#notifications#}
