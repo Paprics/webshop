@@ -1,6 +1,8 @@
 {% load static %}
+
 <header class="p-3 text-bg-dark">
     <div class="container">
+
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"><a href="/"
                                                                                                             class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
             <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
@@ -15,7 +17,13 @@
                 <li><a href="{% url 'common:feedback' %}" class="nav-link px-2 text-white">Зворотній зв'язок</a></li>
             </ul>
 
-            <a href="{% url 'cart:cart_detail' %}" class="d-inline-block position-relative cart-icon">
+            {% if user.is_authenticated %}
+                <a href="{% url 'favorites:list' %}" class="d-inline-block cart-icon" title="Обрані товари">
+                    <img src="{% static 'svg/star_fill.svg' %}" width="35" height="35" alt="cart icon"/>
+                </a>
+            {% endif %}
+
+            <a href="{% url 'cart:cart_detail' %}" class="d-inline-block position-relative cart-icon" title="Кошик товарів">
                 <img src="{% static 'svg/cart.svg' %}" width="45" height="45" alt="cart icon"/>
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {{ cart_items_count }}
@@ -69,6 +77,7 @@
                             <li><a class="dropdown-item" href="{% url 'common:customer_detail' %}">Особистий кабінет</a>
                             </li>
                             <li><a class="dropdown-item" href="{% url 'cart:order_list' %}">Історія замовлень</a></li>
+                            <li><a class="dropdown-item" href="{% url 'favorites:list' %}">Улюблені товари</a></li>
                             <li><a class="dropdown-item" href="{% url 'common:feedback' %}">Підтримка 24/7</a></li>
 
                             <li class="px-2">

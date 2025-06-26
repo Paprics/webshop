@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     "common.apps.CommonConfig",
     "store.apps.StoreConfig",
     "cart.apps.CartConfig",
+    "favorites.apps.FavoritesConfig",
     # extantions
     "mptt",
     "rest_framework",

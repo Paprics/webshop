@@ -8,7 +8,9 @@ from . import mixins
 from .search_engines import SQLiteSearchEngine
 
 
-class ProductsListView(mixins.SearchFilterMixin, ListView):
+class ProductsListView(mixins.SearchFilterMixin,
+                       mixins.FavoriteAnnotateMixin,
+                       ListView):
 
     model = ProductModel
     context_object_name = "products"
@@ -24,7 +26,7 @@ class ProductsListView(mixins.SearchFilterMixin, ListView):
         return context
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(mixins.FavoriteAnnotateMixin, DetailView):
     model = models.ProductModel
     template_name = "product_detail.html"
     context_object_name = "product"
@@ -32,6 +34,9 @@ class ProductDetailView(DetailView):
     # По умолчанию DetailView ищет объект по pk, чтобы искать по slug:
     slug_field = "slug"
     slug_url_kwarg = "slug_product"
+
+    def get_queryset(self):
+        return super().get_queryset()
 
 
 class ProductsCategoryView(ListView):

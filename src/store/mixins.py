@@ -1,4 +1,7 @@
 # mixins.py
+from django.db.models import Exists, OuterRef
+
+from favorites.models import FavoriteModel
 from store.forms import FilterForm, SearchForm
 
 from . import search_engines
@@ -48,4 +51,18 @@ class SearchFilterMixin:
         qs = engine.search(qs)
         qs = engine.filter(qs, data)
 
+        return qs
+
+class FavoriteAnnotateMixin:
+    def get_queryset(self):
+        qs = super().get_queryset()
+        if self.request.user.is_authenticated:
+            return qs.annotate(
+                is_favorite=Exists(
+                    FavoriteModel.objects.filter(
+                        product=OuterRef('id'),
+                        customer=self.request.user
+                    )
+                )
+            )
         return qs
