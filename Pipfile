@@ -18,6 +18,7 @@ drf-yasg = "*"
 djangorestframework-simplejwt = "*"
 djoser = "*"
 psycopg2-binary = "*"
+stripe = "*"
 
 [dev-packages]
 flake8 = "*"

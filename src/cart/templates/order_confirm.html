@@ -18,13 +18,27 @@
         {{ cart_items.user }}
     </div>
     <div>
-        {{ user.profile.delivery_address }}<br>
-        {{ user.profile.additional_contacts }}
+        Адреса доставки: {{ user.profile.delivery_address }}<br>
+        Додаткові контакти для доставки: {{ user.profile.additional_contacts }}
+        <hr>
     </div>
 
     <form method="post" action="{% url 'cart:order_create' %}">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-outline-secondary">Підтвердити замовлення</button>
-    </form>
+    {% csrf_token %}
+
+    <div>
+        <label>
+            <input type="radio" name="payment_method" value="cash" required checked>
+            Оплатить при отриманні
+        </label><br>
+
+        <label>
+            <input type="radio" name="payment_method" value="card" required>
+            Оплатить картой зараз
+        </label><br><br>
+    </div>
+
+    <button type="submit" class="btn btn-outline-secondary">Підтвердити замовлення</button>
+</form>
 
 {% endblock %}
