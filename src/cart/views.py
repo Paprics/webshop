@@ -21,7 +21,7 @@ class OrderListView(ListView):
             OrderModel.objects.filter(customer=self.request.user)
             .prefetch_related("items__product")
             .select_related("customer")
-            .order_by('-created_at')
+            .order_by("-created_at")
         )
 
 
@@ -50,7 +50,7 @@ class OrderCreateView(View):
         payment_method = request.POST.get("payment_method")
         if payment_method == "card":
 
-            return redirect(reverse('payments:pay') + f'?order_id={order.id}')
+            return redirect(reverse("payments:pay") + f"?order_id={order.id}")
 
         return redirect("cart:order_list")
 

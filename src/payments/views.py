@@ -1,12 +1,15 @@
 import os
 
-from django.views import View
-from django.shortcuts import redirect, render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
-from cart.models import OrderModel
-from .services_payments import get_line_items
 import stripe
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, redirect
+from django.views import View
 
+from cart.models import OrderModel
+
+from .services_payments import get_line_items
+
+stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
 key = os.getenv("STRIPE_KEY")
 sekret_key = os.getenv("STRIPE_SECRET_KEY")
 stripe.api_key = sekret_key
