@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block menu %}
+    {% include 'includes/menu_settings.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center border rounded p-4 shadow-sm bg-light">
+            <h1 class="mb-3 text-danger">Щось пішло не так</h1>
+            <p class="mb-4">Будь ласка, перевірте введені дані або спробуйте знову пізніше.</p>
+            <div class="spinner-border text-danger" role="status">
+                <span class="visually-hidden">Завантаження...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    setTimeout(() => {
+        window.location.href = '/cart/order_list/';
+    }, 8000);
+</script>
+{% endblock %}
