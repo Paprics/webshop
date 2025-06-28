@@ -34,6 +34,7 @@ class AskRateModel(models.Model):
     answered_at = models.DateTimeField(blank=True, null=True)
 
     class Meta:
+        db_table = 'ask_rate'
         ordering = ['-created_at']
         verbose_name = 'ask_rate'
         verbose_name_plural = verbose_name

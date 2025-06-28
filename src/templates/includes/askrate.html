@@ -40,37 +40,38 @@
 
                     <!-- Тело модалки с формой -->
                     <div class="modal-body">
-                        <form method="post" action="#">
+                        <form method="post" action="{% url 'askrate:create' %}">
                             {% csrf_token %}
 
-                            <!-- Поле рейтинга в виде звездочек -->
+                            <!-- Скрытые поля (product и тип: review или question) -->
+                            <input type="hidden" name="type" value="review">
+                            <input type="hidden" name="product" value="{{ product.id }}">
+
+                            <!-- Звездочки оценки -->
                             <div class="mb-3">
                                 <label class="form-label d-block">Оцінка</label>
                                 <div class="rating">
                                     <input type="radio" name="rating" id="star5" value="5">
                                     <label for="star5">&#9733;</label>
-
                                     <input type="radio" name="rating" id="star4" value="4">
                                     <label for="star4">&#9733;</label>
-
                                     <input type="radio" name="rating" id="star3" value="3">
                                     <label for="star3">&#9733;</label>
-
                                     <input type="radio" name="rating" id="star2" value="2">
                                     <label for="star2">&#9733;</label>
-
                                     <input type="radio" name="rating" id="star1" value="1">
                                     <label for="star1">&#9733;</label>
                                 </div>
                             </div>
 
-                            <!-- Текстовое поле отзыва -->
+                            <!-- Поле текста отзыва -->
                             <div class="mb-3">
                                 <label for="review-text" class="form-label">Відгук</label>
-                                <textarea class="form-control" id="review-text" name="review_text" rows="4" required></textarea>
+                                <textarea class="form-control" id="review-text" name="text" rows="4"
+                                          required></textarea>
                             </div>
 
-                            <!-- Кнопка отправки -->
+                            <!-- Кнопка -->
                             <button type="submit" class="btn btn-primary">Надіслати</button>
                         </form>
                     </div>
@@ -79,11 +80,9 @@
             </div>
         </div>
 
-        <hr class="mt-3">
-        <p>Тут будуть відгуки...</p>
-    </div>
+    </div> <!-- конец вкладки "Відгуки" -->
 
-    <!-- Вкладка "Ваше питання" -->
+    <!-- Вкладка "Питання" -->
     <div class="tab-pane fade" id="questions" role="tabpanel" aria-labelledby="questions-tab">
 
         <!-- Кнопка вызова модалки "Задати питання" -->
@@ -94,7 +93,8 @@
         </div>
 
         <!-- Модальное окно для вопросов -->
-        <div class="modal fade" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel" aria-hidden="true">
+        <div class="modal fade" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
 
@@ -106,12 +106,17 @@
 
                     <!-- Тело модалки с формой -->
                     <div class="modal-body">
-                        <form method="post" action="#">
+                        <form method="post" action="{% url 'askrate:create' %}">
                             {% csrf_token %}
+                            <!-- Скрытые поля -->
+                            <input type="hidden" name="type" value="question">
+                            <input type="hidden" name="product" value="{{ product.id }}">
+
                             <div class="mb-3">
-                                <label for="question-text" class="form-label">Питання</label>
-                                <textarea class="form-control" id="question-text" name="question_text" rows="4" required></textarea>
+                                <label for="question-text" class="form-label">Ваше запитання</label>
+                                <textarea class="form-control" id="question-text" name="text" rows="4" required></textarea>
                             </div>
+
                             <button type="submit" class="btn btn-primary">Надіслати</button>
                         </form>
                     </div>
@@ -122,6 +127,7 @@
 
         <hr class="mt-3">
         <p>Тут будуть питання...</p>
-    </div>
 
-</div>
+    </div> <!-- конец вкладки "Питання" -->
+
+</div> <!-- конец tab-content -->
