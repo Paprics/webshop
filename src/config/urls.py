@@ -27,6 +27,7 @@ urlpatterns = [
     path("payment/", include("payments.urls")),
     path("cart/", include("cart.urls")),
     path("favorites/", include("favorites.urls")),
+    path("askrate/", include("askrate.urls")),
     path("api-auth/", include("rest_framework.urls")),
     path("api/v1/", include("api.urls")),
 ]

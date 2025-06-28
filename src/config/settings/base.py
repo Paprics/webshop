@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     "cart.apps.CartConfig",
     "favorites.apps.FavoritesConfig",
     "payments.apps.PaymentsConfig",
+    'askrate.apps.AskrateConfig',
     # extantions
     "mptt",
     "rest_framework",
