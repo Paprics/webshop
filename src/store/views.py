@@ -1,3 +1,4 @@
+from django.db.models import Case, IntegerField, When
 from django.shortcuts import get_object_or_404, render  # noqa F401
 from django.views.generic import DetailView, ListView
 
@@ -40,10 +41,23 @@ class ProductDetailView(mixins.FavoriteAnnotateMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # self.object — текущий продукт, по которому DetailView сделал запрос
-        context['reviews'] = AskRateModel.objects.filter(is_active=True, product=self.object, type='review')[:10]
-        context['questions'] = AskRateModel.objects.filter(is_active=True, product=self.object, type='question')[:10]
+        context["reviews"] = AskRateModel.objects.filter(is_active=True, product=self.object, type="review")[:10]
+        context["questions"] = AskRateModel.objects.filter(is_active=True, product=self.object, type="question")[:10]
+
+        context["recommendations"] = (
+            models.ProductModel.objects.exclude(id=self.object.id)
+            .annotate(
+                same_category=Case(
+                    When(category=self.object.category, then=1),
+                    default=0,
+                    output_field=IntegerField(),
+                )
+            )
+            .order_by("-same_category")[:4]
+        )
 
         return context
+
 
 class ProductsCategoryView(ListView):
     model = ProductModel

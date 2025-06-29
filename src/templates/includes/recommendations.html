@@ -1,0 +1,30 @@
+{% load static %}
+<div class="container-fluid mt-5 p-4" style="background-color: #f8f9fa;">
+    <div class="container">
+        <h3 class="mb-4">Схожі товари</h3>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
+            {% for product in recommendations %}
+                <div class="col">
+                    <a href="{% url 'store:product_detail' product.slug %}" class="card-link"
+                       style="text-decoration: none; color: inherit;">
+                        <div class="card h-100 shadow-sm">
+                            {% if product.image and product.image.url %}
+                                <img src="{{ product.image.url }}" class="img-fluid rounded shadow-sm img-thumbnail"
+                                     alt="{{ product.title }}">
+                            {% else %}
+                                <img src="{% static 'img/No_image.png' %}"
+                                     class="img-fluid rounded shadow-sm img-thumbnail"
+                                     alt="Проблема">
+                            {% endif %}
+                            <div class="card-body">
+                                <h6 class="card-title">{{ product.title|truncatechars:40 }}</h6>
+                                <p class="card-price mb-1 fw-bold">Ціна: {{ product.price }} грн.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
