@@ -80,6 +80,48 @@
             </div>
         </div>
 
+        <hr class="mt-3 text-danger">
+
+        {% if reviews %}
+            <div class="mt-4 d-flex flex-column gap-3">
+                {% for review in reviews %}
+                    <div class="border rounded bg-light-subtle shadow-sm">
+
+                        <!-- Шапка с именем, рейтингом и датой -->
+                        <div class="d-flex justify-content-between align-items-center p-2 px-3 rounded-top bg-body-secondary">
+                            <div class="fw-semibold text-dark">
+                                {% if review.customer %}
+                                    {{ review.customer.first_name }} {{ review.customer.last_name }}
+                                {% else %}
+                                    Гість
+                                {% endif %}
+                                &nbsp;&nbsp;
+                                {% for i in "12345"|make_list %}
+                                    {% if forloop.counter <= review.rating %}
+                                        <span class="text-warning fs-5">&#9733;</span>
+                                    {% else %}
+                                        <span class="text-secondary fs-5">&#9734;</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <small class="text-muted">{{ review.created_at|date:"d.m.Y H:i" }}</small>
+                        </div>
+
+                        <!-- Текст отзыва -->
+                        <div class="p-3">
+                            <p class="mb-0">{{ review.text }}</p>
+                        </div>
+
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-secondary text-center mt-4">
+                Ще немає відгуків. Будь першим!
+            </div>
+        {% endif %}
+
+
     </div> <!-- конец вкладки "Відгуки" -->
 
     <!-- Вкладка "Питання" -->
@@ -114,7 +156,8 @@
 
                             <div class="mb-3">
                                 <label for="question-text" class="form-label">Ваше запитання</label>
-                                <textarea class="form-control" id="question-text" name="text" rows="4" required></textarea>
+                                <textarea class="form-control" id="question-text" name="text" rows="4"
+                                          required></textarea>
                             </div>
 
                             <button type="submit" class="btn btn-primary">Надіслати</button>
@@ -125,8 +168,39 @@
             </div>
         </div>
 
-        <hr class="mt-3">
-        <p>Тут будуть питання...</p>
+        <hr class="mt-3 text-danger">
+
+        {% if questions %}
+            <div class="mt-4 d-flex flex-column gap-3">
+                {% for question in questions %}
+                    <div class="border rounded bg-light-subtle shadow-sm">
+
+                        <!-- Шапка с именем и датой -->
+                        <div class="d-flex justify-content-between align-items-center p-2 px-3 rounded-top bg-body-secondary">
+                            <div class="fw-semibold text-dark">
+                                {% if question.customer %}
+                                    {{ question.customer.first_name }} {{ question.customer.last_name }}
+                                {% else %}
+                                    Гість
+                                {% endif %}
+                            </div>
+                            <small class="text-muted">{{ question.created_at|date:"d.m.Y H:i" }}</small>
+                        </div>
+
+                        <!-- Текст питання -->
+                        <div class="p-3">
+                            <p class="mb-0">{{ question.text }}</p>
+                        </div>
+
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-secondary text-center mt-4">
+                Ще немає питань. Будь першим!
+            </div>
+        {% endif %}
+
 
     </div> <!-- конец вкладки "Питання" -->
 

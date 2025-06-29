@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render  # noqa F401
 from django.views.generic import DetailView, ListView
 
+from askrate.models import AskRateModel
 from store import models
 from store.models import CategoryModelMPTT, ProductModel
 
@@ -33,9 +34,16 @@ class ProductDetailView(mixins.FavoriteAnnotateMixin, DetailView):
     slug_field = "slug"
     slug_url_kwarg = "slug_product"
 
-    def get_queryset(self):
-        return super().get_queryset()
+    # def get_queryset(self):
+    #     return super().get_queryset()
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # self.object — текущий продукт, по которому DetailView сделал запрос
+        context['reviews'] = AskRateModel.objects.filter(is_active=True, product=self.object, type='review')[:10]
+        context['questions'] = AskRateModel.objects.filter(is_active=True, product=self.object, type='question')[:10]
+
+        return context
 
 class ProductsCategoryView(ListView):
     model = ProductModel
