@@ -123,3 +123,10 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
+
+CELERY_BROKER_URL = 'redis://redis'
+CELERY_RESULT_BACKEND = 'redis://redis'
+CELERY_ACCEPT_CONTENT = ['application/json']
+SELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+

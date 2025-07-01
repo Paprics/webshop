@@ -19,6 +19,11 @@ djangorestframework-simplejwt = "*"
 djoser = "*"
 psycopg2-binary = "*"
 stripe = "*"
+dotenv = "*"
+python-dotenv = "*"
+celery = "*"
+flower = "*"
+redis = "*"
 
 [dev-packages]
 flake8 = "*"
@@ -27,7 +32,6 @@ isort = "*"
 django-extensions = "*"
 ipython = "*"
 django-debug-toolbar = "*"
-dotenv = "*"
 
 [requires]
 python_version = "3.12"
