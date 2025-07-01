@@ -1,12 +1,12 @@
 from django.db.models import Case, IntegerField, When
 from django.shortcuts import get_object_or_404, render  # noqa F401
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, TemplateView
 
 from askrate.models import AskRateModel
 from store import models
 from store.models import CategoryModelMPTT, ProductModel
 
-from . import mixins
+from . import mixins, utils
 from .search_engines import SQLiteSearchEngine
 
 
@@ -75,3 +75,19 @@ class ProductsCategoryView(ListView):
         context = super().get_context_data(**kwargs)
         context["category"] = get_object_or_404(CategoryModelMPTT, slug=self.kwargs.get("slug_category"))
         return context
+
+
+class CreateCategoryView(TemplateView):
+    template_name = "create.html"
+
+    def get(self, request, *args, **kwargs):
+        utils.create_categories()
+        return super().get(request, *args, **kwargs)
+
+
+class CreateProductsView(TemplateView):
+    template_name = "create.html"
+
+    def get(self, request, *args, **kwargs):
+        utils.create_products()
+        return super().get(request, *args, **kwargs)
