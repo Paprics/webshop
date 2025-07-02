@@ -27,22 +27,22 @@ class ProductsListView(mixins.SearchFilterMixin, mixins.FavoriteAnnotateMixin, L
         return context
 
     def get_queryset(self):
-        slug = self.kwargs.get("slug_category")
-        user = self.request.user
+        qs = super().get_queryset()  # вызов SearchFilterMixin.get_queryset
 
-        base_qs = ProductModel.objects.filter(is_active=True)
+        slug = self.kwargs.get("slug_category")
         if slug:
             category = get_object_or_404(CategoryModelMPTT, slug=slug)
             categories = category.get_descendants(include_self=True)
-            base_qs = base_qs.filter(category__in=categories)
+            qs = qs.filter(category__in=categories)
 
+        user = self.request.user
         if user.is_authenticated:
             favorites_subquery = FavoriteModel.objects.filter(customer=user, product=OuterRef("pk"))
-            base_qs = base_qs.annotate(is_favorite=Exists(favorites_subquery))
+            qs = qs.annotate(is_favorite=Exists(favorites_subquery))
         else:
-            base_qs = base_qs.annotate(is_favorite=Value(False, output_field=BooleanField()))
+            qs = qs.annotate(is_favorite=Value(False, output_field=BooleanField()))
 
-        return base_qs
+        return qs
 
 
 class ProductDetailView(mixins.FavoriteAnnotateMixin, DetailView):
