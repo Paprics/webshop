@@ -1,8 +1,10 @@
-from django.db.models import Case, IntegerField, When
+from django.db.models import (BooleanField, Case, Exists, IntegerField,
+                              OuterRef, Value, When)
 from django.shortcuts import get_object_or_404, render  # noqa F401
 from django.views.generic import DetailView, ListView, TemplateView
 
 from askrate.models import AskRateModel
+from favorites.models import FavoriteModel
 from store import models
 from store.models import CategoryModelMPTT, ProductModel
 
@@ -11,10 +13,9 @@ from .search_engines import SQLiteSearchEngine
 
 
 class ProductsListView(mixins.SearchFilterMixin, mixins.FavoriteAnnotateMixin, ListView):
-
     model = ProductModel
     context_object_name = "products"
-    paginate_by = 5
+    paginate_by = 9
     template_name = "product_list.html"
     search_engine_class = SQLiteSearchEngine
 
@@ -24,6 +25,24 @@ class ProductsListView(mixins.SearchFilterMixin, mixins.FavoriteAnnotateMixin, L
         if "page" in context["query_params"]:
             del context["query_params"]["page"]
         return context
+
+    def get_queryset(self):
+        slug = self.kwargs.get("slug_category")
+        user = self.request.user
+
+        base_qs = ProductModel.objects.filter(is_active=True)
+        if slug:
+            category = get_object_or_404(CategoryModelMPTT, slug=slug)
+            categories = category.get_descendants(include_self=True)
+            base_qs = base_qs.filter(category__in=categories)
+
+        if user.is_authenticated:
+            favorites_subquery = FavoriteModel.objects.filter(customer=user, product=OuterRef("pk"))
+            base_qs = base_qs.annotate(is_favorite=Exists(favorites_subquery))
+        else:
+            base_qs = base_qs.annotate(is_favorite=Value(False, output_field=BooleanField()))
+
+        return base_qs
 
 
 class ProductDetailView(mixins.FavoriteAnnotateMixin, DetailView):
@@ -35,8 +54,8 @@ class ProductDetailView(mixins.FavoriteAnnotateMixin, DetailView):
     slug_field = "slug"
     slug_url_kwarg = "slug_product"
 
-    # def get_queryset(self):
-    #     return super().get_queryset()
+    def get_queryset(self):
+        return super().get_queryset()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -56,24 +75,6 @@ class ProductDetailView(mixins.FavoriteAnnotateMixin, DetailView):
             .order_by("-same_category")[:4]
         )
 
-        return context
-
-
-class ProductsCategoryView(ListView):
-    model = ProductModel
-    paginate_by = 6
-    template_name = "product_list_category.html"
-
-    def get_queryset(self):
-        slug = self.kwargs.get("slug_category")
-        category = get_object_or_404(CategoryModelMPTT, slug=slug)
-        categories = category.get_descendants(include_self=True)
-
-        return ProductModel.objects.filter(category__in=categories, is_active=True)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["category"] = get_object_or_404(CategoryModelMPTT, slug=self.kwargs.get("slug_category"))
         return context
 
 

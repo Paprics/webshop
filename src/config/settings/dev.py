@@ -40,7 +40,7 @@ else:
             "HOST": "localhost",
             "PORT": "5432",
         },
-        "default": {  # Docker
+        "default#": {  # Docker
             "ENGINE": "django.db.backends.postgresql",
             "NAME": os.environ.get("POSTGRES_DB"),
             "USER": os.environ.get("POSTGRES_USER"),

@@ -20,15 +20,17 @@
                     <a href="{% url 'store:product_detail' product.slug %}" class="card-link"
                        style="text-decoration: none; color: inherit;">
 
-                        <div class="card h-100 shadow" style="cursor: pointer; position: relative; background-color: rgba(0, 0, 0, 0.09);">
+                        <div class="card h-100 shadow"
+                             style="cursor: pointer; position: relative; background-color: rgba(0, 0, 0, 0.09);">
                             <!-- Картинка товара -->
                             <img src="https://picsum.photos/600/600" class="card-img-top" alt="Product title">
 
-                            <!-- Сердечко -->
+                            <!-- Избранное -->
                             {% if user.is_authenticated %}
                                 <form method="post" action="{% url 'favorites:add' product.id %}"
                                       style="position: absolute; top: 10px; left: 10px; z-index: 10;">
                                     {% csrf_token %}
+
                                     {% if product.is_favorite %}
                                         <input type="hidden" name="action" value="remove">
                                         <button type="submit"
@@ -60,5 +62,7 @@
         </div>
     </div>
 
-    {% include 'includes/pagination.html' %}
+    <div class="container mt-4">
+        {% include 'includes/pagination.html' %}
+    </div>
 {% endblock %}
