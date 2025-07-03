@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model
-from django.views.generic import DetailView, FormView
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, FormView, CreateView
 
 from common.forms import FeedbackForm
-from common.models import Content
+from common.models import Content, Feedback
 
 
 class CustomerDetailView(DetailView):
@@ -22,6 +23,22 @@ class IndexView(DetailView):
 
     def get_object(self):
         return Content.objects.filter(pk=1)
+
+
+class FeedbackCreateView(CreateView):
+    model = Feedback
+    form_class = FeedbackForm
+    template_name = 'feedback.html'
+    success_url = reverse_lazy('common:success_feedback')
+
+    def form_valid(self, form):
+        if self.request.user.is_authenticated:
+            form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+
+
 
 
 class Feedback(FormView):
