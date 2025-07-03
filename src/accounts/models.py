@@ -31,7 +31,17 @@ class CustomerUser(AbstractBaseUser, PermissionsMixin):
 
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
     last_name = models.CharField(_("last name"), max_length=150, blank=True)
-    email = models.EmailField(_("email address"))
+
+    email = models.EmailField(
+        _("email address"),
+        unique=True,
+        blank=False,
+        error_messages={
+            'unique': _("Користувач з таким email вже існує."),
+            'invalid': _("Введіть коректну адресу електронної пошти."),
+            'blank': _("Це поле обов'язкове."),
+        }
+    )
 
     is_staff = models.BooleanField(
         _("staff status"), default=False, help_text=_("Designates whether the user can log into this admin site.")
