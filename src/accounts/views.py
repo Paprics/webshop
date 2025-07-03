@@ -6,7 +6,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import DeleteView, FormView, UpdateView
 
 from accounts.models import ProfileCustomer
-from accounts.rorms import MemberCreationForm
+from accounts.forms import MemberCreationForm
 
 
 class UpdateDelyAddressView(UpdateView):
