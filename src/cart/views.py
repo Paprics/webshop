@@ -1,6 +1,8 @@
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect
+
 from django.urls import reverse
+
 from django.views import View
 from django.views.generic import ListView, TemplateView
 
@@ -28,7 +30,6 @@ class OrderListView(ListView):
 class OrderCreateView(View):
 
     def post(self, request, *args, **kwargs):
-
         cart = get_cart(request)
 
         with transaction.atomic():
@@ -46,6 +47,7 @@ class OrderCreateView(View):
             OrderItemModel.objects.bulk_create(order_items)
 
             cart.clear()
+
 
         payment_method = request.POST.get("payment_method")
         if payment_method == "card":

@@ -38,8 +38,10 @@
 
 
             {# Форма пошуку #}
+
             <form method="get" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"
                   action="{% url 'store:products_search' %}">
+
                 <input type="search"
                        name="q"
                        class="form-control search-input"
@@ -52,6 +54,7 @@
                         <input type="hidden" name="{{ key }}" value="{{ value }}">
                     {% endif %}
                 {% endfor %}
+
             </form>
 
             <div class="text-end d-flex align-items-center gap-2">
@@ -78,7 +81,9 @@
                             <li><a class="dropdown-item" href="{% url 'common:customer_detail' %}">Особистий кабінет</a>
                             </li>
                             <li><a class="dropdown-item" href="{% url 'cart:order_list' %}">Історія замовлень</a></li>
+
                             <li><a class="dropdown-item" href="{% url 'favorites:list' %}">Улюблені товари</a></li>
+
                             <li><a class="dropdown-item" href="{% url 'common:feedback' %}">Підтримка 24/7</a></li>
 
                             <li class="px-2">

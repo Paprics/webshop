@@ -113,7 +113,7 @@ services:
     env_file:
       - .env
     environment:
-      - REDIS_HOSTS=main:redis:6379  # <<< вот это главное!
+      - REDIS_HOSTS=main:redis:6379
     ports:
       - "8081:8081"
     depends_on:

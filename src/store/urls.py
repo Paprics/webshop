@@ -13,6 +13,7 @@ urlpatterns = [
     path("search/", views.ProductsListView.as_view(), name="products_search"),
     path("create_category/", views.CreateCategoryView.as_view(), name="create_category"),
     path("create_products/", views.CreateProductsView.as_view(), name="create_product"),
+
 ]
 
 if settings.DEBUG:

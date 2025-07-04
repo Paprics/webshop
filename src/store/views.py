@@ -11,7 +11,6 @@ from store.models import CategoryModelMPTT, ProductModel
 from . import mixins, utils
 from .search_engines import SQLiteSearchEngine
 
-
 class ProductsListView(mixins.SearchFilterMixin, mixins.FavoriteAnnotateMixin, ListView):
     model = ProductModel
     context_object_name = "products"
@@ -34,6 +33,7 @@ class ProductsListView(mixins.SearchFilterMixin, mixins.FavoriteAnnotateMixin, L
             category = get_object_or_404(CategoryModelMPTT, slug=slug)
             categories = category.get_descendants(include_self=True)
             qs = qs.filter(category__in=categories)
+
 
         user = self.request.user
         if user.is_authenticated:
@@ -74,6 +74,7 @@ class ProductDetailView(mixins.FavoriteAnnotateMixin, DetailView):
             )
             .order_by("-same_category")[:4]
         )
+
 
         return context
 
