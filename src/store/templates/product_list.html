@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
+
 {% load static %}
+
 {% block content %}
 
     {% include 'includes/carousel.html' %}
@@ -17,6 +19,7 @@
         <div class="row row-cols-1 row-cols-md-3 g-4">
             {% for product in products %}
                 <div class="col">
+                  
                     <a href="{% url 'store:product_detail' product.slug %}" class="card-link"
                        style="text-decoration: none; color: inherit;">
 
@@ -50,6 +53,7 @@
                             {% endif %}
 
                             <!-- Контент -->
+
                             <div class="card-body">
                                 <h5 class="card-title">{{ product.title }}</h5>
                                 <p class="card-text">{{ product.description|truncatechars:100 }}</p>
@@ -65,4 +69,5 @@
     <div class="container mt-4">
         {% include 'includes/pagination.html' %}
     </div>
+
 {% endblock %}

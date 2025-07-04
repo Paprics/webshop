@@ -1,3 +1,5 @@
+import os
+
 from config.settings.base import *  # noqa: F403
 
 SECRET_KEY = "0b3t%0&p!*x_dx*6p-@ey(3ihp5kz9s)*@ilwo+z4cc4d($hj7"

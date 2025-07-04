@@ -108,3 +108,4 @@ input[type=number] {
 .rating label:hover ~ label {
   color: #ffc107; /* золотой */
 }
+
