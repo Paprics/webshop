@@ -2,7 +2,7 @@ import os
 
 from config.settings.base import *  # noqa: F403
 
-SECRET_KEY = "django-insecure-3^_+0p9^!1zww(7xvlvd-gotqujvlmx_36%9_2k==fxl-+z(a6"
+SECRET_KEY = "0b3t%0&p!*x_dx*6p-@ey(3ihp5kz9s)*@ilwo+z4cc4d($hj7"
 
 DEBUG = True
 
@@ -40,7 +40,7 @@ else:
             "HOST": "localhost",
             "PORT": "5432",
         },
-        "#default": {  # Docker
+        "default#": {  # Docker
             "ENGINE": "django.db.backends.postgresql",
             "NAME": os.environ.get("POSTGRES_DB"),
             "USER": os.environ.get("POSTGRES_USER"),

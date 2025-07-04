@@ -1,6 +1,8 @@
 {% load static %}
+
 <header class="p-3 text-bg-dark">
     <div class="container">
+
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"><a href="/"
                                                                                                             class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
             <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
@@ -9,13 +11,20 @@
         </a>
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="{% url 'common:index' %}" class="nav-link px-2 text-secondary">Home</a></li>
+                <li><a href="{% url 'store:products_list' %}" class="nav-link px-2 text-white">Каталог</a></li>
                 <li><a href="{% url 'common:about' %}" class="nav-link px-2 text-white">Про Нас</a></li>
                 <li><a href="{% url 'common:contacts' %}" class="nav-link px-2 text-white">Контакти</a></li>
                 <li><a href="{% url 'common:faq' %}" class="nav-link px-2 text-white">FAQs</a></li>
                 <li><a href="{% url 'common:feedback' %}" class="nav-link px-2 text-white">Зворотній зв'язок</a></li>
             </ul>
 
-            <a href="{% url 'cart:cart_detail' %}" class="d-inline-block position-relative cart-icon">
+            {% if user.is_authenticated %}
+                <a href="{% url 'favorites:list' %}" class="d-inline-block cart-icon" title="Обрані товари">
+                    <img src="{% static 'svg/star_fill.svg' %}" width="35" height="35" alt="cart icon"/>
+                </a>
+            {% endif %}
+
+            <a href="{% url 'cart:cart_detail' %}" class="d-inline-block position-relative cart-icon" title="Кошик товарів">
                 <img src="{% static 'svg/cart.svg' %}" width="45" height="45" alt="cart icon"/>
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {{ cart_items_count }}
@@ -29,12 +38,23 @@
 
 
             {# Форма пошуку #}
-            <form method="get" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="{% url 'store:products_search' %}">
+
+            <form method="get" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search"
+                  action="{% url 'store:products_search' %}">
+
                 <input type="search"
                        name="q"
                        class="form-control search-input"
                        placeholder="Пошук..."
-                       aria-label="Search">
+                       aria-label="Search"
+                       value="{{ request.GET.q|default:'' }}">
+
+                {% for key, value in request.GET.items %}
+                    {% if key != 'q' and key != 'page' %}
+                        <input type="hidden" name="{{ key }}" value="{{ value }}">
+                    {% endif %}
+                {% endfor %}
+
             </form>
 
             <div class="text-end d-flex align-items-center gap-2">
@@ -61,6 +81,9 @@
                             <li><a class="dropdown-item" href="{% url 'common:customer_detail' %}">Особистий кабінет</a>
                             </li>
                             <li><a class="dropdown-item" href="{% url 'cart:order_list' %}">Історія замовлень</a></li>
+
+                            <li><a class="dropdown-item" href="{% url 'favorites:list' %}">Улюблені товари</a></li>
+
                             <li><a class="dropdown-item" href="{% url 'common:feedback' %}">Підтримка 24/7</a></li>
 
                             <li class="px-2">

@@ -9,6 +9,12 @@
            href="{% url "cart:order_list" %}">Історія замовлень</a>
     </li>
 
+    <li>
+        <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'order_history' %}active-menu{% endif %}"
+           href="{% url "favorites:list" %}">Обрані товари</a>
+    </li>
+
+
     <hr class="dropdown-divider">
 
     <li>

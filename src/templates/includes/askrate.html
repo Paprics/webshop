@@ -1,0 +1,207 @@
+<!-- Навигационные вкладки -->
+<ul class="nav nav-tabs mt-4 justify-content-center">
+    <li class="nav-item">
+        <a class="nav-link custom-tab active" id="reviews-tab"
+           data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="true">
+            Відгуки
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link custom-tab" id="questions-tab"
+           data-bs-toggle="tab" href="#questions" role="tab" aria-controls="questions" aria-selected="false">
+            Питання
+        </a>
+    </li>
+</ul>
+
+<!-- Контент вкладок -->
+<div class="tab-content mt-3">
+
+    <!-- Вкладка "Відгуки" -->
+    <div class="tab-pane fade show active" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+
+        <!-- Кнопка вызова модалки "Залишити відгук" -->
+        <div class="text-center">
+            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#reviewModal">
+                Залишити відгук
+            </button>
+        </div>
+
+        <!-- Модальное окно для отзывов -->
+        <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <!-- Заголовок модалки -->
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="reviewModalLabel">Залишити відгук</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+                    </div>
+
+                    <!-- Тело модалки с формой -->
+                    <div class="modal-body">
+                        <form method="post" action="{% url 'askrate:create' %}">
+                            {% csrf_token %}
+
+                            <!-- Скрытые поля (product и тип: review или question) -->
+                            <input type="hidden" name="type" value="review">
+                            <input type="hidden" name="product" value="{{ product.id }}">
+
+                            <!-- Звездочки оценки -->
+                            <div class="mb-3">
+                                <label class="form-label d-block">Оцінка</label>
+                                <div class="rating">
+                                    <input type="radio" name="rating" id="star5" value="5">
+                                    <label for="star5">&#9733;</label>
+                                    <input type="radio" name="rating" id="star4" value="4">
+                                    <label for="star4">&#9733;</label>
+                                    <input type="radio" name="rating" id="star3" value="3">
+                                    <label for="star3">&#9733;</label>
+                                    <input type="radio" name="rating" id="star2" value="2">
+                                    <label for="star2">&#9733;</label>
+                                    <input type="radio" name="rating" id="star1" value="1">
+                                    <label for="star1">&#9733;</label>
+                                </div>
+                            </div>
+
+                            <!-- Поле текста отзыва -->
+                            <div class="mb-3">
+                                <label for="review-text" class="form-label">Відгук</label>
+                                <textarea class="form-control" id="review-text" name="text" rows="4"
+                                          required></textarea>
+                            </div>
+
+                            <!-- Кнопка -->
+                            <button type="submit" class="btn btn-primary">Надіслати</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <hr class="mt-3 text-danger">
+
+        {% if reviews %}
+            <div class="mt-4 d-flex flex-column gap-3">
+                {% for review in reviews %}
+                    <div class="border rounded bg-light-subtle shadow-sm">
+
+                        <!-- Шапка с именем, рейтингом и датой -->
+                        <div class="d-flex justify-content-between align-items-center p-2 px-3 rounded-top bg-body-secondary">
+                            <div class="fw-semibold text-dark">
+                                {% if review.customer %}
+                                    {{ review.customer.first_name }} {{ review.customer.last_name }}
+                                {% else %}
+                                    Гість
+                                {% endif %}
+                                &nbsp;&nbsp;
+                                {% for i in "12345"|make_list %}
+                                    {% if forloop.counter <= review.rating %}
+                                        <span class="text-warning fs-5">&#9733;</span>
+                                    {% else %}
+                                        <span class="text-secondary fs-5">&#9734;</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <small class="text-muted">{{ review.created_at|date:"d.m.Y H:i" }}</small>
+                        </div>
+
+                        <!-- Текст отзыва -->
+                        <div class="p-3">
+                            <p class="mb-0">{{ review.text }}</p>
+                        </div>
+
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-secondary text-center mt-4">
+                Ще немає відгуків. Будь першим!
+            </div>
+        {% endif %}
+
+
+    </div> <!-- конец вкладки "Відгуки" -->
+
+    <!-- Вкладка "Питання" -->
+    <div class="tab-pane fade" id="questions" role="tabpanel" aria-labelledby="questions-tab">
+
+        <!-- Кнопка вызова модалки "Задати питання" -->
+        <div class="text-center">
+            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#questionModal">
+                Задати питання
+            </button>
+        </div>
+
+        <!-- Модальное окно для вопросов -->
+        <div class="modal fade" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <!-- Заголовок модалки -->
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="questionModalLabel">Задати питання</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+                    </div>
+
+                    <!-- Тело модалки с формой -->
+                    <div class="modal-body">
+                        <form method="post" action="{% url 'askrate:create' %}">
+                            {% csrf_token %}
+                            <!-- Скрытые поля -->
+                            <input type="hidden" name="type" value="question">
+                            <input type="hidden" name="product" value="{{ product.id }}">
+
+                            <div class="mb-3">
+                                <label for="question-text" class="form-label">Ваше запитання</label>
+                                <textarea class="form-control" id="question-text" name="text" rows="4"
+                                          required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Надіслати</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <hr class="mt-3 text-danger">
+
+        {% if questions %}
+            <div class="mt-4 d-flex flex-column gap-3">
+                {% for question in questions %}
+                    <div class="border rounded bg-light-subtle shadow-sm">
+
+                        <!-- Шапка с именем и датой -->
+                        <div class="d-flex justify-content-between align-items-center p-2 px-3 rounded-top bg-body-secondary">
+                            <div class="fw-semibold text-dark">
+                                {% if question.customer %}
+                                    {{ question.customer.first_name }} {{ question.customer.last_name }}
+                                {% else %}
+                                    Гість
+                                {% endif %}
+                            </div>
+                            <small class="text-muted">{{ question.created_at|date:"d.m.Y H:i" }}</small>
+                        </div>
+
+                        <!-- Текст питання -->
+                        <div class="p-3">
+                            <p class="mb-0">{{ question.text }}</p>
+                        </div>
+
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-secondary text-center mt-4">
+                Ще немає питань. Будь першим!
+            </div>
+        {% endif %}
+
+
+    </div> <!-- конец вкладки "Питання" -->
+
+</div> <!-- конец tab-content -->

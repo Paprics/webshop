@@ -18,8 +18,8 @@ services:
       context: ./
       dockerfile: Dockerfile
     working_dir: /app
-    ports:
-      - "8000:8000"
+#    ports:
+#      - "8000:8000"
     volumes:
       - ./src:/app/src
       - ./commands:/app/commands
@@ -47,8 +47,8 @@ services:
   nginx:
     image: nginx:1.19
     volumes:
-      - static_content:/app/src/static
-      - media_content:/app/src/media
+      - ./src/static:/app/src/static
+      - ./src/media:/app/src/media
       - ./nginx:/etc/nginx/conf.d
     ports:
       - "80:80"
@@ -66,6 +66,58 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+
+  redis:
+    image: redis
+    env_file:
+      - .env
+    restart: on-failure
+    depends_on:
+      - backend
+
+  celery:
+    working_dir: /web_store
+    build: ./
+    container_name: celery-container
+    command:
+      - ./commands/start_celery.sh
+    restart: on-failure
+    volumes:
+      - ./src:/web_store
+      - ./commands:/web_store/commands
+    env_file:
+      - .env
+    depends_on:
+      - backend
+      - redis
+
+  flower:
+    working_dir: /web_store
+    build: ./
+    container_name: flower-container
+    volumes:
+      - ./src:/web_store
+    env_file:
+      - .env
+    command: celery -A config flower --broker=redis://redis
+
+    ports:
+      - 5556:5555
+    depends_on:
+      - celery
+
+  redis_commander:
+    image: rediscommander/redis-commander:latest
+    container_name: redis_commander
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - REDIS_HOSTS=main:redis:6379
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
 
 volumes:
   postgres_data: {}

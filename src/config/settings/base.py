@@ -1,7 +1,12 @@
+import os
 from datetime import timedelta
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+load_dotenv()
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -18,6 +23,9 @@ INSTALLED_APPS = [
     "common.apps.CommonConfig",
     "store.apps.StoreConfig",
     "cart.apps.CartConfig",
+    "favorites.apps.FavoritesConfig",
+    "payments.apps.PaymentsConfig",
+    "askrate.apps.AskrateConfig",
     # extantions
     "mptt",
     "rest_framework",
@@ -113,3 +121,11 @@ DJOSER = {"LOGIN_FIELD": "phone_number", "USER_CREATE_PASSWORD_RETYPE": True}
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
+
+CELERY_BROKER_URL = "redis://redis"
+CELERY_RESULT_BACKEND = "redis://redis"
+CELERY_ACCEPT_CONTENT = ["application/json"]
+SELERY_RESULT_SERIALIZER = "json"
+CELERY_TASK_SERIALIZER = "json"

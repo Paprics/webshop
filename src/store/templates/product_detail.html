@@ -4,30 +4,70 @@
 
 {% block content %}
     <div class="row ps-4">
-        <!-- Левая часть: изображение -->
-        <div class="col-5 img-thumbnail">
+
+        <!-- Левая часть: изображение (4 колонки) -->
+        <div class="col-md-4">
             {% if product.image %}
-                <img src="{{ product.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ product.title }}">
+                <img src="{{ product.image.url }}" class="img-fluid rounded shadow-sm img-thumbnail"
+                     alt="{{ product.title }}">
             {% else %}
-                <img src="{% static 'img/No_image.png' %}" class="img-fluid rounded shadow-sm" alt="Проблема">
+                <img src="{% static 'img/No_image.png' %}" class="img-fluid rounded shadow-sm img-thumbnail"
+                     alt="Проблема">
             {% endif %}
         </div>
 
-        <!-- Правая часть: заголовок и описание -->
-        <div class="col-5 d-flex flex-column justify-content-start ps-5">
-            <h1 class="mb-3">{{ product.title|slice:":27" }}</h1>
-            <h4 class="text-muted mb-3">{{ product.category }}</h4>
-            <h6 class="text-muted mb-3">{{ product.article }}</h6>
-            <p class="lead">Ціна: {{ product.price }} грн.</p>
+        <!-- Правая часть: описание, заголовок и т.д. (6 колонок) -->
+        <div class="col-md-8 d-flex flex-column justify-content-start ps-4">
+            <h1 class="mb-2">{{ product.title|truncatechars:27 }}</h1>
+            <h5 class="text-muted mb-2">{{ product.category }}</h5>
+            <h6 class="text-muted mb-2">{{ product.article }}</h6>
+            <p class="lead mb-2">Ціна: {{ product.price }} грн.</p>
             <hr>
-            <div><p><h4>{{ product.description }}</h4></p></div>
+            <p class="h5">{{ product.description }}</p>
+
+            <div class="d-flex gap-3 mt-4">
+                <form method="get" action="{% url 'cart:add_to_cart' product.id %}" class="flex-grow-1">
+                    <button type="submit" class="btn btn-secondary btn-lg w-100">
+                        Додати до кошика
+                    </button>
+                </form>
+
+
+                {% if user.is_authenticated and not product.is_favorite %}
+                    <form method="post" action="{% url 'favorites:add' product.id %}" class="flex-grow-1">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="add">
+                        <button type="submit" class="btn btn-outline-primary btn-lg w-75">
+                            Додати до обраного
+                        </button>
+                    </form>
+                {% elif user.is_authenticated and product.is_favorite %}
+                    <form method="post" action="{% url 'favorites:add' product.id %}" class="flex-grow-1">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="remove">
+                        <button type="submit" class="btn btn-outline-primary btn-lg w-75">
+                            Видалити з обраного
+                        </button>
+                    </form>
+                {% endif %}
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Запитання Відгуки -->
+    <div class="row mt-5">
+        <div class="col-md-10 mx-auto">
+            {% include 'includes/askrate.html' %}
         </div>
     </div>
 
-    <a href="{% url 'cart:add_to_cart' product.id %}" class="btn btn-secondary btn-lg" role="button">
-        Додати до кошика
-    </a>
-
+    <div class="container-fluid mt-5">
+        {% include 'includes/recommendations.html' %}
+    </div>
 
 {% endblock %}
 
