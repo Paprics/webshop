@@ -20,11 +20,11 @@ class CustomerUser(AbstractBaseUser, PermissionsMixin):
     phone_number = PhoneNumberField(
         _("phone number"),
         unique=True,
-        region='UA',
+        region="UA",
         error_messages={
-            'invalid': _("Невірний формат номера. Введіть у форматі +380 XX XXX XXXX."),
-            'unique': _("Користувач з таким номером вже існує."),
-            'required': _("Це поле обов'язкове."),
+            "invalid": _("Невірний формат номера. Введіть у форматі +380 XX XXX XXXX."),
+            "unique": _("Користувач з таким номером вже існує."),
+            "required": _("Це поле обов'язкове."),
         },
         help_text=_("Введіть номер у міжнародному форматі, починаючи з + і коду країни."),
     )
@@ -37,10 +37,10 @@ class CustomerUser(AbstractBaseUser, PermissionsMixin):
         unique=True,
         blank=False,
         error_messages={
-            'unique': _("Користувач з таким email вже існує."),
-            'invalid': _("Введіть коректну адресу електронної пошти."),
-            'blank': _("Це поле обов'язкове."),
-        }
+            "unique": _("Користувач з таким email вже існує."),
+            "invalid": _("Введіть коректну адресу електронної пошти."),
+            "blank": _("Це поле обов'язкове."),
+        },
     )
 
     is_staff = models.BooleanField(
@@ -61,7 +61,6 @@ class CustomerUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = "phone_number"
 
     # Field representing the email address, so Django knows where to find it
-
 
     EMAIL_FIELD = "email"
 

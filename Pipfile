@@ -25,6 +25,7 @@ celery = "*"
 flower = "*"
 redis = "*"
 gunicorn = "*"
+django-celery-beat = "*"
 
 [dev-packages]
 flake8 = "*"

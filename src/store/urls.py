@@ -11,9 +11,6 @@ urlpatterns = [
     path("category/<slug:slug_category>/", views.ProductsListView.as_view(), name="products_category"),
     path("products/<slug:slug_product>/", views.ProductDetailView.as_view(), name="product_detail"),
     path("search/", views.ProductsListView.as_view(), name="products_search"),
-    path("create_category/", views.CreateCategoryView.as_view(), name="create_category"),
-    path("create_products/", views.CreateProductsView.as_view(), name="create_product"),
-
 ]
 
 if settings.DEBUG:

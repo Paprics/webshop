@@ -1,9 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, FormView, CreateView
+from django.views.generic import CreateView, DetailView, FormView, TemplateView
 
 from common.forms import FeedbackForm
 from common.models import Content, Feedback
+
+from . import tasks_celery as tasks
 
 
 class CustomerDetailView(DetailView):
@@ -28,17 +30,13 @@ class IndexView(DetailView):
 class FeedbackCreateView(CreateView):
     model = Feedback
     form_class = FeedbackForm
-    template_name = 'feedback.html'
-    success_url = reverse_lazy('common:success_feedback')
+    template_name = "feedback.html"
+    success_url = reverse_lazy("common:success_feedback")
 
     def form_valid(self, form):
         if self.request.user.is_authenticated:
             form.instance.user = self.request.user
         return super().form_valid(form)
-
-
-
-
 
 
 class Feedback(FormView):
@@ -54,3 +52,19 @@ class Feedback(FormView):
             form.instance.user = None
         form.save()
         return super().form_valid(form)
+
+
+class CreateCategoryView(TemplateView):
+    template_name = "create.html"
+
+    def get(self, request, *args, **kwargs):
+        tasks.create_categories.delay()
+        return super().get(request, *args, **kwargs)
+
+
+class CreateProductsView(TemplateView):
+    template_name = "create.html"
+
+    def get(self, request, *args, **kwargs):
+        tasks.create_products.delay()
+        return super().get(request, *args, **kwargs)

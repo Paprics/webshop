@@ -10,6 +10,6 @@ class MemberCreationForm(UserCreationForm):
             "first_name",
             "last_name",
             "email",
-            'password1',
-            'password2',
+            "password1",
+            "password2",
         )

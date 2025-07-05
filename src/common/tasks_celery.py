@@ -3,6 +3,7 @@ from faker import Faker
 
 from store.models import CategoryModelMPTT, ProductModel
 
+
 @shared_task
 def create_categories():
     def make_slug(name, idx):
@@ -72,6 +73,7 @@ def create_categories():
         category_name="Термобілизна", display_order=5, parent=clothes, slug=make_slug("Термобілизна", 20)
     )
 
+
 @shared_task
 def create_products():
     faker = Faker("uk_UA")
@@ -94,3 +96,11 @@ def create_products():
             products_to_create.append(product)
 
     ProductModel.objects.bulk_create(products_to_create)
+
+
+@shared_task
+def delete_inactive_users():
+    from django.contrib.auth.models import User
+
+    deleted, _ = User.objects.filter(is_active=False).delete()
+    print(f"Deleted {deleted} inactive users.")
