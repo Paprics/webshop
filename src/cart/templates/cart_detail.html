@@ -7,8 +7,6 @@
     <h1>Кошик замовлень</h1>
 
     <hr class="border border-danger border-2 opacity-50">
-    <!-- Товары -->
-    {% for item in cart_items %}
 
     {% if cart_items %}
         <div class="container">
@@ -71,4 +69,5 @@
     {% else %}
         <h4>В кошику не має товарів.</h4>
     {% endif %}
+
 {% endblock %}

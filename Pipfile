@@ -24,6 +24,7 @@ python-dotenv = "*"
 celery = "*"
 flower = "*"
 redis = "*"
+gunicorn = "*"
 
 [dev-packages]
 flake8 = "*"

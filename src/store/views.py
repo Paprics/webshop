@@ -1,6 +1,6 @@
 from django.db.models import (BooleanField, Case, Exists, IntegerField,
                               OuterRef, Value, When)
-from django.shortcuts import get_object_or_404, render  # noqa F401
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import DetailView, ListView, TemplateView
 
 from askrate.models import AskRateModel
@@ -8,7 +8,7 @@ from favorites.models import FavoriteModel
 from store import models
 from store.models import CategoryModelMPTT, ProductModel
 
-from . import mixins, utils
+from . import mixins, tasks
 from .search_engines import SQLiteSearchEngine
 
 class ProductsListView(mixins.SearchFilterMixin, mixins.FavoriteAnnotateMixin, ListView):
@@ -83,7 +83,7 @@ class CreateCategoryView(TemplateView):
     template_name = "create.html"
 
     def get(self, request, *args, **kwargs):
-        utils.create_categories()
+        tasks.create_categories.delay()
         return super().get(request, *args, **kwargs)
 
 
@@ -91,5 +91,5 @@ class CreateProductsView(TemplateView):
     template_name = "create.html"
 
     def get(self, request, *args, **kwargs):
-        utils.create_products()
+        tasks.create_products.delay()
         return super().get(request, *args, **kwargs)
