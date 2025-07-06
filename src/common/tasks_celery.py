@@ -1,3 +1,5 @@
+from time import sleep
+
 from celery import shared_task
 from faker import Faker
 
@@ -6,76 +8,120 @@ from store.models import CategoryModelMPTT, ProductModel
 
 @shared_task
 def create_categories():
+    sleep(10)
+
     def make_slug(name, idx):
         return f"cat_{idx}"
 
-    clothes = CategoryModelMPTT.objects.create(category_name="Одяг", display_order=1, slug=make_slug("Одяг", 1))
-    shoes = CategoryModelMPTT.objects.create(category_name="Взуття", display_order=2, slug=make_slug("Взуття", 2))
-    backpacks_and_bags = CategoryModelMPTT.objects.create(
-        category_name="Рюкзаки та сумки", display_order=3, slug=make_slug("Рюкзаки та сумки", 3)
+    clothes, _ = CategoryModelMPTT.objects.get_or_create(
+        category_name="Одяг",
+        parent=None,
+        defaults={"display_order": 1, "slug": make_slug("Одяг", 1)},
     )
-    accessories = CategoryModelMPTT.objects.create(
-        category_name="Аксесуари", display_order=4, slug=make_slug("Аксесуари", 4)
+    shoes, _ = CategoryModelMPTT.objects.get_or_create(
+        category_name="Взуття",
+        parent=None,
+        defaults={"display_order": 2, "slug": make_slug("Взуття", 2)},
+    )
+    backpacks_and_bags, _ = CategoryModelMPTT.objects.get_or_create(
+        category_name="Рюкзаки та сумки",
+        parent=None,
+        defaults={"display_order": 3, "slug": make_slug("Рюкзаки та сумки", 3)},
+    )
+    accessories, _ = CategoryModelMPTT.objects.get_or_create(
+        category_name="Аксесуари",
+        parent=None,
+        defaults={"display_order": 4, "slug": make_slug("Аксесуари", 4)},
     )
 
-    CategoryModelMPTT.objects.create(
-        category_name="Черевики", display_order=1, parent=shoes, slug=make_slug("Черевики", 5)
+    CategoryModelMPTT.objects.get_or_create(
+        category_name="Черевики",
+        parent=shoes,
+        defaults={"display_order": 1, "slug": make_slug("Черевики", 5)},
     )
-    CategoryModelMPTT.objects.create(
-        category_name="Кросівки", display_order=2, parent=shoes, slug=make_slug("Кросівки", 6)
+    CategoryModelMPTT.objects.get_or_create(
+        category_name="Кросівки",
+        parent=shoes,
+        defaults={"display_order": 2, "slug": make_slug("Кросівки", 6)},
     )
-    CategoryModelMPTT.objects.create(
-        category_name="Сандалі", display_order=3, parent=shoes, slug=make_slug("Сандалі", 7)
+    CategoryModelMPTT.objects.get_or_create(
+        category_name="Сандалі",
+        parent=shoes,
+        defaults={"display_order": 3, "slug": make_slug("Сандалі", 7)},
     )
-    CategoryModelMPTT.objects.create(
-        category_name="Ботинки", display_order=4, parent=shoes, slug=make_slug("Ботинки", 8)
+    CategoryModelMPTT.objects.get_or_create(
+        category_name="Ботинки",
+        parent=shoes,
+        defaults={"display_order": 4, "slug": make_slug("Ботинки", 8)},
     )
 
-    CategoryModelMPTT.objects.create(
-        category_name="Рюкзаки", display_order=1, parent=backpacks_and_bags, slug=make_slug("Рюкзаки", 9)
-    )
-    CategoryModelMPTT.objects.create(
-        category_name="Сумки", display_order=2, parent=backpacks_and_bags, slug=make_slug("Сумки", 10)
-    )
-    CategoryModelMPTT.objects.create(
-        category_name="Сумки через плече",
-        display_order=3,
+    CategoryModelMPTT.objects.get_or_create(
+        category_name="Рюкзаки",
         parent=backpacks_and_bags,
-        slug=make_slug("Сумки через плече", 11),
+        defaults={"display_order": 1, "slug": make_slug("Рюкзаки", 9)},
+    )
+    CategoryModelMPTT.objects.get_or_create(
+        category_name="Сумки",
+        parent=backpacks_and_bags,
+        defaults={"display_order": 2, "slug": make_slug("Сумки", 10)},
+    )
+    CategoryModelMPTT.objects.get_or_create(
+        category_name="Сумки через плече",
+        parent=backpacks_and_bags,
+        defaults={"display_order": 3, "slug": make_slug("Сумки через плече", 11)},
     )
 
-    CategoryModelMPTT.objects.create(
-        category_name="Рубашки", display_order=1, parent=accessories, slug=make_slug("Рубашки", 12)
+    CategoryModelMPTT.objects.get_or_create(
+        category_name="Рубашки",
+        parent=accessories,
+        defaults={"display_order": 1, "slug": make_slug("Рубашки", 12)},
     )
-    CategoryModelMPTT.objects.create(
-        category_name="Шапки", display_order=2, parent=accessories, slug=make_slug("Шапки", 13)
+    CategoryModelMPTT.objects.get_or_create(
+        category_name="Шапки",
+        parent=accessories,
+        defaults={"display_order": 2, "slug": make_slug("Шапки", 13)},
     )
-    CategoryModelMPTT.objects.create(
-        category_name="Ремені", display_order=3, parent=accessories, slug=make_slug("Ремені", 14)
+    CategoryModelMPTT.objects.get_or_create(
+        category_name="Ремені",
+        parent=accessories,
+        defaults={"display_order": 3, "slug": make_slug("Ремені", 14)},
     )
-    CategoryModelMPTT.objects.create(
-        category_name="Шкарпетки", display_order=4, parent=accessories, slug=make_slug("Шкарпетки", 15)
+    CategoryModelMPTT.objects.get_or_create(
+        category_name="Шкарпетки",
+        parent=accessories,
+        defaults={"display_order": 4, "slug": make_slug("Шкарпетки", 15)},
     )
 
-    CategoryModelMPTT.objects.create(
-        category_name="Куртки", display_order=1, parent=clothes, slug=make_slug("Куртки", 16)
+    CategoryModelMPTT.objects.get_or_create(
+        category_name="Куртки",
+        parent=clothes,
+        defaults={"display_order": 1, "slug": make_slug("Куртки", 16)},
     )
-    CategoryModelMPTT.objects.create(
-        category_name="Штани", display_order=2, parent=clothes, slug=make_slug("Штани", 17)
+    CategoryModelMPTT.objects.get_or_create(
+        category_name="Штани",
+        parent=clothes,
+        defaults={"display_order": 2, "slug": make_slug("Штани", 17)},
     )
-    CategoryModelMPTT.objects.create(
-        category_name="Футболки", display_order=3, parent=clothes, slug=make_slug("Футболки", 18)
+    CategoryModelMPTT.objects.get_or_create(
+        category_name="Футболки",
+        parent=clothes,
+        defaults={"display_order": 3, "slug": make_slug("Футболки", 18)},
     )
-    CategoryModelMPTT.objects.create(
-        category_name="Светри", display_order=4, parent=clothes, slug=make_slug("Светри", 19)
+    CategoryModelMPTT.objects.get_or_create(
+        category_name="Светри",
+        parent=clothes,
+        defaults={"display_order": 4, "slug": make_slug("Светри", 19)},
     )
-    CategoryModelMPTT.objects.create(
-        category_name="Термобілизна", display_order=5, parent=clothes, slug=make_slug("Термобілизна", 20)
+    CategoryModelMPTT.objects.get_or_create(
+        category_name="Термобілизна",
+        parent=clothes,
+        defaults={"display_order": 5, "slug": make_slug("Термобілизна", 20)},
     )
 
 
 @shared_task
 def create_products():
+    sleep(5)
     faker = Faker("uk_UA")
     QUNTYTI_PRODUCT = 40
     categories = CategoryModelMPTT.objects.filter(parent__isnull=False)

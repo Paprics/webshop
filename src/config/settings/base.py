@@ -1,3 +1,4 @@
+# base.py
 import os
 from datetime import timedelta
 from pathlib import Path
@@ -134,7 +135,7 @@ CELERY_TASK_SERIALIZER = "json"
 
 CELERY_BEAT_SCHEDULE = {
     "delete_notactive_user": {
-        "task": "accounts.tasks.delete_notactive_user",
+        "task": "common.tasks.delete_notactive_user",
         "schedule": crontab(hour=12, minute=0, day_of_week="tue"),
     }
 }

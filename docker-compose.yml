@@ -3,13 +3,16 @@ version: '3.5'
 services:
 
   backend:
-    container_name: web_store
+    container_name: backend
     build:
       context: ./
       dockerfile: Dockerfile
+    image: backend
     working_dir: /app/src
-    ports:
-      - ${LOCAL_PORT}:${WSGI_PORT}
+#    ports:
+#      - ${LOCAL_PORT}:${WSGI_PORT}
+    expose:
+      - "8000"
     volumes:
       - ./src:/app/src
       - ./commands:/app/commands
@@ -17,16 +20,15 @@ services:
       - media_content:/app/src/media
     env_file:
       - .env
-#    depends_on:
-#      - postgres_db
     command: ["sh", "/app/commands/start_server_${MODE}.sh"]
 
   nginx:
+    container_name: nginx
     image: nginx:1.19
     volumes:
+      - ./nginx:/etc/nginx/conf.d
       - ./src/static:/app/src/static
       - ./src/media:/app/src/media
-      - ./nginx:/etc/nginx/conf.d
     ports:
       - "80:80"
       - "443:443"
@@ -36,6 +38,7 @@ services:
       - backend
 
   redis:
+    container_name: redis
     image: redis
     env_file:
       - .env
@@ -44,48 +47,51 @@ services:
       - backend
 
   celery:
-    working_dir: /web_store
+    container_name: celery
+    working_dir: /app/src/
     build: ./
-    container_name: celery-container
-    command:
-      - ./commands/start_celery.sh
+    command: ["sh", "/commands/start_celery.sh"]
     restart: on-failure
     volumes:
-      - ./src:/web_store
-      - ./commands:/web_store/commands
+      - ./src:/app/src/
+      - ./commands:/commands/
     env_file:
       - .env
     depends_on:
       - backend
       - redis
 
-  flower:  # Admin redis
-    working_dir: /web_store
+  flower:
+    container_name: flower
+    working_dir: /app/src/
     build: ./
-    container_name: flower-container
     volumes:
-      - ./src:/web_store
+      - ./src:/app/src/
     env_file:
       - .env
     command: celery -A config flower --broker=redis://redis
-
     ports:
-      - 5556:5555
+      - 5556:5555 #TODO WTH :5556
     depends_on:
       - celery
 
-  redis_commander:  # UI for Redis
-    image: rediscommander/redis-commander:latest
+  redis_commander:
     container_name: redis_commander
+    image: rediscommander/redis-commander:latest
     restart: always
     env_file:
       - .env
     environment:
       - REDIS_HOSTS=main:redis:6379
     ports:
-      - "8081:8081"
+      - "8081:8081"  #TODO WTH :8081
     depends_on:
       - redis
+
+volumes:
+  static_content: {}
+  media_content: {}
+
 
 #  postgres_db:
 #    container_name: web_store_db
@@ -120,9 +126,10 @@ services:
 #    volumes:
 #      - mongo_data:/data/db
 
-volumes:
+#volumes:
 #  postgres_data: { }
 #  pg_admin: { }
 #  mongo_data: { }
-  static_content: { }
-  media_content: { }
+  # staticfiles_volume_strategy
+#  static_content: {}
+#  media_content: {}
