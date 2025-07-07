@@ -56,15 +56,31 @@ class Feedback(FormView):
 
 class CreateCategoryView(TemplateView):
     template_name = "create.html"
+    extra_context = {
+        "info": "Задачу зі створення категорій успішно розпочато. Це може зайняти кілька секунд."
+    }
 
     def get(self, request, *args, **kwargs):
         tasks.create_categories.delay()
         return super().get(request, *args, **kwargs)
 
-
 class CreateProductsView(TemplateView):
     template_name = "create.html"
+    extra_context = {
+        "info": "Задачу зі створення товарів успішно розпочато. Зачекайте, поки товари будуть згенеровані."
+    }
 
     def get(self, request, *args, **kwargs):
         tasks.create_products.delay()
         return super().get(request, *args, **kwargs)
+
+class CreateAskrateView(TemplateView):
+    template_name = "create.html"
+    extra_context = {
+        "info": "Задачу зі створення відгуків та запитань до товарів розпочато. Результати з’являться невдовзі."
+    }
+
+    def get(self, request, *args, **kwargs):
+        tasks.create_askrate.delay()
+        return super().get(request, *args, **kwargs)
+

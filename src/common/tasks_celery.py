@@ -1,8 +1,11 @@
+import random
 from time import sleep
 
 from celery import shared_task
+from django.contrib.auth import get_user_model
 from faker import Faker
 
+from askrate.models import AskRateModel
 from store.models import CategoryModelMPTT, ProductModel
 
 
@@ -150,3 +153,31 @@ def delete_inactive_users():
 
     deleted, _ = User.objects.filter(is_active=False).delete()
     print(f"Deleted {deleted} inactive users.")
+
+
+@shared_task
+def create_askrate():
+    faker = Faker("uk_UA")
+    products = ProductModel.objects.filter(is_active=True)
+    users = list(get_user_model().objects.filter(is_active=True))
+    askrates = []
+
+    for product in products:
+        for _ in range(random.randint(1, 5)):
+            kind = random.choice(['review', 'question'])
+
+            customer = random.choice(users) if users and random.random() < 0.5 else None
+
+            askrates.append(
+                AskRateModel(
+                    product=product,
+                    customer=customer,
+                    type=kind,
+                    text=faker.text(max_nb_chars=500),
+                    rating=random.randint(1, 5) if kind == 'review' else None
+                )
+            )
+
+    AskRateModel.objects.bulk_create(askrates)
+
+
