@@ -3,18 +3,7 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from faker import Faker
 
-# from accounts.models import CustomerUser #TODO: get_user_model()
 CustomerUser = get_user_model()
-
-
-# Advansted level
-# @pytest.fixture
-# def new_user(db):
-#     return User.objects.create_user(username="customuser", password="testpass123")
-
-# def test_user_created(new_user):
-#     assert new_user.username == "customuser"
-#     assert User.objects.filter(username="customuser").exists()
 
 
 class TestCustomerUser:
@@ -24,7 +13,6 @@ class TestCustomerUser:
     EMAIL = "test@example.com"
     PASSWORD = "qwezxc123"
 
-    # TODO: FixValidatePassword: missing minimum password length validation
     @pytest.mark.django_db
     @pytest.mark.parametrize(
         "password_generator",
@@ -116,7 +104,13 @@ class TestCustomerUser:
     @pytest.mark.django_db
     @pytest.mark.parametrize(
         "phone_number",
-        ["+38099123456", "+3809912345678", "380991234567", "0991234567"],
+        [
+            "+38099123456",
+            "+3809912345678",
+            "12345",
+            "hello",
+            "+99999999999999999999",
+        ],
     )
     def test_invalid_phone(self, phone_number):
         customer = CustomerUser(phone_number=phone_number, email=self.EMAIL, password=self.PASSWORD)

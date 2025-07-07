@@ -22,7 +22,11 @@ def create_content(db):
 @pytest.fixture
 def admin_client(db):
     User = get_user_model()
-    user = User.objects.create_user(password="adminpass", phone_number="+380991234567")
+    user = User.objects.create_user(
+        password="adminpass",
+        phone_number="+380991234567",
+        email="user5@example.com",
+    )
     user.is_staff = True
     user.save()
 
@@ -34,7 +38,11 @@ def admin_client(db):
 @pytest.fixture
 def customer_client(db):
     User = get_user_model()
-    user = User.objects.create_user(password="adminpass", phone_number="+380991234568")
+    user = User.objects.create_user(
+        password="adminpass",
+        phone_number="+380991234568",
+        email="user4@example.com",
+    )
     user.is_staff = False
     user.save()
 
@@ -43,20 +51,23 @@ def customer_client(db):
     return customer
 
 
-@pytest.fixture()
+@pytest.fixture
 def set_customer(db):
     User = get_user_model()
 
     user_1 = User.objects.create_user(
         phone_number="+380991234561",
+        email="user1@example.com",
         password="test_pass",
     )
     user_2 = User.objects.create_user(
         phone_number="+380991234562",
+        email="user2@example.com",
         password="test_pass",
     )
     user_3 = User.objects.create_user(
         phone_number="+380991234563",
+        email="user3@example.com",
         password="test_pass",
     )
 
@@ -75,7 +86,12 @@ def set_customer(db):
     }
 
 
+@pytest.mark.django_db
 class TestContentAPI:
+
+    @pytest.fixture(autouse=True)
+    def setup_method(self):
+        get_user_model().objects.all().delete()
 
     def test_get_content(self, admin_client, customer_client, create_content):
 
@@ -124,6 +140,10 @@ class TestContentAPI:
 
 
 class TestCustomerAPI:
+
+    @pytest.fixture(autouse=True)
+    def setup_method(self):
+        get_user_model().objects.all().delete()
 
     @pytest.mark.django_db
     def test_customer_CRUD(self, admin_client, customer_client, set_customer):

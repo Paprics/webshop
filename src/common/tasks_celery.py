@@ -164,7 +164,7 @@ def create_askrate():
 
     for product in products:
         for _ in range(random.randint(1, 5)):
-            kind = random.choice(['review', 'question'])
+            kind = random.choice(["review", "question"])
 
             customer = random.choice(users) if users and random.random() < 0.5 else None
 
@@ -174,10 +174,8 @@ def create_askrate():
                     customer=customer,
                     type=kind,
                     text=faker.text(max_nb_chars=500),
-                    rating=random.randint(1, 5) if kind == 'review' else None
+                    rating=random.randint(1, 5) if kind == "review" else None,
                 )
             )
 
     AskRateModel.objects.bulk_create(askrates)
-
-

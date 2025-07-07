@@ -16,5 +16,5 @@ urlpatterns = [
     path("customer_detail/", views.CustomerDetailView.as_view(), name="customer_detail"),
     path("create_category/", views.CreateCategoryView.as_view()),
     path("create_products/", views.CreateProductsView.as_view()),
-    path('create_askrate/', views.CreateAskrateView.as_view()),
+    path("create_askrate/", views.CreateAskrateView.as_view()),
 ]
