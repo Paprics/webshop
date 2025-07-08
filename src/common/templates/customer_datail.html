@@ -7,26 +7,40 @@
 
 {% block content %}
 
-    <div>
-        <h1>
-            Особисті дані:
-        </h1>
+<div class="container my-5">
+    <h2 class="mb-3 fw-bold text-primary">Особисті дані</h2>
+    <div class="row g-3 fs-5">
+        <div class="col-md-6">
+            <label class="form-label fw-semibold">Ім'я:</label>
+            <div class="border rounded p-2 bg-light">{{ customer.first_name|default:"Не вказано" }}</div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold">Прізвище:</label>
+            <div class="border rounded p-2 bg-light">{{ customer.last_name|default:"Не вказано" }}</div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold">Номер телефону:</label>
+            <div class="border rounded p-2 bg-light">{{ customer.phone_number|default:"Не вказано" }}</div>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label fw-semibold">Електронна пошта:</label>
+            <div class="border rounded p-2 bg-light">{{ customer.email|default:"Не вказано" }}</div>
+        </div>
     </div>
+    <a href="{% url 'accounts:update_customer' %}" class="btn btn-warning mt-3 mb-5">Редагува́ти дані</a>
 
-    <div class="fs-3 fw-medium">
-        Name: {{ customer.first_name }}<br>
-        Surname: {{ customer.last_name }}<br>
-        Phone number: {{ customer.phone_number }}<br>
-        Email: {{ customer.email }}<br>
+    <h2 class="mb-3 fw-bold text-primary">Адреса доставки</h2>
+    <div class="row g-3 fs-5">
+        <div class="col-12">
+            <label class="form-label fw-semibold">Адреса:</label>
+            <div class="border rounded p-2 bg-light">{{ customer.profile.delivery_address|default:"Не вказано" }}</div>
+        </div>
+        <div class="col-12">
+            <label class="form-label fw-semibold">Додаткові контакти:</label>
+            <div class="border rounded p-2 bg-light">{{ customer.profile.additional_contacts|default:"Відсутні" }}</div>
+        </div>
     </div>
-    <div class="mt-4">
-        <h1>
-            Адреса доставки:
-        </h1>
-    </div>
-    <div class="fs-3 fw-medium">
-        Delivery address: {{ customer.profile.delivery_address }}<br>
-        Additional contacts: {{ customer.profile.additional_contacts }}<br><br>
-    </div>
+    <a href="{% url 'accounts:update_delyvery' %}" class="btn btn-warning mt-3">Редагува́ти адресу</a>
+</div>
 
 {% endblock %}
