@@ -37,29 +37,29 @@ services:
     depends_on:
       - backend
 
-  redis:
-    container_name: redis
-    image: redis
-    env_file:
-      - .env
-    restart: on-failure
-    depends_on:
-      - backend
+  # redis:
+  #   container_name: redis
+  #   image: redis
+  #   env_file:
+  #     - .env
+  #   restart: on-failure
+  #   depends_on:
+  #     - backend
 
-  celery:
-    container_name: celery
-    working_dir: /app/src/
-    build: ./
-    command: ["sh", "/commands/start_celery.sh"]
-    restart: on-failure
-    volumes:
-      - ./src:/app/src/
-      - ./commands:/commands/
-    env_file:
-      - .env
-    depends_on:
-      - backend
-      - redis
+  # celery:
+  #   container_name: celery
+  #   working_dir: /app/src/
+  #   build: ./
+  #   command: ["sh", "/commands/start_celery.sh"]
+  #   restart: on-failure
+  #   volumes:
+  #     - ./src:/app/src/
+  #     - ./commands:/commands/
+  #   env_file:
+  #     - .env
+  #   depends_on:
+  #     - backend
+  #     - redis
 
   # flower:
   #   container_name: flower
