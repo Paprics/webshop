@@ -1,33 +1,108 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Реєстрація</h2>
-    <form method="post" novalidate>
+    <form method="post" action="{% url 'accounts:register' %}" class="border p-4 rounded shadow mt-5"
+          style="max-width: 450px; margin: auto;">
         {% csrf_token %}
-        {% for field in form %}
-            <div class="row mb-3 align-items-center">
-                <label for="{{ field.id_for_label }}" class="col-sm-3 col-form-label">
-                    {{ field.label }}
-                </label>
-                <div class="col-sm-9">
-                    {{ field }}
-                    {% if field.errors %}
-                        <div class="text-danger small mt-1">
-                            {{ field.errors|striptags }}
-                        </div>
-                    {% endif %}
-                    {% if field.help_text %}
-                        <div class="form-text">{{ field.help_text }}</div>
-                    {% endif %}
-                </div>
+        <h2 class="text-center mb-4">Реєстрація</h2>
+
+        <hr class="border border-secondary-subtle border-1 opacity-50">
+
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {% for error in form.non_field_errors %}
+                    {{ error }}<br>
+                {% endfor %}
             </div>
-        {% endfor %}
-        <div class="row">
-            <div class="offset-sm-3 col-sm-9">
-                <button type="submit" class="btn btn-primary">Зареєструватися</button>
-            </div>
+        {% endif %}
+
+        <div class="mb-3">
+            <label for="phone_number" class="form-label">Номер телефону</label>
+            <input type="tel"
+                   class="form-control {% if form.phone_number.errors %}is-invalid{% endif %}"
+                   id="phone_number"
+                   name="phone_number"
+                   placeholder="+380 XXX XXX XXX (обов'язкове)"
+                   value="{{ form.phone_number.value|default_if_none:'' }}"
+                   required>
+            <div class="form-text">Введіть номер у міжнародному форматі, починаючи з + і коду країни</div>
+            {% for error in form.phone_number.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="first_name" class="form-label">Ім'я</label>
+            <input type="text"
+                   class="form-control {% if form.first_name.errors %}is-invalid{% endif %}"
+                   id="first_name"
+                   name="first_name"
+                   placeholder="Ім'я"
+                   value="{{ form.first_name.value|default_if_none:'' }}">
+            {% for error in form.first_name.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="last_name" class="form-label">Прізвище</label>
+            <input type="text"
+                   class="form-control {% if form.last_name.errors %}is-invalid{% endif %}"
+                   id="last_name"
+                   name="last_name"
+                   placeholder="Прізвище"
+                   value="{{ form.last_name.value|default_if_none:'' }}">
+            {% for error in form.last_name.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email"
+                   class="form-control {% if form.email.errors %}is-invalid{% endif %}"
+                   id="email"
+                   name="email"
+                   placeholder="email@example.com (обов'язкове)"
+                   value="{{ form.email.value|default_if_none:'' }}"
+                   required>
+            {% for error in form.email.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="password1" class="form-label">Пароль</label>
+            <input type="password"
+                   class="form-control {% if form.password1.errors %}is-invalid{% endif %}"
+                   id="password1"
+                   name="password1"
+                   placeholder="********"
+                   required>
+            {% for error in form.password1.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="mb-3">
+            <label for="password2" class="form-label">Підтвердження пароля</label>
+            <input type="password"
+                   class="form-control {% if form.password2.errors %}is-invalid{% endif %}"
+                   id="password2"
+                   name="password2"
+                   placeholder="********"
+                   required>
+            {% for error in form.password2.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <br>
+
+        <button type="submit" class="btn btn-primary w-100">Зареєструватись</button>
+
+        <div class="mt-3 text-center" style="font-size: 0.9rem;">
+            <a href="{% url 'accounts:login' %}" class="text-dark text-decoration-none fw-bold">Вхід</a>
         </div>
     </form>
-</div>
 {% endblock %}

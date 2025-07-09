@@ -24,7 +24,8 @@
                 </a>
             {% endif %}
 
-            <a href="{% url 'cart:cart_detail' %}" class="d-inline-block position-relative cart-icon" title="Кошик товарів">
+            <a href="{% url 'cart:cart_detail' %}" class="d-inline-block position-relative cart-icon"
+               title="Кошик товарів">
                 <img src="{% static 'svg/cart.svg' %}" width="45" height="45" alt="cart icon"/>
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {{ cart_items_count }}
@@ -72,6 +73,8 @@
                         <ul class="dropdown-menu mt-4 shadow">
                             {% if user.first_name %}
                                 <li class="dropdown-item">Вітаємо, {{ user.first_name }}!</li>
+                            {% else %}
+                                <li class="dropdown-item">Вітаємо, Вас!</li>
                             {% endif %}
 
                             <li>
@@ -119,8 +122,8 @@
                         </ul>
                     </div>
                 {% else %}
-                    <a href="{% url 'accounts:login' %}" class="btn btn-outline-light">Login</a>
-                    <a href="{% url 'accounts:register' %}" class="btn btn-warning">Sign-up</a>
+                    <a href="{% url 'accounts:login' %}" class="btn btn-outline-light">Вхід</a>
+                    <a href="{% url 'accounts:register' %}" class="btn btn-warning">Реєстрація</a>
                 {% endif %}
 
 

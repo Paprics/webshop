@@ -5,8 +5,8 @@ from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import DeleteView, FormView, UpdateView
 
+from accounts.forms import MemberCreationForm
 from accounts.models import ProfileCustomer
-from accounts.rorms import MemberCreationForm
 
 
 class UpdateDelyAddressView(UpdateView):

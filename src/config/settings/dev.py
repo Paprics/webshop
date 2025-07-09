@@ -1,8 +1,9 @@
+# dev.py
 import os
 
 from config.settings.base import *  # noqa: F403
 
-SECRET_KEY = "0b3t%0&p!*x_dx*6p-@ey(3ihp5kz9s)*@ilwo+z4cc4d($hj7"
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "0xF1A3B7D9E2C4Z7X9M8N5Q2L1R0T3V6K8")
 
 DEBUG = True
 

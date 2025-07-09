@@ -1,7 +1,9 @@
+# base.py
 import os
 from datetime import timedelta
 from pathlib import Path
 
+from celery.schedules import crontab
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -16,6 +18,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "drf_yasg",  # swagger docs
+    "django_celery_beat",
     # app
     "accounts.apps.AccountsConfig",
     "api.apps.ApiConfig",
@@ -129,3 +132,10 @@ CELERY_RESULT_BACKEND = "redis://redis"
 CELERY_ACCEPT_CONTENT = ["application/json"]
 SELERY_RESULT_SERIALIZER = "json"
 CELERY_TASK_SERIALIZER = "json"
+
+CELERY_BEAT_SCHEDULE = {
+    "delete_notactive_user": {
+        "task": "common.tasks.delete_notactive_user",
+        "schedule": crontab(hour=12, minute=0, day_of_week="tue"),
+    }
+}

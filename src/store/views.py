@@ -1,15 +1,16 @@
 from django.db.models import (BooleanField, Case, Exists, IntegerField,
                               OuterRef, Value, When)
-from django.shortcuts import get_object_or_404, render  # noqa F401
-from django.views.generic import DetailView, ListView, TemplateView
+from django.shortcuts import get_object_or_404
+from django.views.generic import DetailView, ListView
 
 from askrate.models import AskRateModel
 from favorites.models import FavoriteModel
 from store import models
 from store.models import CategoryModelMPTT, ProductModel
 
-from . import mixins, utils
+from . import mixins
 from .search_engines import SQLiteSearchEngine
+
 
 class ProductsListView(mixins.SearchFilterMixin, mixins.FavoriteAnnotateMixin, ListView):
     model = ProductModel
@@ -33,7 +34,6 @@ class ProductsListView(mixins.SearchFilterMixin, mixins.FavoriteAnnotateMixin, L
             category = get_object_or_404(CategoryModelMPTT, slug=slug)
             categories = category.get_descendants(include_self=True)
             qs = qs.filter(category__in=categories)
-
 
         user = self.request.user
         if user.is_authenticated:
@@ -75,21 +75,4 @@ class ProductDetailView(mixins.FavoriteAnnotateMixin, DetailView):
             .order_by("-same_category")[:4]
         )
 
-
         return context
-
-
-class CreateCategoryView(TemplateView):
-    template_name = "create.html"
-
-    def get(self, request, *args, **kwargs):
-        utils.create_categories()
-        return super().get(request, *args, **kwargs)
-
-
-class CreateProductsView(TemplateView):
-    template_name = "create.html"
-
-    def get(self, request, *args, **kwargs):
-        utils.create_products()
-        return super().get(request, *args, **kwargs)

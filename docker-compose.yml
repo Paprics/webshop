@@ -1,25 +1,18 @@
 version: '3.5'
 
 services:
-  postgres_db:
-    container_name: web_store_db
-    image: postgres:17.5
-    restart: always
-    env_file:
-      - .env
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
 
   backend:
-    container_name: web_store
+    container_name: backend
     build:
       context: ./
       dockerfile: Dockerfile
-    working_dir: /app
+    image: backend
+    working_dir: /app/src
 #    ports:
-#      - "8000:8000"
+#      - ${LOCAL_PORT}:${WSGI_PORT}
+    expose:
+      - "8000"
     volumes:
       - ./src:/app/src
       - ./commands:/app/commands
@@ -27,29 +20,15 @@ services:
       - media_content:/app/src/media
     env_file:
       - .env
-    depends_on:
-      - postgres_db
     command: ["sh", "/app/commands/start_server_${MODE}.sh"]
 
-  pg_admin:
-    image: dpage/pgadmin4
-    container_name: pgadmin_container
-    restart: on-failure
-    env_file:
-      - .env
-    ports:
-      - "5050:80"
-    volumes:
-      - pg_admin:/var/lib/pgadmin
-    depends_on:
-      - postgres_db
-
   nginx:
+    container_name: nginx
     image: nginx:1.19
     volumes:
+      - ./nginx:/etc/nginx/conf.d
       - ./src/static:/app/src/static
       - ./src/media:/app/src/media
-      - ./nginx:/etc/nginx/conf.d
     ports:
       - "80:80"
       - "443:443"
@@ -58,16 +37,8 @@ services:
     depends_on:
       - backend
 
-  mongo:
-    image: mongo:latest
-    container_name: mongo
-    restart: always
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
-
   redis:
+    container_name: redis
     image: redis
     env_file:
       - .env
@@ -76,15 +47,14 @@ services:
       - backend
 
   celery:
-    working_dir: /web_store
+    container_name: celery
+    working_dir: /app/src/
     build: ./
-    container_name: celery-container
-    command:
-      - ./commands/start_celery.sh
+    command: ["sh", "/commands/start_celery.sh"]
     restart: on-failure
     volumes:
-      - ./src:/web_store
-      - ./commands:/web_store/commands
+      - ./src:/app/src/
+      - ./commands:/commands/
     env_file:
       - .env
     depends_on:
@@ -92,36 +62,74 @@ services:
       - redis
 
   flower:
-    working_dir: /web_store
+    container_name: flower
+    working_dir: /app/src/
     build: ./
-    container_name: flower-container
     volumes:
-      - ./src:/web_store
+      - ./src:/app/src/
     env_file:
       - .env
     command: celery -A config flower --broker=redis://redis
-
     ports:
-      - 5556:5555
+      - 5556:5555 #TODO WTH :5556
     depends_on:
       - celery
 
   redis_commander:
-    image: rediscommander/redis-commander:latest
     container_name: redis_commander
+    image: rediscommander/redis-commander:latest
     restart: always
     env_file:
       - .env
     environment:
       - REDIS_HOSTS=main:redis:6379
     ports:
-      - "8081:8081"
+      - "8081:8081"  #TODO WTH :8081
     depends_on:
       - redis
 
 volumes:
-  postgres_data: {}
-  pg_admin: {}
-  mongo_data: {}
   static_content: {}
   media_content: {}
+
+
+#  postgres_db:
+#    container_name: web_store_db
+#    image: postgres:17.5
+#    restart: always
+#    env_file:
+#      - .env
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+
+#pg_admin:
+#    image: dpage/pgadmin4
+#    container_name: pgadmin_container
+#    restart: on-failure
+#    env_file:
+#      - .env
+#    ports:
+#      - "5050:80"
+#    volumes:
+#      - pg_admin:/var/lib/pgadmin
+#    depends_on:
+#      - postgres_db
+
+#  mongo:
+#    image: mongo:latest
+#    container_name: mongo
+#    restart: always
+#    ports:
+#      - "27017:27017"
+#    volumes:
+#      - mongo_data:/data/db
+
+#volumes:
+#  postgres_data: { }
+#  pg_admin: { }
+#  mongo_data: { }
+  # staticfiles_volume_strategy
+#  static_content: {}
+#  media_content: {}

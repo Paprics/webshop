@@ -20,15 +20,28 @@ class CustomerUser(AbstractBaseUser, PermissionsMixin):
     phone_number = PhoneNumberField(
         _("phone number"),
         unique=True,
-        help_text=_(
-            "\nRequired. Enter phone number in international format starting with + and country code, e.g. +380..."
-        ),
-        error_messages={"unique": _("A user with that phone number already exists.")},
+        region="UA",
+        error_messages={
+            "invalid": _("Невірний формат номера. Введіть у форматі +380 XX XXX XXXX."),
+            "unique": _("Користувач з таким номером вже існує."),
+            "required": _("Це поле обов'язкове."),
+        },
+        help_text=_("Введіть номер у міжнародному форматі, починаючи з + і коду країни."),
     )
 
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
     last_name = models.CharField(_("last name"), max_length=150, blank=True)
-    email = models.EmailField(_("email address"))
+
+    email = models.EmailField(
+        _("email address"),
+        unique=True,
+        blank=False,
+        error_messages={
+            "unique": _("Користувач з таким email вже існує."),
+            "invalid": _("Введіть коректну адресу електронної пошти."),
+            "blank": _("Це поле обов'язкове."),
+        },
+    )
 
     is_staff = models.BooleanField(
         _("staff status"), default=False, help_text=_("Designates whether the user can log into this admin site.")
@@ -48,6 +61,7 @@ class CustomerUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = "phone_number"
 
     # Field representing the email address, so Django knows where to find it
+
     EMAIL_FIELD = "email"
 
     # Fields required only when creating a superuser via createsuperuser command
