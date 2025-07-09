@@ -2,44 +2,53 @@
 {% load static %}
 
 {% block menu %}
+  {% include 'includes/menu_settings.html' %}
 {% endblock %}
 
 {% block content %}
-    <div class="h1">
-        Підтвердження замовдення
-        <hr class="border border-primary border-1 opacity-90">
+  <div class="container py-4">
 
-    </div>
+    <h2 class="mb-3">Підтвердження замовлення</h2>
+    <hr class="border border-primary border-1 opacity-90">
 
-    <div class="h1">
-        Дані для доставки:
-    </div>
-    <div>
-        {{ cart_items.user }}
-    </div>
-    <div>
-
-        Адреса доставки: {{ user.profile.delivery_address }}<br>
-        Додаткові контакти для доставки: {{ user.profile.additional_contacts }}
-        <hr>
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Дані для доставки</h5>
+        <p class="mb-1"><strong>Дані отримувача:</strong> {{ request.user.username }} {{ request.user.first_name }} {{ request.user.last_name}}</p>
+        <p class="mb-1"><strong>Адреса:</strong> {{ user.profile.delivery_address|default:"—" }}</p>
+        <p class="mb-0"><strong>Коментар (контакти):</strong> {{ user.profile.additional_contacts|default:"—" }}</p>
+      </div>
     </div>
 
     <form method="post" action="{% url 'cart:order_create' %}">
-    {% csrf_token %}
+      {% csrf_token %}
 
-    <div>
-        <label>
-            <input type="radio" name="payment_method" value="cash" required checked>
-            Оплатить при отриманні
-        </label><br>
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title">Метод оплати</h5>
 
-        <label>
-            <input type="radio" name="payment_method" value="card" required>
-            Оплатить картой зараз
-        </label><br><br>
-    </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="payment_method" value="cash" id="payCash" required checked>
+            <label class="form-check-label" for="payCash">
+              Оплатити при отриманні
+            </label>
+          </div>
 
-    <button type="submit" class="btn btn-outline-secondary">Підтвердити замовлення</button>
-</form>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="payment_method" value="card" id="payCard" required>
+            <label class="form-check-label" for="payCard">
+              Оплатити карткою зараз
+            </label>
+          </div>
+        </div>
+      </div>
 
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary px-4">
+          🛒 Підтвердити замовлення
+        </button>
+      </div>
+    </form>
+
+  </div>
 {% endblock %}

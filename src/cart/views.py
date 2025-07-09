@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -65,7 +66,9 @@ def add_to_cart(request, product_id):
     cart = get_cart(request)
     product = get_object_or_404(ProductModel, id=product_id)
     cart.add(product.id)
-    return redirect("cart:cart_detail")
+
+    messages.success(request, f"✅ {product.title} додано до кошика.")
+    return redirect(request.META.get("HTTP_REFERER", "/"))
 
 
 class CartDetailView(TemplateView):
@@ -96,3 +99,8 @@ class OrderReviewView(TemplateView):
         context["user"] = user
 
         return context
+
+class OrderDetailView(TemplateView):
+    template_name = ''
+
+

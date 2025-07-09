@@ -7,7 +7,8 @@ from favorites.models import FavoriteModel
 
 class FavoriteView(LoginRequiredMixin, View):
 
-    template_name = "favorites_list.html"
+    # template_name = "favorites_list.html"
+    template_name = "favorite_list_cabinet.html"
 
     def post(self, request, *args, **kwargs):
         product_id = kwargs.get("pk")
@@ -27,3 +28,5 @@ class FavoriteView(LoginRequiredMixin, View):
         context = {"favorites": favorites}
 
         return render(request, self.template_name, context)
+
+
