@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block menu %}
+    {% include 'includes/menu_settings.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4 fw-bold text-primary">Оновлення адреси доставки</h2>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+
+        <div class="mb-4">
+            <label for="id_delivery_address" class="form-label">Адреса доставки:</label>
+            <textarea name="delivery_address" id="id_delivery_address" class="form-control" rows="4">{{ form.delivery_address.value|default_if_none:'' }}</textarea>
+            <div class="form-text">
+                Укажіть точну адресу доставки, відділення або адресу служби доставки (Нова Пошта, Укрпошта тощо).
+            </div>
+            {% if form.delivery_address.errors %}
+                <div class="text-danger small">{{ form.delivery_address.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="mb-4">
+            <label for="id_additional_contacts" class="form-label">Додаткові контакти (коментар):</label>
+            <textarea name="additional_contacts" id="id_additional_contacts" class="form-control" rows="3">{{ form.additional_contacts.value|default_if_none:'' }}</textarea>
+            <div class="form-text">
+                У цьому полі ви можете вказати додаткові контакти (телефон, Telegram, Viber) або коментарі для доставки.
+            </div>
+            {% if form.additional_contacts.errors %}
+                <div class="text-danger small">{{ form.additional_contacts.errors }}</div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Зберегти</button>
+    </form>
+</div>
+{% endblock %}

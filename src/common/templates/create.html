@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .fade-out {
+        opacity: 0;
+        transition: opacity 0.8s ease;
+    }
+
+    .spin-icon {
+        animation: spin 1s linear infinite;
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to   { transform: rotate(360deg); }
+    }
+
+    .scale-up {
+        animation: scaleUp 0.3s ease-in-out;
+    }
+
+    @keyframes scaleUp {
+        0%   { transform: scale(0.9); opacity: 0.5; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+</style>
+
+<div id="task-alert" class="alert alert-success text-center scale-up d-flex align-items-center justify-content-center gap-2" role="alert" title="Статус задачі">
+    <span class="spin-icon">🔄</span>
+    <span>{{ info }}</span>
+</div>
+
+<script>
+    setTimeout(function () {
+        const alertBox = document.getElementById("task-alert");
+        if (alertBox) {
+            alertBox.classList.add("fade-out");
+            setTimeout(() => {
+                alertBox.remove();
+                window.location.href = "/";  // 👈 редирект на главную
+            }, 800); // Ждём, пока исчезнет
+        }
+    }, 3500); // Показываем 3.5 сек
+</script>
+{% endblock %}

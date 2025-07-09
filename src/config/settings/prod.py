@@ -1,10 +1,13 @@
+# prod.py
+import os
+
 from config.settings.base import *  # noqa: F403
 
-SECRET_KEY = ""
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "ec2-52-91-86-64.compute-1.amazonaws.com", "*"]
 
 DATABASES = {
     "default": {
@@ -13,4 +16,8 @@ DATABASES = {
     }
 }
 
-STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "static/"  # noqa: F405
+STATIC_URL = "static/"  # noqa: F405
+
+MEDIA_ROOT = BASE_DIR / "media/"  # noqa: F405
+MEDIA_URL = "media/"  # noqa: F405

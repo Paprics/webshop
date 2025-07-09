@@ -1,0 +1,41 @@
+<ul class="dropdown-menu position-static d-grid gap-1 p-2 rounded-3 mx-0 shadow w-100" data-bs-theme="light">
+    <li>
+        <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'customer_detail' %}active-menu{% endif %}"
+           href="{% url 'common:customer_detail' %}">Особисті дані</a>
+    </li>
+
+    <li>
+        <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'order_history' %}active-menu{% endif %}"
+           href="{% url "cart:order_list" %}">Історія замовлень</a>
+    </li>
+
+    <li>
+        <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'order_history' %}active-menu{% endif %}"
+           href="{% url "favorites:list" %}">Обрані товари</a>
+    </li>
+
+
+    <hr class="dropdown-divider">
+
+    <li>
+        <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'edit_profile' %}active-menu{% endif %}"
+           href="{% url 'accounts:update_customer' %}">Редагувати дані</a>
+    </li>
+
+    <li>
+        <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'edit_address' %}active-menu{% endif %}"
+           href="{% url "accounts:update_delyvery" %}">Адреса доставки</a>
+    </li>
+
+    <li>
+        <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'change_password' %}active-menu{% endif %}"
+           href="{% url 'accounts:change_password' %}">Зміна пароля</a>
+    </li>
+
+    <li><hr class="dropdown-divider"></li>
+
+    <li>
+        <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'delete_account' %}active-menu{% endif %} text-danger"
+           href="{% url 'accounts:delete_account' %}">Видалити профіль</a>
+    </li>
+</ul>

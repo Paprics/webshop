@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="faq-section container my-5">
+        <h1 class="mb-4">Часті питання (FAQ)</h1>
+        <p>Тут зібрані найпопулярніші питання наших клієнтів про замовлення, доставку, оплату та повернення. Якщо не
+            знайшли відповіді — звертайтеся до служби підтримки.</p>
+
+        <div class="accordion" id="faqAccordion">
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Як зробити замовлення на сайті?
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                     data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Щоб зробити замовлення, додайте обрані товари у кошик, перейдіть до кошика, перевірте деталі і
+                        натисніть кнопку «Оформити замовлення». Далі заповніть контактні дані та оберіть спосіб
+                        доставки.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Які способи оплати ви підтримуєте?
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                     data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Ми приймаємо оплату банківськими картками Visa, Mastercard, а також через сервіси Apple Pay та
+                        Google Pay. Можлива оплата при отриманні у відділенні пошти.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Скільки часу займає доставка?
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                     data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Стандартний термін доставки по Україні – від 2 до 5 робочих днів залежно від обраного способу
+                        доставки та міста.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        Як повернути або обміняти товар?
+                    </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+                     data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Ви можете повернути або обміняти товар протягом 14 днів після отримання. Для цього зверніться до
+                        служби підтримки або оформіть заявку у вашому кабінеті. Товар має бути у належному стані з
+                        оригінальною упаковкою.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFive">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        Як працює ваша служба підтримки?
+                    </button>
+                </h2>
+                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+                     data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Ми працюємо 7 днів на тиждень з 9:00 до 21:00. Ви можете звертатися за телефоном, email або
+                        через чат на сайті. Готові допомогти з будь-якими питаннями щодо замовлень та товарів.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}

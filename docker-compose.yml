@@ -1,0 +1,135 @@
+version: '3.5'
+
+services:
+
+  backend:
+    container_name: backend
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: backend
+    working_dir: /app/src
+#    ports:
+#      - ${LOCAL_PORT}:${WSGI_PORT}
+    expose:
+      - "8000"
+    volumes:
+      - ./src:/app/src
+      - ./commands:/app/commands
+      - static_content:/app/src/static
+      - media_content:/app/src/media
+    env_file:
+      - .env
+    command: ["sh", "/app/commands/start_server_${MODE}.sh"]
+
+  nginx:
+    container_name: nginx
+    image: nginx:1.19
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./src/static:/app/src/static
+      - ./src/media:/app/src/media
+    ports:
+      - "80:80"
+      - "443:443"
+    env_file:
+      - .env
+    depends_on:
+      - backend
+
+  redis:
+    container_name: redis
+    image: redis
+    env_file:
+      - .env
+    restart: on-failure
+    depends_on:
+      - backend
+
+  celery:
+    container_name: celery
+    working_dir: /app/src/
+    build: ./
+    command: ["sh", "/commands/start_celery.sh"]
+    restart: on-failure
+    volumes:
+      - ./src:/app/src/
+      - ./commands:/commands/
+    env_file:
+      - .env
+    depends_on:
+      - backend
+      - redis
+
+  flower:
+    container_name: flower
+    working_dir: /app/src/
+    build: ./
+    volumes:
+      - ./src:/app/src/
+    env_file:
+      - .env
+    command: celery -A config flower --broker=redis://redis
+    ports:
+      - 5556:5555 #TODO WTH :5556
+    depends_on:
+      - celery
+
+  redis_commander:
+    container_name: redis_commander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - REDIS_HOSTS=main:redis:6379
+    ports:
+      - "8081:8081"  #TODO WTH :8081
+    depends_on:
+      - redis
+
+volumes:
+  static_content: {}
+  media_content: {}
+
+
+#  postgres_db:
+#    container_name: web_store_db
+#    image: postgres:17.5
+#    restart: always
+#    env_file:
+#      - .env
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+
+#pg_admin:
+#    image: dpage/pgadmin4
+#    container_name: pgadmin_container
+#    restart: on-failure
+#    env_file:
+#      - .env
+#    ports:
+#      - "5050:80"
+#    volumes:
+#      - pg_admin:/var/lib/pgadmin
+#    depends_on:
+#      - postgres_db
+
+#  mongo:
+#    image: mongo:latest
+#    container_name: mongo
+#    restart: always
+#    ports:
+#      - "27017:27017"
+#    volumes:
+#      - mongo_data:/data/db
+
+#volumes:
+#  postgres_data: { }
+#  pg_admin: { }
+#  mongo_data: { }
+  # staticfiles_volume_strategy
+#  static_content: {}
+#  media_content: {}

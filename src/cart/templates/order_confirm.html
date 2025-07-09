@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block menu %}
+{% endblock %}
+
+{% block content %}
+    <div class="h1">
+        Підтвердження замовдення
+        <hr class="border border-primary border-1 opacity-90">
+
+    </div>
+
+    <div class="h1">
+        Дані для доставки:
+    </div>
+    <div>
+        {{ cart_items.user }}
+    </div>
+    <div>
+
+        Адреса доставки: {{ user.profile.delivery_address }}<br>
+        Додаткові контакти для доставки: {{ user.profile.additional_contacts }}
+        <hr>
+    </div>
+
+    <form method="post" action="{% url 'cart:order_create' %}">
+    {% csrf_token %}
+
+    <div>
+        <label>
+            <input type="radio" name="payment_method" value="cash" required checked>
+            Оплатить при отриманні
+        </label><br>
+
+        <label>
+            <input type="radio" name="payment_method" value="card" required>
+            Оплатить картой зараз
+        </label><br><br>
+    </div>
+
+    <button type="submit" class="btn btn-outline-secondary">Підтвердити замовлення</button>
+</form>
+
+{% endblock %}
