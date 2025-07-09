@@ -7,7 +7,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["localhost", "ec2-52-91-86-64.compute-1.amazonaws.com", "*"]
 
 DATABASES = {
     "default": {
