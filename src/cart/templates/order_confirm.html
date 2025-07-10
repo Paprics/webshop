@@ -13,9 +13,9 @@
 
     <div class="card shadow-sm mb-4">
       <div class="card-body">
-        <h5 class="card-title">Дані для доставки</h5>
-        <p class="mb-1"><strong>Дані отримувача:</strong> {{ request.user.username }} {{ request.user.first_name }} {{ request.user.last_name}}</p>
-        <p class="mb-1"><strong>Адреса:</strong> {{ user.profile.delivery_address|default:"—" }}</p>
+        <h5 class="card-title">Дані замовлення:</h5>
+        <p class="mb-1"><strong>Отримувач:</strong> {{ request.user.username }} {{ request.user.first_name }} {{ request.user.last_name}}</p>
+        <p class="mb-1"><strong>Адреса для доставки:</strong> {{ user.profile.delivery_address|default:"—" }}</p>
         <p class="mb-0"><strong>Коментар (контакти):</strong> {{ user.profile.additional_contacts|default:"—" }}</p>
       </div>
     </div>
