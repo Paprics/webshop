@@ -59,7 +59,10 @@ class CreateCategoryView(TemplateView):
     extra_context = {"info": "Задачу зі створення категорій успішно розпочато. Це може зайняти кілька секунд."}
 
     def get(self, request, *args, **kwargs):
-        tasks.create_categories.delay()
+        try:
+            tasks.create_categories.delay()
+        except Exception:
+            tasks.create_categories()
         return super().get(request, *args, **kwargs)
 
 
@@ -70,7 +73,11 @@ class CreateProductsView(TemplateView):
     }
 
     def get(self, request, *args, **kwargs):
-        tasks.create_products.delay()
+        try:
+            tasks.create_products.delay()
+        except Exception:
+            tasks.create_products()
+
         return super().get(request, *args, **kwargs)
 
 
@@ -81,5 +88,9 @@ class CreateAskrateView(TemplateView):
     }
 
     def get(self, request, *args, **kwargs):
-        tasks.create_askrate.delay()
+        try:
+            tasks.create_askrate.delay()
+        except Exception:
+            tasks.create_askrate()
+
         return super().get(request, *args, **kwargs)

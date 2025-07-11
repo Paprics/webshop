@@ -19,7 +19,7 @@
             </ul>
 
             {% if user.is_authenticated %}
-                <a href="{% url 'favorites:list' %}" class="d-inline-block cart-icon" title="Обрані товари">
+                <a href="{% url 'favorites:favorite_list' %}" class="d-inline-block cart-icon" title="Обрані товари">
                     <img src="{% static 'svg/star_fill.svg' %}" width="35" height="35" alt="cart icon"/>
                 </a>
             {% endif %}
@@ -85,7 +85,8 @@
                     </li>
                     <li><a class="dropdown-item" href="{% url 'cart:order_list' %}">Історія замовлень</a></li>
 
-                    <li><a class="dropdown-item" href="{% url 'favorites:list' %}">Улюблені товари</a></li>
+                    <li><a class="dropdown-item" href="{% url 'favorites:favorite_list_cabinet' %}">Улюблені товари</a>
+                    </li>
 
                     <li><a class="dropdown-item" href="{% url 'common:feedback' %}">Підтримка 24/7</a></li>
 
@@ -118,16 +119,32 @@
                         </form>
                     </li>
 
+                    {#                    ADMIN BLOCK MENU#}
                     {% if user.is_staff or user.is_superuser %}
                         <hr class="border border-secondary border-1 opacity-75">
 
-                        <div class="bg-secondary bg-opacity-10 rounded p-2">
-                            <li class="ms-2 text-dark fw-bold">
+                        <div class="bg-secondary bg-opacity-10 rounded p-3">
+                            <li class="ms-2 text-dark fw-bold mb-2">
                                 <i class="bi bi-shield-lock-fill me-1"></i> Admin MENU
                             </li>
-                            <li>Додати категорії</li>
-                            <li>Сгенерувати товари</li>
-                            <li>Додати відгуки </li>
+                            <li class="ms-3 mb-2">
+                                <a href="/admin/" class="text-decoration-none text-primary">Адмін панель</a>
+                            </li>
+
+                            <li class="ms-3 mb-2">
+                                <a href="{% url 'common:create_products' %}">Додати категорії</a>
+                            </li>
+
+
+                            <li class="ms-3 mb-2">
+                                <a href="{% url 'common:create_products' %}">Сгенерувати товари</a>
+                            </li>
+
+                            <li class="ms-3 mb-2">
+                                <a href="{% url 'common:create_askrate' %}">Сгенерувати відгуки</a>
+                            </li>
+
+
                         </div>
                     {% endif %}
 

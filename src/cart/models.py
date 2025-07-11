@@ -6,8 +6,6 @@ from store.models import ProductModel
 
 
 class OrderStatus(TextChoices):
-    PENDING = "pending", "Очікує оплати"
-    PAID = "paid", "Оплачено"
     PROCESSING = "processing", "Обробляється"
     SHIPPED = "shipped", "Відправлено"
     DELIVERED = "delivered", "Доставлено"
@@ -36,7 +34,7 @@ class OrderModel(models.Model):
     customer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     is_paid = models.BooleanField(default=False)
-    status = models.CharField(max_length=20, choices=OrderStatus.choices, default=OrderStatus.PENDING)
+    status = models.CharField(max_length=20, choices=OrderStatus.choices, default=OrderStatus.PROCESSING)
 
     def __str__(self):
         return f"Замовлення #{self.id} користувача {self.customer} від {self.created_at.strftime('%Y-%m-%d')}"

@@ -2,7 +2,7 @@ import os
 
 import stripe
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 
 from cart.models import OrderModel
@@ -26,8 +26,22 @@ class PayOrderView(View):
             line_items=get_line_items(order),
             mode="payment",
             success_url="http://localhost:8000/payment/success/",
-            cancel_url="http://localhost:8000/payment/cancel/",
+            cancel_url=f"http://localhost:8000/payment/canceled/{order.id}/",
             metadata={"order_id": str(order.id)},
         )
 
         return redirect(session.url)
+
+class CancelOrderView(View):
+    template_name = "cancel.html"
+
+    def get(self, request, *args, **kwargs):
+        order_id = kwargs.get("order_id")
+
+        if order_id:
+            order = get_object_or_404(OrderModel, pk=order_id, customer=request.user)
+            order.status = 'cancelled'
+            order.save()
+
+        return render(request, self.template_name)
+

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div id="thank-you-container" style="max-width: 600px; margin: 100px auto; text-align: center; opacity: 0; transition: opacity 1.5s;">
+    <h1 style="font-size: 2.5rem; color: #28a745;">Дякуємо за замовлення!</h1>
+    <p style="font-size: 1.2rem; margin-top: 20px;">
+        Ваше замовлення прийнято і буде оброблено протягом одного робочого дня.
+        Наш менеджер зв'яжеться з вами найближчим часом.
+    </p>
+    <p style="font-size: 1rem; margin-top: 30px; color: #6c757d;">
+        Ви будете автоматично перенаправлені на головну сторінку за <span id="countdown">5</span> секунд...
+    </p>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Fade-in анимация
+        const container = document.getElementById("thank-you-container");
+        setTimeout(() => {
+            container.style.opacity = 1;
+        }, 100);
+
+        // Переадресация через {} секунд
+        let seconds = 8;
+        const countdownSpan = document.getElementById("countdown");
+        const countdown = setInterval(() => {
+            seconds--;
+            countdownSpan.textContent = seconds;
+            if (seconds <= 0) {
+                clearInterval(countdown);
+                window.location.href = "/";
+            }
+        }, 1000);
+    });
+</script>
+{% endblock %}

@@ -1,14 +1,15 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
+from django.views.generic import ListView
 
 from favorites.models import FavoriteModel
 
 
 class FavoriteView(LoginRequiredMixin, View):
 
-    # template_name = "favorites_list.html"
-    template_name = "favorite_list_cabinet.html"
+    template_name = "favorites_list.html"
+    # template_name = "favorite_list_cabinet.html"
 
     def post(self, request, *args, **kwargs):
         product_id = kwargs.get("pk")
@@ -29,4 +30,7 @@ class FavoriteView(LoginRequiredMixin, View):
 
         return render(request, self.template_name, context)
 
+
+class FavoriteListView(ListView):
+    template_name = "favorites_list.html"
 

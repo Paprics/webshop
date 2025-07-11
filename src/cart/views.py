@@ -52,7 +52,7 @@ class OrderCreateView(View):
 
             return redirect(reverse("payments:pay") + f"?order_id={order.id}")
 
-        return redirect("cart:order_list")
+        return redirect("common:success_order")
 
 
 def remove_cart(request, product_pk):
