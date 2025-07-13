@@ -5,10 +5,12 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.utils.http import urlsafe_base64_decode
-from django.views.generic import DeleteView, UpdateView, RedirectView, CreateView
+from django.views.generic import (CreateView, DeleteView, RedirectView,
+                                  UpdateView)
 
 from accounts.forms import MemberCreationForm
 from accounts.models import ProfileCustomer
+
 from .utils.utils import TokenGenerator, send_registration_mail
 
 
@@ -59,7 +61,6 @@ class LoginView(LoginView):
 
 class LogoutView(LogoutView):
     next_page = reverse_lazy("common:index")
-
 
 
 class RegistrationView(CreateView):

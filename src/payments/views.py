@@ -32,6 +32,7 @@ class PayOrderView(View):
 
         return redirect(session.url)
 
+
 class CancelOrderView(View):
     template_name = "cancel.html"
 
@@ -40,8 +41,7 @@ class CancelOrderView(View):
 
         if order_id:
             order = get_object_or_404(OrderModel, pk=order_id, customer=request.user)
-            order.status = 'cancelled'
+            order.status = "cancelled"
             order.save()
 
         return render(request, self.template_name)
-

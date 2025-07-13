@@ -16,7 +16,7 @@ class OrderStatus(TextChoices):
 class StoreCart(models.Model):
     class Meta:
         db_table = "store_cart"
-        verbose_name = "Кошик покупця (не оформлений)"
+        verbose_name = "3. Кошик покупця"
         verbose_name_plural = verbose_name
 
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
@@ -28,7 +28,7 @@ class StoreCart(models.Model):
 class OrderModel(models.Model):
     class Meta:
         db_table = "order"
-        verbose_name = "Замовлення"
+        verbose_name = "1. Замовлення"
         verbose_name_plural = verbose_name
 
     customer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
@@ -43,7 +43,7 @@ class OrderModel(models.Model):
 class OrderItemModel(models.Model):
     class Meta:
         db_table = "order_item"
-        verbose_name = "Товари у замовленні"
+        verbose_name = "2. (Товари у замовленні)"
         verbose_name_plural = verbose_name
 
     order = models.ForeignKey(OrderModel, on_delete=models.CASCADE, related_name="items")

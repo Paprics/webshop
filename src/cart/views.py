@@ -100,7 +100,6 @@ class OrderReviewView(TemplateView):
 
         return context
 
+
 class OrderDetailView(TemplateView):
-    template_name = ''
-
-
+    template_name = ""

@@ -1,4 +1,4 @@
-#utils.py
+# utils.py
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.contrib.sites.shortcuts import get_current_site
@@ -6,7 +6,6 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-
 
 
 class TokenGenerator(PasswordResetTokenGenerator):
@@ -37,4 +36,3 @@ def send_registration_mail(customer, request) -> None:
 
     email.content_subtype = "html"
     email.send(fail_silently=True)
-

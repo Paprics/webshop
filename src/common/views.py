@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, FormView, TemplateView
 
 from common.forms import FeedbackForm
-from common.models import Content, Feedback
+from common.models import Feedback
 
 from . import tasks_celery as tasks
 
@@ -17,14 +17,10 @@ class CustomerDetailView(DetailView):
         return get_user_model().objects.select_related("profile").get(pk=self.request.user.pk)
 
 
-class IndexView(DetailView):
-    model = Content
+class IndexView(TemplateView):
     template_name = "index.html"
     context_object_name = "content"
     extra_context = {"title": "Home Page | Домашня сторінка"}
-
-    def get_object(self):
-        return Content.objects.filter(pk=1)
 
 
 class FeedbackCreateView(CreateView):

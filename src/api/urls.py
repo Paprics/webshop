@@ -30,9 +30,6 @@ urlpatterns = [
     path("customer/", views.CustomerListCreateView.as_view(), name="customer-list"),
     path("customer/<int:pk>/", views.CustomerDetailView.as_view(), name="customer-detail"),
     #
-    path("content/", views.ContentListView.as_view(), name="content-list"),
-    path("content/<slug:slug>/", views.ContentDetailView.as_view(), name="content-detail"),
-    #
     path("products/", views.ProductListView.as_view(), name="products_list"),
     path("products/<slug:slug>/", views.ProductDetailView.as_view(), name="product_detail"),
     path("products/category/<slug:slug_category>/", views.ProductByCategoryView.as_view(), name="products_by_category"),

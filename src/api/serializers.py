@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
 from accounts.models import CustomerUser
-from common.models import Content
 from store.models import CategoryModelMPTT, ProductModel
 
 
@@ -13,7 +12,6 @@ class CustomerUserSerializer(serializers.ModelSerializer):
 
 class ContentSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Content
         fields = "__all__"
 
 

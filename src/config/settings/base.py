@@ -140,7 +140,7 @@ CELERY_BEAT_SCHEDULE = {
     }
 }
 
-#Email
+# Email
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.ukr.net"
 EMAIL_PORT = 465

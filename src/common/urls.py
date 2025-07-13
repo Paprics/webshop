@@ -17,5 +17,5 @@ urlpatterns = [
     path("create_category/", views.CreateCategoryView.as_view(), name="create_category"),
     path("create_products/", views.CreateProductsView.as_view(), name="create_products"),
     path("create_askrate/", views.CreateAskrateView.as_view(), name="create_askrate"),
-    path('success_order/', TemplateView.as_view(template_name="success_order.html"), name='success_order'),
+    path("success_order/", TemplateView.as_view(template_name="success_order.html"), name="success_order"),
 ]

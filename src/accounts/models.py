@@ -10,13 +10,7 @@ from accounts.utils.manegers import CustomerManager
 
 
 class CustomerUser(AbstractBaseUser, PermissionsMixin):
-    # from django.contrib.auth.models import User --> Base Model User
-    """
-    An abstract base class implementing a fully featured User model with
-    admin-compliant permissions.
 
-    Username and password are required. Other fields are optional.
-    """
     phone_number = PhoneNumberField(
         _("phone number"),
         unique=True,

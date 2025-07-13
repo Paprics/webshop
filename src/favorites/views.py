@@ -33,4 +33,3 @@ class FavoriteView(LoginRequiredMixin, View):
 
 class FavoriteListView(ListView):
     template_name = "favorites_list.html"
-
