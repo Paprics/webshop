@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -51,7 +52,7 @@ class OrderCreateView(View):
 
             return redirect(reverse("payments:pay") + f"?order_id={order.id}")
 
-        return redirect("cart:order_list")
+        return redirect("common:success_order")
 
 
 def remove_cart(request, product_pk):
@@ -65,7 +66,9 @@ def add_to_cart(request, product_id):
     cart = get_cart(request)
     product = get_object_or_404(ProductModel, id=product_id)
     cart.add(product.id)
-    return redirect("cart:cart_detail")
+
+    messages.success(request, f"✅ {product.title} додано до кошика.")
+    return redirect(request.META.get("HTTP_REFERER", "/"))
 
 
 class CartDetailView(TemplateView):
@@ -79,6 +82,9 @@ class CartDetailView(TemplateView):
             item.total_price = item.price * item.quantity
         context["cart_items"] = items
         context["cart_total_price"] = cart.get_total_cart_price()
+
+        # Получаем параметр из запроса: ?source=profile
+        context["source"] = self.request.GET.get("source", "default")
 
         return context
 
@@ -96,3 +102,7 @@ class OrderReviewView(TemplateView):
         context["user"] = user
 
         return context
+
+
+class OrderDetailView(TemplateView):
+    template_name = ""

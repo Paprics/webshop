@@ -68,7 +68,11 @@ class TestCustomerUser:
         customer_1.full_clean()
         customer_1.save()
 
-        customer_2 = CustomerUser(phone_number=self.PHONE, email="ololo-2025@gmail.com", password=self.PASSWORD)
+        customer_2 = CustomerUser(
+            phone_number=self.PHONE,
+            email="ololo-2025@gmail.com",
+            password=self.PASSWORD,
+        )
         with pytest.raises(ValidationError):
             customer_2.full_clean()
 

@@ -8,8 +8,16 @@ app_name = "store"
 
 urlpatterns = [
     path("products/", views.ProductsListView.as_view(), name="products_list"),
-    path("category/<slug:slug_category>/", views.ProductsListView.as_view(), name="products_category"),
-    path("products/<slug:slug_product>/", views.ProductDetailView.as_view(), name="product_detail"),
+    path(
+        "category/<slug:slug_category>/",
+        views.ProductsListView.as_view(),
+        name="products_category",
+    ),
+    path(
+        "products/<slug:slug_product>/",
+        views.ProductDetailView.as_view(),
+        name="product_detail",
+    ),
     path("search/", views.ProductsListView.as_view(), name="products_search"),
 ]
 

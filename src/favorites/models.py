@@ -8,8 +8,8 @@ from store.models import ProductModel
 class FavoriteModel(models.Model):
     class Meta:
         db_table = "favorite"
-        verbose_name = "Обране"
-        verbose_name_plural = "Обране"
+        verbose_name = "Обрарні товари покупців"
+        verbose_name_plural = verbose_name
         unique_together = ("customer", "product")
 
     customer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="favorites")

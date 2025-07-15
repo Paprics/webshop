@@ -10,13 +10,7 @@ from accounts.utils.manegers import CustomerManager
 
 
 class CustomerUser(AbstractBaseUser, PermissionsMixin):
-    # from django.contrib.auth.models import User --> Base Model User
-    """
-    An abstract base class implementing a fully featured User model with
-    admin-compliant permissions.
 
-    Username and password are required. Other fields are optional.
-    """
     phone_number = PhoneNumberField(
         _("phone number"),
         unique=True,
@@ -44,7 +38,9 @@ class CustomerUser(AbstractBaseUser, PermissionsMixin):
     )
 
     is_staff = models.BooleanField(
-        _("staff status"), default=False, help_text=_("Designates whether the user can log into this admin site.")
+        _("staff status"),
+        default=False,
+        help_text=_("Designates whether the user can log into this admin site."),
     )
     is_active = models.BooleanField(
         _("active"),
@@ -92,7 +88,11 @@ class CustomerUser(AbstractBaseUser, PermissionsMixin):
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
     def __str__(self):
-        return f"{self.phone_number} {self.first_name} {self.get_short_name()}"
+        return (
+            f"{self.phone_number}"
+            if self.first_name and self.last_name is None
+            else f"{self.first_name} {self.last_name}"
+        )
 
 
 class ProfileCustomer(models.Model):

@@ -9,10 +9,10 @@ services:
       dockerfile: Dockerfile
     image: backend
     working_dir: /app/src
-#    ports:
-#      - ${LOCAL_PORT}:${WSGI_PORT}
-    expose:
-      - "8000"
+    ports:
+      - ${LOCAL_PORT}:${WSGI_PORT}
+#    expose:
+#      - "8000"
     volumes:
       - ./src:/app/src
       - ./commands:/app/commands
@@ -60,6 +60,7 @@ services:
   #   depends_on:
   #     - backend
   #     - redis
+
 
   # flower:
   #   container_name: flower

@@ -139,3 +139,13 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": crontab(hour=12, minute=0, day_of_week="tue"),
     }
 }
+
+# Email
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.ukr.net"
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = "privet.poka@ukr.net"

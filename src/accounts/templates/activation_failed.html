@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+  <h1 class="text-danger mb-4">Помилка активації аккаунта</h1>
+  <p class="fs-5">
+    На жаль, активація вашого аккаунта не вдалася. <br>
+    Будь ласка, спробуйте пізніше або зв'яжіться з адміністрацією сайту.
+  </p>
+  <a href="{% url 'common:index' %}" class="btn btn-primary mt-3">Повернутися на головну</a>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <meta http-equiv="refresh" content="5;url={% url 'common:index' %}">
+  <div style="max-width: 600px; margin: 80px auto; padding: 40px; background-color: #f8fff8; border: 1px solid #d4edda; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.05); text-align: center;">
+    <h2 style="color: #28a745; font-size: 28px;">Ваш акаунт успішно активовано!</h2>
+    <p style="font-size: 18px; margin-top: 20px;">
+      Дякуємо за підтвердження. Тепер ви можете користуватися всіма можливостями сайту.
+    </p>
+    <p style="font-size: 16px; color: #666; margin-top: 30px;">
+      Ви будете автоматично перенаправлені на головну сторінку через кілька секунд...
+    </p>
+    <p style="margin-top: 40px;">
+      <a href="{% url 'common:index' %}" style="display: inline-block; padding: 10px 20px; background-color: #28a745; color: #fff; border-radius: 5px; text-decoration: none;">Перейти зараз</a>
+    </p>
+  </div>
+{% endblock %}

@@ -20,7 +20,12 @@ class TestProduct:
         category = create_categories[0]  # ForeignKey expects a CategoryModel instance (not a string❗)
 
         product = ProductModel(
-            title=title, article=article, price=price, description=description, quantity=quantity, category=category
+            title=title,
+            article=article,
+            price=price,
+            description=description,
+            quantity=quantity,
+            category=category,
         )
 
         product.full_clean()
@@ -51,7 +56,12 @@ class TestProduct:
         category = create_categories[3]
 
         product = ProductModel(
-            title=title, article=article, price=price, description=description, quantity=quantity, category=category
+            title=title,
+            article=article,
+            price=price,
+            description=description,
+            quantity=quantity,
+            category=category,
         )
 
         with pytest.raises(ValidationError) as error_info:

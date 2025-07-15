@@ -5,25 +5,30 @@
     </li>
 
     <li>
-        <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'order_history' %}active-menu{% endif %}"
+        <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'order_list' %}active-menu{% endif %}"
            href="{% url "cart:order_list" %}">Історія замовлень</a>
     </li>
 
     <li>
-        <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'order_history' %}active-menu{% endif %}"
-           href="{% url "favorites:list" %}">Обрані товари</a>
+        <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'cart_detail' %}active-menu{% endif %}"
+           href="{% url 'cart:cart_detail' %}?source=profile">Кошик товарів</a>
+    </li>
+
+    <li>
+        <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'list' %}active-menu{% endif %}"
+           href="{% url "favorites:favorite_list_cabinet" %}">Обрані товари</a>
     </li>
 
 
     <hr class="dropdown-divider">
 
     <li>
-        <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'edit_profile' %}active-menu{% endif %}"
+        <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'update_customer' %}active-menu{% endif %}"
            href="{% url 'accounts:update_customer' %}">Редагувати дані</a>
     </li>
 
     <li>
-        <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'edit_address' %}active-menu{% endif %}"
+        <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'update_delyvery' %}active-menu{% endif %}"
            href="{% url "accounts:update_delyvery" %}">Адреса доставки</a>
     </li>
 
@@ -32,7 +37,9 @@
            href="{% url 'accounts:change_password' %}">Зміна пароля</a>
     </li>
 
-    <li><hr class="dropdown-divider"></li>
+    <li>
+        <hr class="dropdown-divider">
+    </li>
 
     <li>
         <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'delete_account' %}active-menu{% endif %} text-danger"

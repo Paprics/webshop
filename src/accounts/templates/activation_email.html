@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Активація акаунту</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: #ffffff;
+      max-width: 600px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    h2 {
+      color: #2c3e50;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background-color: #27ae60;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #219150;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #888;
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Дякуємо за реєстрацію, {{ customer.first_name|default:"користувачу" }}!</h2>
+
+    <p>Ви створили акаунт на сайті <strong>{{ domain }}</strong>.</p>
+
+    <p>Щоб активувати обліковий запис, будь ласка, натисніть кнопку нижче:</p>
+
+    <p><a class="button" href="{{ activation_link }}">Активувати акаунт</a></p>
+
+    <p>Якщо ви не реєструвалися на нашому сайті — просто проігноруйте цей лист.</p>
+
+    <div class="footer">
+      Це повідомлення згенероване автоматично. Будь ласка, не відповідайте на нього.
+    </div>
+  </div>
+</body>
+</html>

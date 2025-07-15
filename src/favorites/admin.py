@@ -1,8 +1,7 @@
-from django.contrib import admin
+# favorite/admin.py
+# from django.contrib import admin
+# from favorites.models import FavoriteModel
 
-from favorites.models import FavoriteModel
 
-
-# Register your models here.
-@admin.register(FavoriteModel)
-class FavoriteAdmin(admin.ModelAdmin): ...
+# @admin.register(FavoriteModel)
+# class FavoriteAdmin(admin.ModelAdmin):...
