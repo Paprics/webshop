@@ -23,9 +23,7 @@ class Feedback(models.Model):
     message = models.TextField(max_length=1500, verbose_name="Зміст")
 
     email = models.EmailField(verbose_name="EMAIL")
-    phone_number = models.CharField(
-        max_length=20, blank=True, verbose_name="Номер мобільного"
-    )
+    phone_number = models.CharField(max_length=20, blank=True, verbose_name="Номер мобільного")
 
     status = models.CharField(
         max_length=30,
@@ -45,8 +43,4 @@ class Feedback(models.Model):
         return f"{self.title} — {self.get_status_display()}"
 
     def get_customer_name(self):
-        return (
-            "Гість"
-            if self.user is None
-            else f"{self.user.first_name} {self.user.last_name}"
-        )
+        return "Гість" if self.user is None else f"{self.user.first_name} {self.user.last_name}"

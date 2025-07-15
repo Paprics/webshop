@@ -11,7 +11,7 @@
 
     <li>
         <a class="dropdown-item rounded-2 {% if request.resolver_match.url_name == 'cart_detail' %}active-menu{% endif %}"
-           href="{% url 'cart:cart_detail' %}">Кошик товарів</a>
+           href="{% url 'cart:cart_detail' %}?source=profile">Кошик товарів</a>
     </li>
 
     <li>

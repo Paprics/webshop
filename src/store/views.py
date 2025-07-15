@@ -12,9 +12,7 @@ from . import mixins
 from .search_engines import SQLiteSearchEngine
 
 
-class ProductsListView(
-    mixins.SearchFilterMixin, mixins.FavoriteAnnotateMixin, ListView
-):
+class ProductsListView(mixins.SearchFilterMixin, mixins.FavoriteAnnotateMixin, ListView):
     model = ProductModel
     context_object_name = "products"
     paginate_by = 9
@@ -34,9 +32,7 @@ class ProductsListView(
 
         user = self.request.user
         if user.is_authenticated:
-            favorites_subquery = FavoriteModel.objects.filter(
-                customer=user, product=OuterRef("pk")
-            )
+            favorites_subquery = FavoriteModel.objects.filter(customer=user, product=OuterRef("pk"))
             qs = qs.annotate(is_favorite=Exists(favorites_subquery))
         else:
             qs = qs.annotate(is_favorite=Value(False, output_field=BooleanField()))
@@ -67,12 +63,8 @@ class ProductDetailView(mixins.FavoriteAnnotateMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # self.object — текущий продукт, по которому DetailView сделал запрос
-        context["reviews"] = AskRateModel.objects.filter(
-            is_active=True, product=self.object, type="review"
-        )[:10]
-        context["questions"] = AskRateModel.objects.filter(
-            is_active=True, product=self.object, type="question"
-        )[:10]
+        context["reviews"] = AskRateModel.objects.filter(is_active=True, product=self.object, type="review")[:10]
+        context["questions"] = AskRateModel.objects.filter(is_active=True, product=self.object, type="question")[:10]
 
         context["recommendations"] = (
             models.ProductModel.objects.exclude(id=self.object.id)

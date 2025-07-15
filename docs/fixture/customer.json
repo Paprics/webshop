@@ -1,0 +1,262 @@
+[
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234001",
+      "first_name": "Олександр",
+      "last_name": "Шевченко",
+      "email": "oleksandr.shevchenko001@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-07-15T10:00:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  },
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234002",
+      "first_name": "Марія",
+      "last_name": "Коваленко",
+      "email": "maria.kovalenko002@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-07-14T14:30:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  },
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234003",
+      "first_name": "Ірина",
+      "last_name": "Мельник",
+      "email": "iryna.melnyk003@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-07-13T09:20:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  },
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234004",
+      "first_name": "Тарас",
+      "last_name": "Петренко",
+      "email": "taras.petrenko004@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-07-12T11:10:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  },
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234005",
+      "first_name": "Наталія",
+      "last_name": "Кравченко",
+      "email": "nataliya.kravchenko005@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-07-11T15:45:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  },
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234006",
+      "first_name": "Віктор",
+      "last_name": "Мороз",
+      "email": "viktor.moroz006@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-07-10T08:00:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  },
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234007",
+      "first_name": "Олена",
+      "last_name": "Гончар",
+      "email": "olena.gonchar007@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-07-09T19:25:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  },
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234008",
+      "first_name": "Ігор",
+      "last_name": "Лисенко",
+      "email": "igor.lysenko008@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-07-08T14:10:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  },
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234009",
+      "first_name": "Світлана",
+      "last_name": "Данилюк",
+      "email": "svitlana.danylyuk009@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-07-07T13:50:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  },
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234010",
+      "first_name": "Андрій",
+      "last_name": "Козак",
+      "email": "andriy.kozak010@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-07-06T16:30:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  },
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234011",
+      "first_name": "Оксана",
+      "last_name": "Бондаренко",
+      "email": "oksana.bondarenko011@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-07-05T10:15:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  },
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234012",
+      "first_name": "Ілля",
+      "last_name": "Шевчук",
+      "email": "illya.shevchuk012@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-07-04T12:45:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  },
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234013",
+      "first_name": "Святослав",
+      "last_name": "Кириленко",
+      "email": "svyatoslav.kirylenko013@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-07-03T14:00:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  },
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234014",
+      "first_name": "Людмила",
+      "last_name": "Сидоренко",
+      "email": "lyudmyla.sydorenko014@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-07-02T09:40:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  },
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234015",
+      "first_name": "Володимир",
+      "last_name": "Ковальчук",
+      "email": "volodymyr.kovalchuk015@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-07-01T18:30:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  },
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234016",
+      "first_name": "Ганна",
+      "last_name": "Пономаренко",
+      "email": "hanna.ponomarenko016@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-06-30T08:20:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  },
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234017",
+      "first_name": "Олег",
+      "last_name": "Козак",
+      "email": "oleg.kozak017@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-06-29T13:15:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  },
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234018",
+      "first_name": "Світлана",
+      "last_name": "Мартиненко",
+      "email": "svitlana.martynenko018@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-06-28T10:10:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  },
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234019",
+      "first_name": "Іван",
+      "last_name": "Дорошенко",
+      "email": "ivan.doroshenko019@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-06-27T14:55:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  },
+  {
+    "model": "accounts.customeruser",
+    "fields": {
+      "phone_number": "+380671234020",
+      "first_name": "Катерина",
+      "last_name": "Савченко",
+      "email": "katerina.savchenko020@example.ua",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-06-26T09:00:00Z",
+      "password": "pbkdf2_sha256$260000$IGtYoVqHhTLf$1gZ2cWxwD0n3urqFzYqYNYgVnJb6A8KwIg0Ve4tDEk4="
+    }
+  }
+]

@@ -12,12 +12,8 @@ class FavoriteModel(models.Model):
         verbose_name_plural = verbose_name
         unique_together = ("customer", "product")
 
-    customer = models.ForeignKey(
-        get_user_model(), on_delete=models.CASCADE, related_name="favorites"
-    )
-    product = models.ForeignKey(
-        ProductModel, on_delete=models.CASCADE, related_name="favorited_by"
-    )
+    customer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="favorites")
+    product = models.ForeignKey(ProductModel, on_delete=models.CASCADE, related_name="favorited_by")
     added_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

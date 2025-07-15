@@ -20,9 +20,7 @@ class CustomerUser(AbstractBaseUser, PermissionsMixin):
             "unique": _("Користувач з таким номером вже існує."),
             "required": _("Це поле обов'язкове."),
         },
-        help_text=_(
-            "Введіть номер у міжнародному форматі, починаючи з + і коду країни."
-        ),
+        help_text=_("Введіть номер у міжнародному форматі, починаючи з + і коду країни."),
     )
 
     first_name = models.CharField(_("first name"), max_length=150, blank=True)
@@ -48,8 +46,7 @@ class CustomerUser(AbstractBaseUser, PermissionsMixin):
         _("active"),
         default=True,
         help_text=_(
-            "Designates whether this user should be treated as active. "
-            "Unselect this instead of deleting accounts."
+            "Designates whether this user should be treated as active. " "Unselect this instead of deleting accounts."
         ),
     )
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
@@ -104,9 +101,7 @@ class ProfileCustomer(models.Model):
         verbose_name = _("profile customer")
         verbose_name_plural = _("profile customers")
 
-    customer = models.OneToOneField(
-        "CustomerUser", on_delete=models.CASCADE, related_name="profile"
-    )
+    customer = models.OneToOneField("CustomerUser", on_delete=models.CASCADE, related_name="profile")
     delivery_address = models.TextField(max_length=500)
     additional_contacts = models.TextField(blank=True, null=True)
     avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)

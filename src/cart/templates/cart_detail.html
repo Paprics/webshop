@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 
 {% block menu %}
-  {% include 'includes/menu_settings.html' %}
+    {% if source == "header" %}
+        {% include 'includes/drop_menu_nested.html' %}
+        {% include 'includes/filter.html' %}
+    {% elif source == "profile" %}
+        {% include 'includes/menu_settings.html' %}
+    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -52,13 +57,15 @@
             <div>
                 {% if user.is_authenticated %}
                     <div class="text-end">
-                        <a class="btn btn-outline-secondary me-5 mt-2" href="{% url 'cart:order_review' %}" type="button">Оформити замовлення</a>
+                        <a class="btn btn-outline-secondary me-5 mt-2" href="{% url 'cart:order_review' %}"
+                           type="button">Оформити замовлення</a>
                     </div>
                 {% else %}
                     <div class="row mt-3 align-items-center">
                         <div class="d-none d-md-block col-md-7"></div>
                         <div class="col-12 col-md-2 mb-2 mb-md-0">
-                            <small class="text-muted d-block text-start">Для оформлення замовлення необхідна реєстрація</small>
+                            <small class="text-muted d-block text-start">Для оформлення замовлення необхідна
+                                реєстрація</small>
                         </div>
                         <div class="col-12 col-md-3 text-end">
                             <a href="{% url 'accounts:register' %}" class="btn btn-primary btn-lg me-2">Реєстрація</a>

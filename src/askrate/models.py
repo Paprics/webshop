@@ -39,9 +39,7 @@ class AskRateModel(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата оновлення")
 
     answer = models.TextField(blank=True, null=True, verbose_name="Відповідь")
-    answered_at = models.DateTimeField(
-        blank=True, null=True, verbose_name="Дата відповіді"
-    )
+    answered_at = models.DateTimeField(blank=True, null=True, verbose_name="Дата відповіді")
 
     class Meta:
         db_table = "ask_rate"
@@ -50,6 +48,4 @@ class AskRateModel(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return (
-            f"{self.get_type_display()} — {self.customer or 'Гість'} — {self.product}"
-        )
+        return f"{self.get_type_display()} — {self.customer or 'Гість'} — {self.product}"

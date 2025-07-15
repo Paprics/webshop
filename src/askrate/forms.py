@@ -12,8 +12,6 @@ class AskRateForms(forms.ModelForm):
             "rating": "Оцінка",
         }
         widgets = {
-            "text": forms.Textarea(
-                attrs={"rows": 4, "placeholder": "Напишіть тут свій відгук або питання"}
-            ),
+            "text": forms.Textarea(attrs={"rows": 4, "placeholder": "Напишіть тут свій відгук або питання"}),
             "rating": forms.RadioSelect(),
         }

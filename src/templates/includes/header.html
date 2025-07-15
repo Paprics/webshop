@@ -24,7 +24,7 @@
                 </a>
             {% endif %}
 
-            <a href="{% url 'cart:cart_detail' %}" class="d-inline-block position-relative cart-icon"
+            <a href="{% url 'cart:cart_detail' %}?source=header" class="d-inline-block position-relative cart-icon"
                title="Кошик товарів">
                 <img src="{% static 'svg/cart.svg' %}" width="45" height="45" alt="cart icon"/>
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
