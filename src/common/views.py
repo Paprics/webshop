@@ -4,6 +4,7 @@ from django.views.generic import CreateView, DetailView, FormView, TemplateView
 
 from common.forms import FeedbackForm
 from common.models import Feedback
+from store.models import CategoryModelMPTT, ProductModel
 
 from . import tasks_celery as tasks
 
@@ -19,8 +20,22 @@ class CustomerDetailView(DetailView):
 
 class IndexView(TemplateView):
     template_name = "index.html"
-    context_object_name = "content"
     extra_context = {"title": "Home Page | Домашня сторінка"}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories = CategoryModelMPTT.objects.filter(parent=None, is_active=True).order_by('display_order')
+        category_products = []
+        for cat in categories:
+            descendants = cat.get_descendants(include_self=True)
+            products = ProductModel.objects.filter(category__in=descendants, is_active=True).order_by('-id')[:3]
+            category_products.append({
+                'category': cat,
+                'products': products
+            })
+        context['category_products'] = category_products
+        return context
+
 
 
 class FeedbackCreateView(CreateView):

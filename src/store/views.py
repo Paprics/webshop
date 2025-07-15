@@ -19,21 +19,16 @@ class ProductsListView(mixins.SearchFilterMixin, mixins.FavoriteAnnotateMixin, L
     template_name = "product_list.html"
     search_engine_class = SQLiteSearchEngine
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["query_params"] = self.request.GET.copy()
-        if "page" in context["query_params"]:
-            del context["query_params"]["page"]
-        return context
-
     def get_queryset(self):
-        qs = super().get_queryset()  # вызов SearchFilterMixin.get_queryset
+        qs = super().get_queryset()
 
         slug = self.kwargs.get("slug_category")
         if slug:
-            category = get_object_or_404(CategoryModelMPTT, slug=slug)
-            categories = category.get_descendants(include_self=True)
+            self.category = get_object_or_404(CategoryModelMPTT, slug=slug)
+            categories = self.category.get_descendants(include_self=True)
             qs = qs.filter(category__in=categories)
+        else:
+            self.category = None
 
         user = self.request.user
         if user.is_authenticated:
@@ -43,6 +38,15 @@ class ProductsListView(mixins.SearchFilterMixin, mixins.FavoriteAnnotateMixin, L
             qs = qs.annotate(is_favorite=Value(False, output_field=BooleanField()))
 
         return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["query_params"] = self.request.GET.copy()
+        if "page" in context["query_params"]:
+            del context["query_params"]["page"]
+        context["category"] = getattr(self, "category", None)
+        return context
+
 
 
 class ProductDetailView(mixins.FavoriteAnnotateMixin, DetailView):
