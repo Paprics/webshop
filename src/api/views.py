@@ -4,7 +4,6 @@ from rest_framework.generics import (ListAPIView, ListCreateAPIView,
 from rest_framework.pagination import PageNumberPagination
 
 from accounts.models import CustomerUser
-from common.models import Content
 from store.models import CategoryModelMPTT, ProductModel
 
 from . import serializers
@@ -39,33 +38,6 @@ class CustomerDetailView(generics.RetrieveUpdateDestroyAPIView):
         if self.request.method in ["PUT", "PATCH", "DELETE"]:
             return [permissions.IsAdminUser()]
         return [permissions.AllowAny()]
-
-
-class ContentListView(ListCreateAPIView):
-    "Список всіх статей сайту"
-
-    queryset = Content.objects.all()
-    serializer_class = serializers.ContentSerializer
-    pagination_class = ContentPagination
-
-    def get_permissions(self):
-        if self.request.method == "POST":
-            return [permissions.IsAdminUser()]
-        return [permissions.AllowAny()]
-
-
-class ContentDetailView(generics.RetrieveUpdateDestroyAPIView):
-    "Сторінки сайту (контент) по slug"
-
-    queryset = Content.objects.all()
-    serializer_class = serializers.ContentSerializer
-    lookup_field = "slug"
-
-    def get_permissions(self):
-        if self.request.method == "GET":
-            return [permissions.AllowAny()]
-        elif self.request.method in ("PATCH", "PUT", "DELETE"):
-            return [permissions.IsAdminUser()]
 
 
 class ProductListView(ListCreateAPIView):
@@ -106,7 +78,9 @@ class ProductByCategoryView(ListAPIView):
         if not category:
             return ProductModel.objects.none()
 
-        return ProductModel.objects.filter(category=category, is_active=True).order_by("title")
+        return ProductModel.objects.filter(category=category, is_active=True).order_by(
+            "title"
+        )
 
 
 class CategoryListView(ListCreateAPIView):

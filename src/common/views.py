@@ -3,7 +3,8 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView, FormView, TemplateView
 
 from common.forms import FeedbackForm
-from common.models import Content, Feedback
+from common.models import Feedback
+from store.models import CategoryModelMPTT, ProductModel
 
 from . import tasks_celery as tasks
 
@@ -14,17 +15,31 @@ class CustomerDetailView(DetailView):
     context_object_name = "customer"
 
     def get_object(self):
-        return get_user_model().objects.select_related("profile").get(pk=self.request.user.pk)
+        return (
+            get_user_model()
+            .objects.select_related("profile")
+            .get(pk=self.request.user.pk)
+        )
 
 
-class IndexView(DetailView):
-    model = Content
+class IndexView(TemplateView):
     template_name = "index.html"
-    context_object_name = "content"
     extra_context = {"title": "Home Page | Домашня сторінка"}
 
-    def get_object(self):
-        return Content.objects.filter(pk=1)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories = CategoryModelMPTT.objects.filter(
+            parent=None, is_active=True
+        ).order_by("display_order")
+        category_products = []
+        for cat in categories:
+            descendants = cat.get_descendants(include_self=True)
+            products = ProductModel.objects.filter(
+                category__in=descendants, is_active=True
+            ).order_by("-id")[:3]
+            category_products.append({"category": cat, "products": products})
+        context["category_products"] = category_products
+        return context
 
 
 class FeedbackCreateView(CreateView):
@@ -56,10 +71,15 @@ class Feedback(FormView):
 
 class CreateCategoryView(TemplateView):
     template_name = "create.html"
-    extra_context = {"info": "Задачу зі створення категорій успішно розпочато. Це може зайняти кілька секунд."}
+    extra_context = {
+        "info": "Задачу зі створення категорій успішно розпочато. Це може зайняти кілька секунд."
+    }
 
     def get(self, request, *args, **kwargs):
-        tasks.create_categories.delay()
+        try:
+            tasks.create_categories.delay()
+        except Exception:
+            tasks.create_categories()
         return super().get(request, *args, **kwargs)
 
 
@@ -70,7 +90,11 @@ class CreateProductsView(TemplateView):
     }
 
     def get(self, request, *args, **kwargs):
-        tasks.create_products.delay()
+        try:
+            tasks.create_products.delay()
+        except Exception:
+            tasks.create_products()
+
         return super().get(request, *args, **kwargs)
 
 
@@ -81,5 +105,9 @@ class CreateAskrateView(TemplateView):
     }
 
     def get(self, request, *args, **kwargs):
-        tasks.create_askrate.delay()
+        try:
+            tasks.create_askrate.delay()
+        except Exception:
+            tasks.create_askrate()
+
         return super().get(request, *args, **kwargs)

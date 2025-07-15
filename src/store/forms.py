@@ -15,8 +15,12 @@ class ProductAdminForm(forms.ModelForm):
 
 
 class FilterForm(forms.Form):
-    min_price = forms.DecimalField(required=False, min_value=0, max_digits=10, decimal_places=2)
-    max_price = forms.DecimalField(required=False, min_value=0, max_digits=10, decimal_places=2)
+    min_price = forms.DecimalField(
+        required=False, min_value=0, max_digits=10, decimal_places=2
+    )
+    max_price = forms.DecimalField(
+        required=False, min_value=0, max_digits=10, decimal_places=2
+    )
     in_stock = forms.BooleanField(required=False)
     sort_by = forms.ChoiceField(
         required=False,

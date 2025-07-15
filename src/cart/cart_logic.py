@@ -51,7 +51,9 @@ class ShoppingCartUser:
         if not session_cart:
             return
 
-        existing = StoreCart.objects.filter(user=self.user, product_id__in=session_cart.keys())
+        existing = StoreCart.objects.filter(
+            user=self.user, product_id__in=session_cart.keys()
+        )
         existing_map = {str(item.product_id): item for item in existing}
 
         new_records = []
@@ -105,7 +107,11 @@ class ShoppingCartUser:
 
     def get_total_cart_price(self):
         items = StoreCart.objects.filter(user=self.user).select_related("product")
-        return sum(item.product.price * item.quantity for item in items if item.product.is_active)
+        return sum(
+            item.product.price * item.quantity
+            for item in items
+            if item.product.is_active
+        )
 
     def clear(self):
         StoreCart.objects.filter(user=self.user).delete()

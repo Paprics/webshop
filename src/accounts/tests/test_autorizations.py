@@ -23,7 +23,9 @@ class TestCustomerUser:
     )
     def test_invalid_len_pass(self, password_generator):
         password = password_generator()
-        customer = CustomerUser(phone_number=self.PHONE, email=self.EMAIL, password=password)
+        customer = CustomerUser(
+            phone_number=self.PHONE, email=self.EMAIL, password=password
+        )
         with pytest.raises(ValidationError):
             customer.full_clean()
 
@@ -48,7 +50,9 @@ class TestCustomerUser:
 
     @pytest.mark.django_db
     def test_createsuperuser(self):
-        customer = CustomerUser.objects.create_superuser(self.PHONE, self.EMAIL, self.PASSWORD)
+        customer = CustomerUser.objects.create_superuser(
+            self.PHONE, self.EMAIL, self.PASSWORD
+        )
         db_customer = CustomerUser.objects.get(phone_number=self.PHONE)
         assert db_customer == customer
         assert db_customer.is_superuser is True
@@ -56,7 +60,9 @@ class TestCustomerUser:
 
     @pytest.mark.django_db
     def test_create_user(self):
-        customer = CustomerUser.objects.create_user(self.PHONE, self.EMAIL, self.PASSWORD)
+        customer = CustomerUser.objects.create_user(
+            self.PHONE, self.EMAIL, self.PASSWORD
+        )
         db_customer = CustomerUser.objects.get(phone_number=self.PHONE)
         assert db_customer == customer
         assert db_customer.is_superuser is False
@@ -64,11 +70,17 @@ class TestCustomerUser:
 
     @pytest.mark.django_db
     def test_unique_phone(self):
-        customer_1 = CustomerUser(phone_number=self.PHONE, email="ololo@gmail.com", password=self.PASSWORD)
+        customer_1 = CustomerUser(
+            phone_number=self.PHONE, email="ololo@gmail.com", password=self.PASSWORD
+        )
         customer_1.full_clean()
         customer_1.save()
 
-        customer_2 = CustomerUser(phone_number=self.PHONE, email="ololo-2025@gmail.com", password=self.PASSWORD)
+        customer_2 = CustomerUser(
+            phone_number=self.PHONE,
+            email="ololo-2025@gmail.com",
+            password=self.PASSWORD,
+        )
         with pytest.raises(ValidationError):
             customer_2.full_clean()
 
@@ -76,11 +88,15 @@ class TestCustomerUser:
     @pytest.mark.django_db
     def test_unique_email(self):
         # TODO: fix uniqua emeil ????
-        customer_1 = CustomerUser(phone_number="+380981234567", email=self.EMAIL, password=self.PASSWORD)
+        customer_1 = CustomerUser(
+            phone_number="+380981234567", email=self.EMAIL, password=self.PASSWORD
+        )
         customer_1.full_clean()
         customer_1.save()
 
-        customer_2 = CustomerUser(phone_number="+380991234567", email=self.EMAIL, password=self.PASSWORD)
+        customer_2 = CustomerUser(
+            phone_number="+380991234567", email=self.EMAIL, password=self.PASSWORD
+        )
         with pytest.raises(ValidationError):
             customer_2.full_clean()
 
@@ -97,7 +113,9 @@ class TestCustomerUser:
         ],
     )
     def test_missing_required_fields(self, phone_number, email, password):
-        customer = CustomerUser(phone_number=phone_number, email=email, password=password)
+        customer = CustomerUser(
+            phone_number=phone_number, email=email, password=password
+        )
         with pytest.raises(ValidationError):
             customer.full_clean()
 
@@ -113,20 +131,26 @@ class TestCustomerUser:
         ],
     )
     def test_invalid_phone(self, phone_number):
-        customer = CustomerUser(phone_number=phone_number, email=self.EMAIL, password=self.PASSWORD)
+        customer = CustomerUser(
+            phone_number=phone_number, email=self.EMAIL, password=self.PASSWORD
+        )
         with pytest.raises(ValidationError):
             customer.full_clean()
 
     @pytest.mark.django_db
     @pytest.mark.parametrize("email", ["", None, "exzamplgmail.com"])
     def test_invalid_email(self, email):
-        customer = CustomerUser(phone_number=self.PHONE, email=email, password=self.PASSWORD)
+        customer = CustomerUser(
+            phone_number=self.PHONE, email=email, password=self.PASSWORD
+        )
         with pytest.raises(ValidationError):
             customer.full_clean()
 
     @pytest.mark.django_db
     def test_valid_data(self):
-        customer = CustomerUser(phone_number=self.PHONE, email=self.EMAIL, password=self.PASSWORD)
+        customer = CustomerUser(
+            phone_number=self.PHONE, email=self.EMAIL, password=self.PASSWORD
+        )
         customer.full_clean()
         customer.save()
         assert CustomerUser.objects.filter(phone_number=self.PHONE).exists()

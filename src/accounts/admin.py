@@ -3,7 +3,7 @@ from django.contrib import admin
 from .models import CustomerUser, ProfileCustomer
 
 
-class ProfileInline(admin.StackedInline):  # Табличный вариант — TabularInline
+class ProfileInline(admin.StackedInline):
     model = ProfileCustomer
     can_delete = False
     verbose_name_plural = "Профиль"

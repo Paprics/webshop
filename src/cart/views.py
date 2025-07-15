@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -51,7 +52,7 @@ class OrderCreateView(View):
 
             return redirect(reverse("payments:pay") + f"?order_id={order.id}")
 
-        return redirect("cart:order_list")
+        return redirect("common:success_order")
 
 
 def remove_cart(request, product_pk):
@@ -65,7 +66,9 @@ def add_to_cart(request, product_id):
     cart = get_cart(request)
     product = get_object_or_404(ProductModel, id=product_id)
     cart.add(product.id)
-    return redirect("cart:cart_detail")
+
+    messages.success(request, f"✅ {product.title} додано до кошика.")
+    return redirect(request.META.get("HTTP_REFERER", "/"))
 
 
 class CartDetailView(TemplateView):
@@ -90,9 +93,15 @@ class OrderReviewView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         cart_items = get_cart(self.request)
-        user = CustomerUser.objects.select_related("profile").get(pk=self.request.user.pk)
+        user = CustomerUser.objects.select_related("profile").get(
+            pk=self.request.user.pk
+        )
 
         context["cart_items"] = cart_items
         context["user"] = user
 
         return context
+
+
+class OrderDetailView(TemplateView):
+    template_name = ""

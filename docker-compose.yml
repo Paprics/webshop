@@ -9,10 +9,10 @@ services:
       dockerfile: Dockerfile
     image: backend
     working_dir: /app/src
-#    ports:
-#      - ${LOCAL_PORT}:${WSGI_PORT}
-    expose:
-      - "8000"
+    ports:
+      - ${LOCAL_PORT}:${WSGI_PORT}
+#    expose:
+#      - "8000"
     volumes:
       - ./src:/app/src
       - ./commands:/app/commands
@@ -71,7 +71,7 @@ services:
       - .env
     command: celery -A config flower --broker=redis://redis
     ports:
-      - 5556:5555 #TODO WTH :5556
+      - 5556:5555
     depends_on:
       - celery
 
@@ -84,7 +84,7 @@ services:
     environment:
       - REDIS_HOSTS=main:redis:6379
     ports:
-      - "8081:8081"  #TODO WTH :8081
+      - "8081:8081"
     depends_on:
       - redis
 

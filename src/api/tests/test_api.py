@@ -5,18 +5,6 @@ from rest_framework import status
 from rest_framework.test import APIClient, APIRequestFactory
 
 from api import views
-from common.models import Content
-
-
-@pytest.fixture
-def create_content(db):
-    content = Content.objects.create(
-        title="Test title text",
-        slug="test_slug",
-        content="Test content text",
-        is_published=True,
-    )
-    return content
 
 
 @pytest.fixture
@@ -86,59 +74,6 @@ def set_customer(db):
     }
 
 
-@pytest.mark.django_db
-class TestContentAPI:
-
-    @pytest.fixture(autouse=True)
-    def setup_method(self):
-        get_user_model().objects.all().delete()
-
-    def test_get_content(self, admin_client, customer_client, create_content):
-
-        response = APIClient().get("/api/v1/content/", format="json")
-        assert response.status_code == status.HTTP_200_OK
-        assert response.data["results"][0]["title"] == create_content.title
-
-        response = customer_client.get("/api/v1/content/", format="json")
-        assert response.status_code == status.HTTP_200_OK
-        assert response.data["results"][0]["title"] == create_content.title
-
-    def test_get_detail_content(self, admin_client, customer_client, create_content):
-        url_content = f"/api/v1/content/{create_content.slug}/"
-
-        for client in (APIClient(), customer_client, admin_client):
-            response = client.get(url_content, format="json")
-            assert response.status_code == status.HTTP_200_OK
-            assert response.data["title"] == create_content.title
-            assert response.data["content"] == create_content.content
-
-    def test_CRUD_content(self, admin_client, customer_client, create_content):
-
-        for client in (APIClient(), customer_client):
-            response = client.post("/api/v1/content/", data={}, format="json")
-            assert response.status_code in (status.HTTP_401_UNAUTHORIZED, status.HTTP_403_FORBIDDEN)
-
-        data = {"title": "Test title_1", "slug": "test_slug_1", "content": "Test content text"}
-
-        response = admin_client.post("/api/v1/content/", data=data, format="json")
-        assert response.status_code == status.HTTP_201_CREATED
-        assert response.data["title"] == data["title"]
-
-        response = admin_client.get(f"/api/v1/content/{data['slug']}/", format="json")
-        assert response.status_code == status.HTTP_200_OK
-        assert response.data["title"] == data["title"]
-
-        patch_data = {"title": "Test title_3"}
-        response = admin_client.patch(f"/api/v1/content/{data['slug']}/", data=patch_data, format="json")
-        assert response.status_code == status.HTTP_200_OK
-        assert response.data["title"] == patch_data["title"]
-
-        response = admin_client.delete(f"/api/v1/content/{data['slug']}/", format="json")
-        assert response.status_code == status.HTTP_204_NO_CONTENT
-        response = admin_client.get(f"/api/v1/content/{data['slug']}/", format="json")
-        assert response.status_code == status.HTTP_404_NOT_FOUND
-
-
 class TestCustomerAPI:
 
     @pytest.fixture(autouse=True)
@@ -150,7 +85,11 @@ class TestCustomerAPI:
         client = APIClient()
         response_user = client.post(
             "/api/v1/customer/",
-            data={"phone_number": "+380997654321", "password": "test_pass", "email": "test@test.test"},
+            data={
+                "phone_number": "+380997654321",
+                "password": "test_pass",
+                "email": "test@test.test",
+            },
             format="json",
         )
         assert response_user.status_code == status.HTTP_201_CREATED
@@ -160,7 +99,11 @@ class TestCustomerAPI:
         response = admin_client.get(f"/api/v1/customer/{user_id}/", format="json")
         assert response.status_code == status.HTTP_200_OK
 
-        response = admin_client.patch(f"/api/v1/customer/{user_id}/", data={"email": "test@test.test"}, format="json")
+        response = admin_client.patch(
+            f"/api/v1/customer/{user_id}/",
+            data={"email": "test@test.test"},
+            format="json",
+        )
         assert response.status_code in (status.HTTP_200_OK, status.HTTP_204_NO_CONTENT)
         assert response.data["email"] == "test@test.test"
 
@@ -218,11 +161,15 @@ class TestCustomerAPI:
         view = views.CustomerListCreateView.as_view()
         response = view(request)
 
-        assert response.status_code == status.HTTP_401_UNAUTHORIZED, "CustomerListCreateView: 401"
+        assert (
+            response.status_code == status.HTTP_401_UNAUTHORIZED
+        ), "CustomerListCreateView: 401"
 
         # Authenticated client (regular user)
         response = customer_client.get("/api/v1/customer/")
-        assert response.status_code == status.HTTP_403_FORBIDDEN, "CustomerListCreateView: 403"
+        assert (
+            response.status_code == status.HTTP_403_FORBIDDEN
+        ), "CustomerListCreateView: 403"
 
         # Admin
         response = admin_client.get("/api/v1/customer/")
@@ -234,19 +181,27 @@ class TestCustomerAPI:
         factory = APIRequestFactory()
         request = factory.post(
             "customer",
-            data={"phone_number": "+380991234567", "password": "test_pass", "email": "testemail@test.com"},
+            data={
+                "phone_number": "+380991234567",
+                "password": "test_pass",
+                "email": "testemail@test.com",
+            },
             format="json",
         )
         view = views.CustomerListCreateView.as_view()
         response = view(request)
 
-        assert response.status_code == status.HTTP_201_CREATED, "MemberListCreateView: 201 для создания кастомера"
+        assert (
+            response.status_code == status.HTTP_201_CREATED
+        ), "MemberListCreateView: 201 для создания кастомера"
 
         request = factory.get("/api/v1/customer/1")
         view = views.CustomerDetailView.as_view()
         response = view(request, pk=1)
 
-        assert response.status_code == status.HTTP_200_OK, "MemberDetailView: 200 для запроса костомера"
+        assert (
+            response.status_code == status.HTTP_200_OK
+        ), "MemberDetailView: 200 для запроса костомера"
 
     @pytest.mark.django_db
     def test_get_wrong_customer(self):
@@ -263,7 +218,9 @@ class TestCustomerAPI:
     @pytest.mark.django_db
     def test_create_user(self):
         User = get_user_model()
-        user = User.objects.create_user(phone_number="+380997654321", password="pass123")
+        user = User.objects.create_user(
+            phone_number="+380997654321", password="pass123"
+        )
         assert user.phone_number == "+380997654321"
         assert user.is_staff is False
         assert user.is_superuser is False
@@ -272,7 +229,9 @@ class TestCustomerAPI:
     @pytest.mark.django_db
     def test_create_superuser(self):
         User = get_user_model()
-        admin = User.objects.create_superuser(phone_number="+380987654321", password="adminpass")
+        admin = User.objects.create_superuser(
+            phone_number="+380987654321", password="adminpass"
+        )
         assert admin.phone_number == "+380987654321"
         assert admin.is_staff is True
         assert admin.is_superuser is True
