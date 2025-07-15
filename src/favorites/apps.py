@@ -2,6 +2,6 @@ from django.apps import AppConfig
 
 
 class FavoritesConfig(AppConfig):
-    verbose_name = "5. Favorites"
+    verbose_name = "Favorites"
     default_auto_field = "django.db.models.BigAutoField"
     name = "favorites"

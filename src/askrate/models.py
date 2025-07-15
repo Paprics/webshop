@@ -11,7 +11,7 @@ class AskRateModel(models.Model):
     ]
 
     customer = models.ForeignKey(
-        get_user_model(), on_delete=models.CASCADE, related_name="user_askrates", blank=True, null=True
+        get_user_model(), on_delete=models.CASCADE, related_name="user_askrates", blank=True, null=True, verbose_name='Клієнт'
     )
 
     product = models.ForeignKey(
@@ -20,13 +20,13 @@ class AskRateModel(models.Model):
 
     type = models.CharField(max_length=20, choices=TYPE_CHOICES, verbose_name="Тип")
     text = models.TextField(max_length=1000, verbose_name="Зміст")
-    rating = models.PositiveSmallIntegerField(choices=[(i, str(i)) for i in range(1, 6)], blank=True, null=True)
-    is_active = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    rating = models.PositiveSmallIntegerField(choices=[(i, str(i)) for i in range(1, 6)], blank=True, null=True, verbose_name='Рейтинг')
+    is_active = models.BooleanField(default=True, verbose_name='Активний')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата створення')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата оновлення')
 
-    answer = models.TextField(blank=True, null=True)
-    answered_at = models.DateTimeField(blank=True, null=True)
+    answer = models.TextField(blank=True, null=True, verbose_name='Відповідь')
+    answered_at = models.DateTimeField(blank=True, null=True, verbose_name='Дата відповіді')
 
     class Meta:
         db_table = "ask_rate"
