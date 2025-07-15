@@ -37,9 +37,7 @@ class CustomerManager(BaseUserManager):
 
     create_user.alters_data = True
 
-    async def acreate_user(
-        self, phone_number, email=None, password=None, **extra_fields
-    ):
+    async def acreate_user(self, phone_number, email=None, password=None, **extra_fields):
         extra_fields.setdefault("is_staff", False)
         extra_fields.setdefault("is_superuser", False)
         return await self._acreate_user(phone_number, email, password, **extra_fields)
@@ -59,9 +57,7 @@ class CustomerManager(BaseUserManager):
 
     create_superuser.alters_data = True
 
-    async def acreate_superuser(
-        self, phone_number, email=None, password=None, **extra_fields
-    ):
+    async def acreate_superuser(self, phone_number, email=None, password=None, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
 

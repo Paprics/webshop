@@ -161,15 +161,11 @@ class TestCustomerAPI:
         view = views.CustomerListCreateView.as_view()
         response = view(request)
 
-        assert (
-            response.status_code == status.HTTP_401_UNAUTHORIZED
-        ), "CustomerListCreateView: 401"
+        assert response.status_code == status.HTTP_401_UNAUTHORIZED, "CustomerListCreateView: 401"
 
         # Authenticated client (regular user)
         response = customer_client.get("/api/v1/customer/")
-        assert (
-            response.status_code == status.HTTP_403_FORBIDDEN
-        ), "CustomerListCreateView: 403"
+        assert response.status_code == status.HTTP_403_FORBIDDEN, "CustomerListCreateView: 403"
 
         # Admin
         response = admin_client.get("/api/v1/customer/")
@@ -191,17 +187,13 @@ class TestCustomerAPI:
         view = views.CustomerListCreateView.as_view()
         response = view(request)
 
-        assert (
-            response.status_code == status.HTTP_201_CREATED
-        ), "MemberListCreateView: 201 для создания кастомера"
+        assert response.status_code == status.HTTP_201_CREATED, "MemberListCreateView: 201 для создания кастомера"
 
         request = factory.get("/api/v1/customer/1")
         view = views.CustomerDetailView.as_view()
         response = view(request, pk=1)
 
-        assert (
-            response.status_code == status.HTTP_200_OK
-        ), "MemberDetailView: 200 для запроса костомера"
+        assert response.status_code == status.HTTP_200_OK, "MemberDetailView: 200 для запроса костомера"
 
     @pytest.mark.django_db
     def test_get_wrong_customer(self):
@@ -218,9 +210,7 @@ class TestCustomerAPI:
     @pytest.mark.django_db
     def test_create_user(self):
         User = get_user_model()
-        user = User.objects.create_user(
-            phone_number="+380997654321", password="pass123"
-        )
+        user = User.objects.create_user(phone_number="+380997654321", password="pass123")
         assert user.phone_number == "+380997654321"
         assert user.is_staff is False
         assert user.is_superuser is False
@@ -229,9 +219,7 @@ class TestCustomerAPI:
     @pytest.mark.django_db
     def test_create_superuser(self):
         User = get_user_model()
-        admin = User.objects.create_superuser(
-            phone_number="+380987654321", password="adminpass"
-        )
+        admin = User.objects.create_superuser(phone_number="+380987654321", password="adminpass")
         assert admin.phone_number == "+380987654321"
         assert admin.is_staff is True
         assert admin.is_superuser is True

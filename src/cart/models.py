@@ -31,12 +31,8 @@ class OrderModel(models.Model):
         verbose_name = "Замовлення"
         verbose_name_plural = verbose_name
 
-    customer = models.ForeignKey(
-        get_user_model(), on_delete=models.CASCADE, verbose_name="Покупець"
-    )
-    created_at = models.DateTimeField(
-        auto_now_add=True, verbose_name="Дата замавлевлення"
-    )
+    customer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name="Покупець")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата замавлевлення")
     is_paid = models.BooleanField(default=False, verbose_name="Сплачено")
     status = models.CharField(
         max_length=20,
@@ -55,9 +51,7 @@ class OrderItemModel(models.Model):
         verbose_name = "2. (Товари у замовленні)"
         verbose_name_plural = verbose_name
 
-    order = models.ForeignKey(
-        OrderModel, on_delete=models.CASCADE, related_name="items"
-    )
+    order = models.ForeignKey(OrderModel, on_delete=models.CASCADE, related_name="items")
     product = models.ForeignKey(ProductModel, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     price_at_order_time = models.DecimalField(max_digits=10, decimal_places=2)

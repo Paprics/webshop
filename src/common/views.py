@@ -15,11 +15,7 @@ class CustomerDetailView(DetailView):
     context_object_name = "customer"
 
     def get_object(self):
-        return (
-            get_user_model()
-            .objects.select_related("profile")
-            .get(pk=self.request.user.pk)
-        )
+        return get_user_model().objects.select_related("profile").get(pk=self.request.user.pk)
 
 
 class IndexView(TemplateView):
@@ -28,15 +24,11 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        categories = CategoryModelMPTT.objects.filter(
-            parent=None, is_active=True
-        ).order_by("display_order")
+        categories = CategoryModelMPTT.objects.filter(parent=None, is_active=True).order_by("display_order")
         category_products = []
         for cat in categories:
             descendants = cat.get_descendants(include_self=True)
-            products = ProductModel.objects.filter(
-                category__in=descendants, is_active=True
-            ).order_by("-id")[:3]
+            products = ProductModel.objects.filter(category__in=descendants, is_active=True).order_by("-id")[:3]
             category_products.append({"category": cat, "products": products})
         context["category_products"] = category_products
         return context
@@ -71,9 +63,7 @@ class Feedback(FormView):
 
 class CreateCategoryView(TemplateView):
     template_name = "create.html"
-    extra_context = {
-        "info": "Задачу зі створення категорій успішно розпочато. Це може зайняти кілька секунд."
-    }
+    extra_context = {"info": "Задачу зі створення категорій успішно розпочато. Це може зайняти кілька секунд."}
 
     def get(self, request, *args, **kwargs):
         try:

@@ -21,15 +21,9 @@ urlpatterns = [
         TemplateView.as_view(template_name="success_feedback.html"),
         name="success_feedback",
     ),
-    path(
-        "customer_detail/", views.CustomerDetailView.as_view(), name="customer_detail"
-    ),
-    path(
-        "create_category/", views.CreateCategoryView.as_view(), name="create_category"
-    ),
-    path(
-        "create_products/", views.CreateProductsView.as_view(), name="create_products"
-    ),
+    path("customer_detail/", views.CustomerDetailView.as_view(), name="customer_detail"),
+    path("create_category/", views.CreateCategoryView.as_view(), name="create_category"),
+    path("create_products/", views.CreateProductsView.as_view(), name="create_products"),
     path("create_askrate/", views.CreateAskrateView.as_view(), name="create_askrate"),
     path(
         "success_order/",

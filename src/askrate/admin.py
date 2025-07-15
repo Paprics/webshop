@@ -39,9 +39,7 @@ class AskRateModelAdmin(admin.ModelAdmin):
         extra_context = extra_context or {}
         extra_context["show_save_and_add_another"] = False
         extra_context["show_save_and_continue"] = False
-        return super().changeform_view(
-            request, object_id, form_url, extra_context=extra_context
-        )
+        return super().changeform_view(request, object_id, form_url, extra_context=extra_context)
 
     def has_add_permission(self, request):
         return False

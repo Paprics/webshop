@@ -43,9 +43,7 @@ class FeedbackAdmin(admin.ModelAdmin):
 
     def make_urgent(self, request, queryset):
         updated = queryset.update(status=Feedback.Status.URGENT)
-        self.message_user(
-            request, f"{updated} звернень позначено як 'Потребує негайного вирішення'."
-        )
+        self.message_user(request, f"{updated} звернень позначено як 'Потребує негайного вирішення'.")
 
     make_urgent.short_description = "Встановити статус 'Потребує негайного вирішення'"
 
@@ -60,9 +58,7 @@ class FeedbackAdmin(admin.ModelAdmin):
         extra_context = extra_context or {}
         extra_context["show_save_and_add_another"] = False
         extra_context["show_save_and_continue"] = False
-        return super().changeform_view(
-            request, object_id, form_url, extra_context=extra_context
-        )
+        return super().changeform_view(request, object_id, form_url, extra_context=extra_context)
 
     # 2. Запретить создавать новые записи
     def has_add_permission(self, request):

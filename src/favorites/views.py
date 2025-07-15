@@ -16,14 +16,10 @@ class FavoriteView(LoginRequiredMixin, View):
         action = request.POST.get("action")
 
         if action == "add":
-            FavoriteModel.objects.get_or_create(
-                customer=request.user, product_id=product_id
-            )
+            FavoriteModel.objects.get_or_create(customer=request.user, product_id=product_id)
 
         elif action == "remove":
-            favorite = get_object_or_404(
-                FavoriteModel, customer=request.user, product_id=product_id
-            )
+            favorite = get_object_or_404(FavoriteModel, customer=request.user, product_id=product_id)
             favorite.delete()
 
         return redirect(request.META.get("HTTP_REFERER", "/"))

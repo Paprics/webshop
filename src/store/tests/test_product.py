@@ -17,9 +17,7 @@ class TestProduct:
         description = fake.text(max_nb_chars=950)
         quantity = fake.random_int(max=100)
 
-        category = create_categories[
-            0
-        ]  # ForeignKey expects a CategoryModel instance (not a string❗)
+        category = create_categories[0]  # ForeignKey expects a CategoryModel instance (not a string❗)
 
         product = ProductModel(
             title=title,
@@ -51,9 +49,7 @@ class TestProduct:
         price = fake.pydecimal(left_digits=4, right_digits=2, positive=True)
 
         # NOTE: MaxLength validation on TextField is enforced only at the database level, not by Django validators.
-        description = fake.text(
-            max_nb_chars=1001
-        )  # full_clean() only triggers defined validators.
+        description = fake.text(max_nb_chars=1001)  # full_clean() only triggers defined validators.
 
         quantity = fake.random_int(max=100)
 
