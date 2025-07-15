@@ -78,7 +78,9 @@ class ProductByCategoryView(ListAPIView):
         if not category:
             return ProductModel.objects.none()
 
-        return ProductModel.objects.filter(category=category, is_active=True).order_by("title")
+        return ProductModel.objects.filter(category=category, is_active=True).order_by(
+            "title"
+        )
 
 
 class CategoryListView(ListCreateAPIView):

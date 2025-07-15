@@ -26,11 +26,20 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CategoryModelMPTT
-        fields = ("id", "category_name", "slug", "is_active", "display_order", "children")
+        fields = (
+            "id",
+            "category_name",
+            "slug",
+            "is_active",
+            "display_order",
+            "children",
+        )
 
     def get_children(self, obj):
         if obj.children.exists():
-            return CategorySerializer(obj.children.all(), many=True, context=self.context).data
+            return CategorySerializer(
+                obj.children.all(), many=True, context=self.context
+            ).data
         return []
 
 

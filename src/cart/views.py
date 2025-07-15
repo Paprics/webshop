@@ -93,7 +93,9 @@ class OrderReviewView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         cart_items = get_cart(self.request)
-        user = CustomerUser.objects.select_related("profile").get(pk=self.request.user.pk)
+        user = CustomerUser.objects.select_related("profile").get(
+            pk=self.request.user.pk
+        )
 
         context["cart_items"] = cart_items
         context["user"] = user

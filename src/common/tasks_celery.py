@@ -136,7 +136,9 @@ def create_products():
                 title=faker.sentence(nb_words=2).rstrip(".").capitalize(),
                 slug=faker.slug()[:100],
                 article=faker.unique.bothify(text="??####"),
-                price=round(faker.pyfloat(left_digits=3, right_digits=2, positive=True), 2),
+                price=round(
+                    faker.pyfloat(left_digits=3, right_digits=2, positive=True), 2
+                ),
                 description=faker.text(max_nb_chars=500),
                 quantity=faker.random_int(min=1, max=20),
                 category=category,

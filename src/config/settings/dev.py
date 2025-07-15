@@ -59,9 +59,11 @@ GRAPH_MODELS = {
 
 # STATIC SETTINGS
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [  # Include custom static directory (e.g. Source/static) for development
-    BASE_DIR / "static"  # noqa: F405
-]
+STATICFILES_DIRS = (
+    [  # Include custom static directory (e.g. Source/static) for development
+        BASE_DIR / "static"  # noqa: F405
+    ]
+)
 
 INTERNAL_IPS = [
     "127.0.0.1",

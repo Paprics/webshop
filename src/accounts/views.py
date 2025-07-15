@@ -21,7 +21,9 @@ class UpdateDelyAddressView(UpdateView):
     success_url = reverse_lazy("common:customer_detail")
 
     def get_object(self):
-        profile, created = ProfileCustomer.objects.get_or_create(customer=self.request.user)
+        profile, created = ProfileCustomer.objects.get_or_create(
+            customer=self.request.user
+        )
         return profile
 
 

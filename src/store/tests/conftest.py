@@ -30,7 +30,12 @@ def create_product(create_categories):
     category = create_categories[0]
 
     product = ProductModel(
-        title=title, article=article, price=price, description=description, quantity=quantity, category=category
+        title=title,
+        article=article,
+        price=price,
+        description=description,
+        quantity=quantity,
+        category=category,
     )
 
     product.full_clean()

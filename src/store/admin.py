@@ -11,13 +11,6 @@ class ProductInline(admin.TabularInline):
     model = ProductModel
     extra = 0
     fields = ("title", "price", "article", "quantity", "is_active")
-    show_change_link = True  # чтобы можно было перейти к товару
-
-
-class ProductInline(admin.TabularInline):
-    model = ProductModel
-    extra = 0
-    fields = ("title", "price", "article", "quantity", "is_active")
     show_change_link = True
     can_delete = False  # запретить удаление
     max_num = 0  # запретить добавление новых
@@ -35,7 +28,15 @@ class StoreMPTTAdmin(DraggableMPTTAdmin):
 class ProductAdmin(admin.ModelAdmin):
     form = ProductAdminForm
     prepopulated_fields = {"slug": ("title",)}
-    list_display = ("title", "price", "article", "quantity", "is_active", "category", "get_image")
+    list_display = (
+        "title",
+        "price",
+        "article",
+        "quantity",
+        "is_active",
+        "category",
+        "get_image",
+    )
     search_fields = ("title", "article", "description", "category__category_name")
     list_filter = ("category", "is_active")
 
@@ -46,5 +47,6 @@ class ProductAdmin(admin.ModelAdmin):
         else:
             url = static("img/No_image.png")
         return format_html(
-            '<img src="{}" width="60" height="60" style="object-fit:contain; border:1px solid #ccc;" />', url
+            '<img src="{}" width="60" height="60" style="object-fit:contain; border:1px solid #ccc;" />',
+            url,
         )
