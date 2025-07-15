@@ -86,7 +86,7 @@ class CustomerUser(AbstractBaseUser, PermissionsMixin):
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
     def __str__(self):
-        return f"{self.phone_number} {self.first_name} {self.get_short_name()}"
+        return f"{self.phone_number}" if self.first_name and self.last_name is None else f"{self.first_name} {self.last_name}"
 
 
 class ProfileCustomer(models.Model):

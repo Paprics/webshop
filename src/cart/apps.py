@@ -2,7 +2,7 @@ from django.apps import AppConfig
 
 
 class CartConfig(AppConfig):
-    verbose_name = "2. Кошики та замовлення"
+    verbose_name = "1. Кошики та замовлення"
     default_auto_field = "django.db.models.BigAutoField"
     name = "cart"
 

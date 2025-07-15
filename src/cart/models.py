@@ -28,13 +28,13 @@ class StoreCart(models.Model):
 class OrderModel(models.Model):
     class Meta:
         db_table = "order"
-        verbose_name = "1. Замовлення"
+        verbose_name = "Замовлення"
         verbose_name_plural = verbose_name
 
-    customer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    is_paid = models.BooleanField(default=False)
-    status = models.CharField(max_length=20, choices=OrderStatus.choices, default=OrderStatus.PROCESSING)
+    customer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, verbose_name='Покупець')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата замавлевлення')
+    is_paid = models.BooleanField(default=False, verbose_name='Сплачено')
+    status = models.CharField(max_length=20, choices=OrderStatus.choices, default=OrderStatus.PROCESSING, verbose_name='Статус')
 
     def __str__(self):
         return f"Замовлення #{self.id} користувача {self.customer} від {self.created_at.strftime('%Y-%m-%d')}"
@@ -50,3 +50,6 @@ class OrderItemModel(models.Model):
     product = models.ForeignKey(ProductModel, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     price_at_order_time = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.product} — {self.quantity} шт."
