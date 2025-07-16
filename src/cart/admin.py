@@ -15,9 +15,11 @@ class OrderItemInline(admin.TabularInline):
 @admin.register(models.OrderModel)
 class OrderModelAdmin(admin.ModelAdmin):
     list_display = ("get_order_info", "customer", "status", "is_paid")
+    list_editable = ("is_paid",)
+    readonly_fields = ("get_order_info", "customer", "status")
+    fields = ("get_order_info", "customer", "status", "is_paid")
+
     inlines = [OrderItemInline]
-    readonly_fields = ("get_order_info", "customer", "status", "is_paid")
-    fields = ("get_order_info", "customer", "status", "is_paid")  # 💥 Вот это добавь
 
     @admin.display(description="Замовлення")
     def get_order_info(self, obj):
