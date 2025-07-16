@@ -12,7 +12,7 @@ class AskRateModel(models.Model):
 
     customer = models.ForeignKey(
         get_user_model(),
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name="user_askrates",
         blank=True,
         null=True,
