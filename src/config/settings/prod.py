@@ -7,7 +7,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["localhost", "ec2-52-91-86-64.compute-1.amazonaws.com", "*"]
+ALLOWED_HOSTS = ["localhost", "ec2-44-204-25-189.compute-1.amazonaws.com", "*"]
 
 DATABASES = {
     "default": {
@@ -17,7 +17,7 @@ DATABASES = {
 }
 
 STATIC_ROOT = BASE_DIR / "static/"  # noqa: F405
-STATIC_URL = "static/"  # noqa: F405
+STATIC_URL = "/static/"  # noqa: F405
 
 MEDIA_ROOT = BASE_DIR / "media/"  # noqa: F405
-MEDIA_URL = "media/"  # noqa: F405
+MEDIA_URL = "/media/"  # noqa: F405
