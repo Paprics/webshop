@@ -16,8 +16,8 @@ services:
     volumes:
       - ./src:/app/src
       - ./commands:/app/commands
-      - static_content:/app/src/static
-      - media_content:/app/src/media
+      - ./src/static:/app/src/static
+      - ./src/media:/app/src/media
     env_file:
       - .env
     command: ["sh", "/app/commands/start_server_${MODE}.sh"]
