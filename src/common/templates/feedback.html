@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post" action="{% url 'common:feedback' %}" class="border p-4 rounded shadow mt-5" style="max-width: 600px; margin: auto;">
+    {% csrf_token %}
+    <h2 class="text-center mb-4">Зворотній зв'язок</h2>
+
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {% for error in form.non_field_errors %}
+                {{ error }}<br>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="mb-3">
+        <label for="id_title" class="form-label">Тема</label>
+        <input type="text"
+               class="form-control {% if form.title.errors %}is-invalid{% endif %}"
+               id="id_title"
+               name="title"
+               placeholder="Введіть тему повідомлення"
+               value="{{ form.title.value|default_if_none:'' }}"
+               required>
+        {% for error in form.title.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        <label for="id_message" class="form-label">Повідомлення</label>
+        <textarea
+            class="form-control {% if form.message.errors %}is-invalid{% endif %}"
+            id="id_message"
+            name="message"
+            placeholder="Ваше повідомлення"
+            rows="5"
+            required>{{ form.message.value|default_if_none:'' }}</textarea>
+        {% for error in form.message.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        <label for="id_email" class="form-label">Email</label>
+        <input type="email"
+               class="form-control {% if form.email.errors %}is-invalid{% endif %}"
+               id="id_email"
+               name="email"
+               placeholder="email@example.com"
+               value="{{ form.email.value|default_if_none:'' }}"
+               required>
+        {% for error in form.email.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-3">
+        <label for="id_phone_number" class="form-label">Номер телефону</label>
+        <input type="tel"
+               class="form-control {% if form.phone_number.errors %}is-invalid{% endif %}"
+               id="id_phone_number"
+               name="phone_number"
+               placeholder="+380 ХХХ ХХХ ХХХ"
+               value="{{ form.phone_number.value|default_if_none:'' }}">
+        {% for error in form.phone_number.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Відправити</button>
+</form>
+{% endblock %}

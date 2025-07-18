@@ -1,0 +1,111 @@
+.navbar-items {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.navbar-icon {
+    filter: invert(1);
+    margin-right: 15px;
+}
+
+.cart-icon {
+    margin-right: 15px;
+}
+
+.col-10 {
+  border-right: 1px solid #ddd;
+}
+
+.logout-icon {
+  margin-right: 8px;
+}
+
+input::placeholder {
+  color: white;
+  opacity: 1;
+}
+
+.product-info-container {
+    margin-left: 15px;
+}
+
+.total-price {
+  font-weight: 600;
+  color: #0e0d0d;
+}
+
+.cart-price-final {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  /*text-align: right;*/
+}
+
+.active-menu {
+    background-color: #303030;
+    color: white;
+}
+.active-menu:hover {
+    background-color: #5c5c5c;
+    color: white;
+}
+
+.search-input {
+  background-color: #282224;
+  color: white;
+}
+
+.search-input::placeholder {
+  color: white;
+  opacity: 1;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* Базовая вкладка — чёрный текст, жирный */
+.nav-tabs .nav-link.custom-tab {
+    color: black !important;
+    font-weight: bold;
+}
+
+/* Активная вкладка — графит */
+.nav-tabs .nav-link.custom-tab.active {
+    background-color: #2e2e2e !important;  /* ← сюда свой цвет */
+    color: #ffffff !important;
+    border-color: #2e2e2e #2e2e2e #0e3a5e !important;
+}
+
+.rating {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+  display: inline-flex;
+}
+
+.rating input[type="radio"] {
+  display: none;
+}
+
+.rating label {
+  font-size: 1.8rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+  color: #ffc107; /* золотой */
+}
+

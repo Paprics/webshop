@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% include 'includes/carousel.html' %}
+    <hr>
+
+    <div class="text-center my-5">
+        <h2 class="display-5 fw-bold">Останні надходження</h2>
+        <p class="lead text-muted">Переглянь новинки у популярних категоріях</p>
+    </div>
+
+    {% for group in category_products %}
+        <div class="container my-4 py-3 border rounded shadow-sm bg-light">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="mb-0">Новинки в категорії: <strong>{{ group.category.category_name }}</strong></h3>
+                <a href="{% url "store:products_category" group.category.slug %}" class="btn btn-outline-info btn-sm">Дивитись усі</a>
+            </div>
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+                {% for product in group.products %}
+                    <div class="col">
+                        <a href="{% url 'store:product_detail' product.slug %}" class="text-decoration-none text-dark">
+                            <div class="card h-100 border-0 shadow-sm">
+                                {% if product.image %}
+                                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.title }}">
+                                {% else %}
+                                    <img src="https://picsum.photos/600/600" class="card-img-top" alt="{{ product.title }}">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ product.title }}</h5>
+                                    <p class="card-text text-muted">{{ product.description|truncatechars:100 }}</p>
+                                    <p class="fw-bold">Ціна: {{ product.price }} грн.</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="post" class="border p-4 rounded shadow mt-5" style="max-width: 400px; margin: auto;">
+        {% csrf_token %}
+
+        <h2 class="text-center mb-4">Вхід</h2>
+
+        <hr class="border border-secondary-subtle border-1 opacity-50">
+
+        <div class="mb-3">
+            <label for="phone" class="form-label">Номер телефону</label>
+            <input type="tel" class="form-control" id="phone" name="username" placeholder="+380 XXX XXX XXX" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Пароль</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="********" required>
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="remember" name="remember">
+            <label class="form-check-label" for="remember">Запам’ятати мене</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Увійти</button>
+
+        <hr class="border border-secondary-subtle border-1 opacity-50">
+
+        <div class="mt-4 text-center" style="font-size: 0.9rem;">
+            <a href="{% url 'accounts:register' %}" class="text-dark text-decoration-none fw-bold">Зареєструватись</a>
+            <span class="mx-2" style="color: #000;">|</span>
+            <a href="{% url 'accounts:password_reset' %}" class="text-dark text-decoration-none fw-bold">Забули пароль?</a>
+        </div>
+    </form>
+{% endblock %}

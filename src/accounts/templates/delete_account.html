@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block menu %}
+    {% include 'includes/menu_settings.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h3>Видалити акаунт?</h3>
+        <p>Ти впевнений, що хочеш видалити свій акаунт? Цю дію неможливо скасувати.</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Так, видалити</button>
+            <a href="{% url 'common:customer_detail' %}" class="btn btn-secondary">Скасувати</a>
+        </form>
+    </div>
+{% endblock %}

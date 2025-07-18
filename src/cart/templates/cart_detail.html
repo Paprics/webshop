@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block menu %}
+    {% if source == "header" %}
+        {% include 'includes/drop_menu_nested.html' %}
+        {% include 'includes/filter.html' %}
+    {% elif source == "profile" %}
+        {% include 'includes/menu_settings.html' %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <h1>Кошик замовлень</h1>
+
+    <hr class="border border-danger border-2 opacity-50">
+
+    {% if cart_items %}
+        <div class="container">
+            <!-- Заголовки (выносим из цикла) -->
+            <div class="row fw-bold border-bottom pb-2 mb-3 align-items-center">
+                <div class="col-4 text-start">Назва</div>
+                <div class="col-2">Артикул</div>
+                <div class="col-2">Ціна</div>
+                <div class="col-1">Кіл-ть</div>
+                <div class="col-2">Всього</div>
+                <div class="col-1">Видалити</div>
+            </div>
+
+            <!-- Цикл товаров -->
+            {% for item in cart_items %}
+                <div class="row align-items-center mb-2">
+                    <div class="col-4 text-start">
+                        <a href="{% url 'store:product_detail' item.slug %}">
+                            <strong>{{ item.title|slice:":41" }}</strong>
+                        </a>
+                    </div>
+                    <div class="col-2">{{ item.article }}</div>
+                    <div class="col-2">{{ item.price }} грн</div>
+                    <div class="col-1">{{ item.quantity }}</div>
+                    <div class="col-2 total-price">{{ item.total_price }} грн.</div>
+                    <div class="col-1">
+                        <a href="{% url 'cart:remove_cart' item.pk %}" class="btn btn-danger btn-sm">Видалити</a>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <!-- Итоговая сумма -->
+            <div class="cart-total border-top pt-2 mt-3">
+                <div class="row fw-bold">
+                    <div class="col-9 text-end cart-price-final">Всього:</div>
+                    <div class="col-2 cart-price-final">{{ cart_total_price }} грн</div>
+                </div>
+            </div>
+
+            <!-- Кнопки оформления -->
+            <div>
+                {% if user.is_authenticated %}
+                    <div class="text-end">
+                        <a class="btn btn-outline-secondary me-5 mt-2" href="{% url 'cart:order_review' %}"
+                           type="button">Оформити замовлення</a>
+                    </div>
+                {% else %}
+                    <div class="row mt-3 align-items-center">
+                        <div class="d-none d-md-block col-md-7"></div>
+                        <div class="col-12 col-md-2 mb-2 mb-md-0">
+                            <small class="text-muted d-block text-start">Для оформлення замовлення необхідна
+                                реєстрація</small>
+                        </div>
+                        <div class="col-12 col-md-3 text-end">
+                            <a href="{% url 'accounts:register' %}" class="btn btn-primary btn-lg me-2">Реєстрація</a>
+                            <a href="{% url 'accounts:login' %}" class="btn btn-outline-secondary btn-lg">Ввійти</a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <h4>В кошику не має товарів.</h4>
+    {% endif %}
+
+{% endblock %}

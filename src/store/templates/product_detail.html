@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    {% if messages %}
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1055;">
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрити"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+
+    <div class="row ps-4">
+
+        <!-- Левая часть: изображение (4 колонки) -->
+        <div class="col-md-4 position-relative">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="img-fluid rounded shadow-sm img-thumbnail"
+                     alt="{{ product.title }}">
+            {% else %}
+                <img src="{% static 'img/No_image.png' %}" class="img-fluid rounded shadow-sm img-thumbnail"
+                     alt="Проблема">
+            {% endif %}
+
+            <!-- Display favorite icon over product image -->
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'favorites:add' product.id %}"
+                      style="position: absolute; top: 20px; left: 30px; z-index: 10;">
+                    {% csrf_token %}
+                    {% if product.is_favorite %}
+                        <input type="hidden" name="action" value="remove">
+                        <button type="submit" style="background:none; border:none; padding:0; cursor:pointer;">
+                            <img src="{% static 'svg/heart_fill.svg' %}" alt="Remove from favorites"
+                                 width="32" height="32">
+                        </button>
+                    {% else %}
+                        <input type="hidden" name="action" value="add">
+                        <button type="submit" style="background:none; border:none; padding:0; cursor:pointer;">
+                            <img src="{% static 'svg/heart.svg' %}" alt="Add to favorites"
+                                 width="32" height="32">
+                        </button>
+                    {% endif %}
+                </form>
+            {% endif %}
+        </div>
+
+        <!-- Правая часть: описание, заголовок и т.д. (6 колонок) -->
+        <div class="col-md-8 d-flex flex-column justify-content-start ps-4">
+            <h6 class="text-muted mb-2" style="font-size: 0.8rem;">Категорія: <span
+                    style="font-size: 0.8rem;">{{ product.category }}</span></h6>
+            <h1 class="mb-2 fw-bold">{{ product.title|truncatechars:27 }}</h1>
+            <h6 class="text-muted mb-2" style="font-size: 0.85rem;">Артикуль: <span>{{ product.article }}</span></h6>
+            <p class="lead mb-2 fw-bold" style="color: blue;">Ціна: {{ product.price }} грн.</p>
+
+            <hr>
+            <p class="h5">{{ product.description }}</p>
+
+            <div class="d-flex gap-3 mt-4">
+                <form method="post" action="{% url 'cart:add_to_cart' product.id %}" class="flex-grow-1">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary btn-lg w-100">
+                        Додати до кошика
+                    </button>
+                </form>
+
+
+                {% if user.is_authenticated and not product.is_favorite %}
+                    <form method="post" action="{% url 'favorites:add' product.id %}" class="flex-grow-1">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="add">
+                        <button type="submit" class="btn btn-outline-primary btn-lg w-75">
+                            Додати до обраного
+                        </button>
+                    </form>
+                {% elif user.is_authenticated and product.is_favorite %}
+                    <form method="post" action="{% url 'favorites:add' product.id %}" class="flex-grow-1">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="remove">
+                        <button type="submit" class="btn btn-outline-primary btn-lg w-75">
+                            Видалити з обраного
+                        </button>
+                    </form>
+                {% endif %}
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Запитання Відгуки -->
+    <div class="row mt-5">
+        <div class="col-md-10 mx-auto">
+            {% include 'includes/askrate.html' %}
+        </div>
+    </div>
+
+    <div class="container-fluid mt-5">
+        {% include 'includes/recommendations.html' %}
+    </div>
+
+{% endblock %}
+
