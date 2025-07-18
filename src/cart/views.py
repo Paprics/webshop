@@ -54,12 +54,11 @@ class OrderCreateView(View):
 
         return redirect("common:success_order")
 
-
-def remove_cart(request, product_pk):
-    cart = get_cart(request)
-    cart.remove(product_id=product_pk)
-
-    return redirect("cart:cart_detail")
+class RemoveFromCartView(View):
+    def get(self, request, product_pk):
+        cart = get_cart(request)
+        cart.remove(product_id=product_pk)
+        return redirect("cart:cart_detail")
 
 
 def add_to_cart(request, product_id):
