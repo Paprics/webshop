@@ -61,13 +61,14 @@ class RemoveFromCartView(View):
         return redirect("cart:cart_detail")
 
 
-def add_to_cart(request, product_id):
-    cart = get_cart(request)
-    product = get_object_or_404(ProductModel, id=product_id)
-    cart.add(product.id)
+class AddToCartView(View):
+    def post(self, request, product_id):
+        cart = get_cart(request)
+        product = get_object_or_404(ProductModel, id=product_id)
+        cart.add(product.id)
 
-    messages.success(request, f"✅ {product.title} додано до кошика.")
-    return redirect(request.META.get("HTTP_REFERER", "/"))
+        messages.success(request, f"✅ {product.title} додано до кошика.")
+        return redirect(request.META.get("HTTP_REFERER", "/"))
 
 
 class CartDetailView(TemplateView):
