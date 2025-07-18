@@ -54,6 +54,7 @@ class OrderCreateView(View):
 
         return redirect("common:success_order")
 
+
 class RemoveFromCartView(View):
     def get(self, request, product_pk):
         cart = get_cart(request)

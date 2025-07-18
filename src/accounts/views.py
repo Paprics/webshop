@@ -14,7 +14,7 @@ from accounts.models import ProfileCustomer
 from .utils.utils import TokenGenerator, send_registration_mail
 
 
-class UpdateDelyAddressView(UpdateView):
+class UpdateDeliveryAddressView(UpdateView):
     model = ProfileCustomer
     fields = ("delivery_address", "additional_contacts")
     template_name = "update_dely_address.html"
@@ -35,7 +35,7 @@ class UpdateCustomerView(UpdateView):
         return self.request.user
 
 
-class PassChangeView(PasswordChangeView):
+class PasswordChangeView(PasswordChangeView):
     template_name = "chenge_password.html"
     success_url = reverse_lazy("accounts:change_password")
     form_class = PasswordChangeForm

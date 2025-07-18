@@ -56,8 +56,6 @@ class CustomerUser(AbstractBaseUser, PermissionsMixin):
     # Field used for login (sign-in, authentication)
     USERNAME_FIELD = "phone_number"
 
-    # Field representing the email address, so Django knows where to find it
-
     EMAIL_FIELD = "email"
 
     # Fields required only when creating a superuser via createsuperuser command
